@@ -4,7 +4,7 @@
 
     public static void Main(){
         jugadores.Clear();
-        Laberinto.Generar();
+        Laberinto.Generar(10);
         Laberinto.Reorganizar();
         Console.WriteLine("Cuantos jugadores son");
         int cant = int.Parse(Console.ReadLine());

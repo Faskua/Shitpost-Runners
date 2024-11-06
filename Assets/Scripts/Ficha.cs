@@ -88,8 +88,8 @@ public class RickRoll : Ficha
     {
         Random random = new Random();
         int jugador = random.Next(0, Laberinto.jugadores.Count - 1);
-        int fila = random.Next(0,9);
-        int columna = random.Next(0,9);
+        int fila = random.Next(0,Laberinto.Tamanno);
+        int columna = random.Next(0,Laberinto.Tamanno);
 
         while(Laberinto.jugadores[jugador].Equals(Propietario)) jugador = random.Next(0, Laberinto.jugadores.Count - 1);//eligiendo un jugador distinto del propietario
         int ficha = random.Next(0,Propietario.Fichas.Count - 1);
@@ -99,8 +99,8 @@ public class RickRoll : Ficha
         }
 
         while(Laberinto.laberinto[fila, columna].Tipo == Casilla.LetraClave){ //eligiendo una casilla que no tenga letra
-            fila = random.Next(0,9);
-            columna = random.Next(0,9);
+            fila = random.Next(0,Laberinto.Tamanno);
+            columna = random.Next(0,Laberinto.Tamanno);
         }
 
         Laberinto.jugadores[jugador].Fichas[ficha].posicionAnterior = Laberinto.jugadores[jugador].Fichas[ficha].posicion; //cambiando las coordenadas

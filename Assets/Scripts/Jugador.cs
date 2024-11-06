@@ -21,8 +21,14 @@ public class Jugador : IJugador
         Fichas.Add(ficha);
     }
 
-    public void Jugar(int ficha, int fila, int columna){
-        Fichas[ficha].Jugar(fila, columna);
-        FinDeMiturno =  true;
+    public void Jugar(int ficha, int fila, int columna){ //esta funcion la estoy podiendo junta para no olvidarme, pero jugar es solo lo que esta en el if, el resto es para el boton
+        Ficha prueba = Fichas[ficha];
+        int pasosDados = Math.Abs(fila - prueba.posicion.Item1 + columna - prueba.posicion.Item2);
+        if(pasosDados <= prueba.velocidad){
+            Fichas[ficha].Jugar(fila, columna);
+            FinDeMiturno =  true;
+            return;
+        }
+        throw new InvalidOperationException("Velocidad insuficiente");
     }
 }

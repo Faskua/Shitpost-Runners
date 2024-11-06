@@ -225,11 +225,11 @@ public class Zorro : ICasilla
             char letra = fichas.Last().Propietario.LetrasConseguidas.Last();
             fichas.Last().Propietario.LetrasConseguidas.RemoveAt(fichas.Last().Propietario.LetrasConseguidas.Count - 1);
             Random random = new Random();
-            int fila = random.Next(0,9);
-            int columna = random.Next(0,9);
+            int fila = random.Next(0,Laberinto.Tamanno);
+            int columna = random.Next(0,Laberinto.Tamanno);
             while(Laberinto.laberinto[fila,columna] is LetraClave){
-                fila = random.Next(0,9);
-                columna = random.Next(0,9);
+                fila = random.Next(0,Laberinto.Tamanno);
+                columna = random.Next(0,Laberinto.Tamanno);
             }
             ICasilla Letra = new LetraClave(letra);
             Laberinto.laberinto[fila,columna] = Letra;
