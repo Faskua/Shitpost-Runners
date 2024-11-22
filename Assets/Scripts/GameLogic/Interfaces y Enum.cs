@@ -4,9 +4,8 @@ public interface IJugador
 {
     string Nombre { get; set; }
     bool LeToca { get; set; }
-    bool FinDeMiturno { get; set; }
     List<char> LetrasConseguidas { get; set; }
-    List<Ficha> Fichas { get; }
+    List<Ficha> Fichas { get; set; }
 }
 
 public interface ICasilla
@@ -38,31 +37,32 @@ public enum TipoFicha
 
 public abstract class Ficha
 {
-    public int turnosSinJugar = 0;
     public int enfriamiento = 0;
     public int velocidad = 0;
-    public string Descripcion;
+    public int turnosSinJugar;
+    public virtual string Descripcion { get; }
     public (int, int) posicion;
     public (int, int) posicionAnterior;
     public IJugador Propietario;
     public abstract TipoFicha tipo { get; }
 
-    public Ficha(IJugador propietario, int vel, int enf, string descr){
+    public Ficha(Jugador propietario, int vel, int enf){
         Propietario = propietario;
         velocidad = vel;
         enfriamiento = enf;
-        Descripcion = descr;
+        turnosSinJugar = 0;
     }
 
-    public abstract void Habilidad();
+    public abstract void Habilidad(GameController controller);
 
-    public void Jugar(int fila, int columna){
-        if(turnosSinJugar == 0){
+    public void Jugar(int fila, int columna, GameController controller){
+        if(turnosSinJugar == 0)
+        {
             posicionAnterior = posicion;
-            Laberinto.laberinto[posicionAnterior.Item1,posicionAnterior.Item2].FichasEnCasilla.RemoveAt(Laberinto.laberinto[posicionAnterior.Item1,posicionAnterior.Item2].FichasEnCasilla.Count - 1);
+            controller.Maze.LaberinthCSharp[posicionAnterior.Item1,posicionAnterior.Item2].FichasEnCasilla.RemoveAt(Laberinto.laberinto[posicionAnterior.Item1,posicionAnterior.Item2].FichasEnCasilla.Count - 1);
             posicion = (fila,columna);
-            Laberinto.laberinto[posicion.Item1,posicion.Item2].FichasEnCasilla.Add(this);
-            Laberinto.laberinto[fila, columna].Accion();
-        }
+            controller.Maze.LaberinthCSharp[posicion.Item1,posicion.Item2].FichasEnCasilla.Add(this);
+            controller.Maze.LaberinthCSharp[fila, columna].Accion(); 
+        }   
     }
 }

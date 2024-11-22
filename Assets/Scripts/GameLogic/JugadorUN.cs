@@ -5,10 +5,14 @@ using UnityEngine;
 public class JugadorUN : MonoBehaviour
 {
     public string Nombre { get => jugador.Nombre; set => jugador.Nombre = value; }
+    public Jugador jugador { get; set; }
     public bool seleccionado;
-    public Jugador jugador;
 
     public void Seleccionar(){
         seleccionado = true;
+    }
+
+    public void DannoAnim(){
+        gameObject.GetComponent<Animator>().SetTrigger("Danno");
     }
 }

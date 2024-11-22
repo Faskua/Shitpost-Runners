@@ -8,10 +8,6 @@ public class ScenesManager : MonoBehaviour
 {
     public Animator SceneLoader;
 
-    public void AnimPlayer(){
-        SceneLoader.SetTrigger("Start");
-        Invoke("Player", 1);
-    }
     public void AnimGame(){
         SceneLoader.SetTrigger("Start");
         Invoke("Game", 1);
@@ -25,10 +21,6 @@ public class ScenesManager : MonoBehaviour
         Application.Quit();
     }
 
-    void Player(){
-        SceneManager.LoadScene(2);
-    }
-
     void Game(){
         SceneManager.LoadScene(1);
     }
@@ -36,4 +28,6 @@ public class ScenesManager : MonoBehaviour
     void Menu(){
         SceneManager.LoadScene(0);
     }
+
+    
 }

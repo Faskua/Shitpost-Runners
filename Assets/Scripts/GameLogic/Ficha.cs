@@ -1,11 +1,13 @@
 using System;
 public class McQueen : Ficha
 {
-    public McQueen(IJugador prop, string descr) : base(prop, 4, 4, descr) {}
+    public McQueen(Jugador prop) : base(prop, 4, 4) {}
+
+    public override string Descripcion => $"Velocidad: {this.velocidad}, Enfriamiento: {this.enfriamiento}. Aumneta su propia velocidad en 1. Cuchau";
 
     public override TipoFicha tipo => TipoFicha.Mcqueen;
 
-    public override void Habilidad() //aumenta su velocidad
+    public override void Habilidad(GameController controller) //aumenta su velocidad
     {
         if(enfriamiento <= 0)
         {
@@ -17,15 +19,17 @@ public class McQueen : Ficha
 
 public class CJ : Ficha
 {
-    public CJ(IJugador prop, string descr) : base(prop, 2, 7, descr) {}
+    public CJ(Jugador prop) : base(prop, 2, 7) {}
+
+    public override string Descripcion => $"Velocidad: {this.velocidad}, Enfriamiento: {this.enfriamiento}. Si comparte casilla con otra ficha le roba una letra a su propietario";
 
     public override TipoFicha tipo => TipoFicha.CJ;
 
-    public override void Habilidad() //roba una letra si se encuentra en la misma casilla de una ficha de un jugador con letra
+    public override void Habilidad(GameController controller) //roba una letra si se encuentra en la misma casilla de una ficha de un jugador con letra
     {
         if(enfriamiento <= 0)
         {
-            foreach (var ficha in Laberinto.laberinto[this.posicion.Item1, this.posicion.Item2].FichasEnCasilla)
+            foreach (var ficha in controller.Maze.LaberinthCSharp[this.posicion.Item1, this.posicion.Item2].FichasEnCasilla)
             {
                 if(ficha.tipo == TipoFicha.StarMan) continue;
                 if(!ficha.Propietario.Equals(this.Propietario) && ficha.Propietario.LetrasConseguidas.Count > 0){
@@ -42,35 +46,33 @@ public class CJ : Ficha
 
 public class UNE : Ficha
 {
-    public UNE(IJugador prop, string descr) : base(prop, 3, 6, descr) {}
+    public UNE(Jugador prop) : base(prop, 3, 6) {}
+
+    public override string Descripcion => $"Velocidad: {this.velocidad}, Enfriamiento: {this.enfriamiento}. Le quita la luz a un jugador al azar y no podra jugar por dos turnos (incluyendo a Starman)";
 
     public override TipoFicha tipo => TipoFicha.UNE;
 
-    public override void Habilidad()
+    public override void Habilidad(GameController controller)
     {
         if(enfriamiento <= 0)
         {
-            foreach (var jugador in Laberinto.jugadores)
-            {
-                foreach (var ficha in jugador.Fichas)
-                {
-                    if(ficha.tipo == TipoFicha.StarMan) continue;
-                    ficha.turnosSinJugar = 2 * Laberinto.jugadores.Count;
-                }
-            }
-            turnosSinJugar = 0;
-            enfriamiento = 6;
+            System.Random random = new System.Random();
+            int objetivo = random.Next(0, controller.Jugadores.Count);
+            while(Propietario.Nombre == controller.Jugadores[objetivo].Nombre)  objetivo = random.Next(0, controller.Jugadores.Count);
+            controller.Jugadores[objetivo].TurnosSinJugar += 2;
         }
     }
 }
 
 public class Knuckles : Ficha
 {
-    public Knuckles(IJugador prop, string descr) : base(prop, 3, 4, descr) {}
+    public Knuckles(Jugador prop) : base(prop, 3, 4) {}
+
+    public override string Descripcion => $"Velocidad: {this.velocidad}, Enfriamiento: {this.enfriamiento}. Le resta dos turnos de enfriamiento al resto de fichas de su ropietario";
 
     public override TipoFicha tipo => TipoFicha.Knuckles;
 
-    public override void Habilidad()
+    public override void Habilidad(GameController controller)
     {
         foreach (var ficha in Propietario.Fichas)
         {
@@ -81,46 +83,50 @@ public class Knuckles : Ficha
 
 public class RickRoll : Ficha
 {
-    public RickRoll(IJugador prop, string descr) : base(prop, 5, 3, descr) {}
+    public RickRoll(Jugador prop) : base(prop, 5, 3) {}
+
+    public override string Descripcion => $"Velocidad: {this.velocidad}, Enfriamiento: {this.enfriamiento}. Toma una ficha al azar de un jugador al azar y la manda a un lugar al azar :)";
 
     public override TipoFicha tipo => TipoFicha.RickRoll;
 
-    public override void Habilidad() //envia una ficha random de un jugador random a una casilla que no sea una letra
+    public override void Habilidad(GameController controller) //envia una ficha random de un jugador random a una casilla que no sea una letra
     {
         Random random = new Random();
         int jugador = random.Next(0, Laberinto.jugadores.Count - 1);
         int fila = random.Next(0,Laberinto.Tamanno);
         int columna = random.Next(0,Laberinto.Tamanno);
 
-        while(Laberinto.jugadores[jugador].Equals(Propietario)) jugador = random.Next(0, Laberinto.jugadores.Count - 1);//eligiendo un jugador distinto del propietario
-        int ficha = random.Next(0,Propietario.Fichas.Count - 1);
-        if(Laberinto.jugadores[jugador].Fichas[ficha].tipo == TipoFicha.StarMan){
+        while(controller.Jugadores[jugador].Equals(Propietario)) jugador = random.Next(0, controller.Jugadores.Count - 1);//eligiendo un jugador distinto del propietario
+        int ficha = random.Next(0,Propietario.Fichas.Count);
+        if(controller.Jugadores[jugador].Fichas[ficha].tipo == TipoFicha.StarMan){
             Console.WriteLine("La Habilidad no tiene efecto sobre Starman");
             return;
         }
 
-        while(Laberinto.laberinto[fila, columna].Tipo == Casilla.LetraClave){ //eligiendo una casilla que no tenga letra
+        while(controller.Maze.LaberinthCSharp[fila, columna].Tipo == Casilla.LetraClave){ //eligiendo una casilla que no tenga letra
             fila = random.Next(0,Laberinto.Tamanno);
             columna = random.Next(0,Laberinto.Tamanno);
         }
 
-        Laberinto.jugadores[jugador].Fichas[ficha].posicionAnterior = Laberinto.jugadores[jugador].Fichas[ficha].posicion; //cambiando las coordenadas
-        Laberinto.jugadores[jugador].Fichas[ficha].posicion = (fila, columna); 
+        controller.Jugadores[jugador].Fichas[ficha].posicionAnterior = controller.Jugadores[jugador].Fichas[ficha].posicion; //cambiando las coordenadas
+        controller.Jugadores[jugador].Fichas[ficha].posicion = (fila, columna); 
 
-        (int, int) posicionAnt = Laberinto.jugadores[jugador].Fichas[ficha].posicionAnterior;
-        Laberinto.laberinto[posicionAnt.Item1,posicionAnt.Item2].FichasEnCasilla.Remove(Laberinto.jugadores[jugador].Fichas[ficha]); //elimino la ficha de la posicion anterior
-        Laberinto.laberinto[fila,columna].FichasEnCasilla.Add(Laberinto.jugadores[jugador].Fichas[ficha]); //la anado a la nueva
-        Laberinto.laberinto[fila,columna].Accion(); //activo la casilla
+        (int, int) posicionAnt = controller.Jugadores[jugador].Fichas[ficha].posicionAnterior;
+        controller.Maze.LaberinthCSharp[posicionAnt.Item1,posicionAnt.Item2].FichasEnCasilla.Remove(Laberinto.jugadores[jugador].Fichas[ficha]); //elimino la ficha de la posicion anterior
+        controller.Maze.LaberinthCSharp[fila,columna].FichasEnCasilla.Add(controller.Jugadores[jugador].Fichas[ficha]); //la anado a la nueva
+        controller.Maze.LaberinthCSharp[fila,columna].Accion(); //activo la casilla
     }
 }
 
 public class StarMan : Ficha
 {
-    public StarMan(IJugador prop, string descr) : base(prop, 4, 0, descr) {}
+    public StarMan(Jugador prop) : base(prop, 4, 0) {}
+
+    public override string Descripcion => $"Velocidad: {this.velocidad}, Enfriamiento: {this.enfriamiento}. Es inmune a las habilidades del resto de fichas";
 
     public override TipoFicha tipo => TipoFicha.StarMan;
 
-    public override void Habilidad()
+    public override void Habilidad(GameController controller)
     {
         //es inmune a todas las habilidades del resto de fichas
     }
@@ -128,16 +134,18 @@ public class StarMan : Ficha
 
 public class Doge : Ficha
 {
-    public Doge(IJugador prop, string descr) : base(prop, 3, 5, descr) {}
+    public Doge(Jugador prop) : base(prop, 3, 5) {}
+
+    public override string Descripcion => $"Velocidad: {this.velocidad}, Enfriamiento: {this.enfriamiento}. De una galleta le baja la velocidad al resto fichas en su fila";
 
     public override TipoFicha tipo => TipoFicha.Doge;
 
-    public override void Habilidad() //de un galletazo le baja la velocidad a todas las fichas en su misma fila(incluyendo aliados)
+    public override void Habilidad(GameController controller) //de un galletazo le baja la velocidad a todas las fichas en su misma fila(incluyendo aliados)
     {
         int fila = posicion.Item1;
         for (int columna = 0; columna < 10; columna++)
         {
-            foreach (var ficha in Laberinto.laberinto[fila,columna].FichasEnCasilla)
+            foreach (var ficha in controller.Maze.LaberinthCSharp[fila,columna].FichasEnCasilla)
             {
                 if(ficha.tipo == TipoFicha.StarMan) continue;
                 if(ficha.velocidad > 1) ficha.velocidad--;
@@ -149,10 +157,13 @@ public class Doge : Ficha
 
 public class ELChoco : Ficha
 {
-    public ELChoco(IJugador prop, string descr) : base(prop, 4, 0, descr) {}
+    public ELChoco(Jugador prop) : base(prop, 4, 0) {}
+
+    public override string Descripcion => $"Velocidad: {this.velocidad}, Enfriamiento: {this.enfriamiento}. Al choco no hay trampa que le haga daño";
+
     public override TipoFicha tipo => TipoFicha.ELChoco;
 
-    public override void Habilidad()
+    public override void Habilidad(GameController controller)
     {
         //Es inmune a todas las trampas del juego
     }

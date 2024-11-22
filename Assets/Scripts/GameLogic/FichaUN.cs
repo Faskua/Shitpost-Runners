@@ -7,7 +7,8 @@ public class FichaUN : MonoBehaviour
     public Ficha ficha;
     public TipoFicha Tipo => ficha.tipo;
 
-    public void Habilidad(){
-        ficha.Habilidad();
+    public FichaUN(Ficha ficha){ this.ficha = ficha; }
+    public void Habilidad(GameController controller){
+        ficha.Habilidad(controller);
     }
 }

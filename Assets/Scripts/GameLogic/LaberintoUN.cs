@@ -20,6 +20,8 @@ public class LaberintoUN : MonoBehaviour
 
     void Start(){
         GenerateLaberinth();
+
+        InstanciarCasillas();
     }
     private void ShuffleDirections(){
         System.Random random = new System.Random();
@@ -43,7 +45,9 @@ public class LaberintoUN : MonoBehaviour
             }
         }
         AbrirCaminos(1,1);
+    }
 
+    public void InstanciarCasillas(){
         for (int fila = 0; fila < 15; fila++)
         {
             for (int col = 0; col < 15; col++)
@@ -106,9 +110,9 @@ public class LaberintoUN : MonoBehaviour
     }
 
     private ICasilla GenerarCasilla(){
-        ICasilla casilla;
+        ICasilla casilla = new Vacia();
         System.Random random = new System.Random();
-        int Posibilidad= random.Next(1, 7);
+        int Posibilidad= random.Next(1, 8);
         switch (Posibilidad)
         {
             case 2:
@@ -127,7 +131,8 @@ public class LaberintoUN : MonoBehaviour
                 casilla = new Honguito();
             break;
             case 7:
-                casilla = new Zorro();
+                int chance = random.Next(0,3);
+                if(chance == 1) casilla = new Zorro();
             break;
             default:
                 casilla = new Vacia();

@@ -7,6 +7,9 @@ TagManager:
   - NombreJugador
   - Xinput
   - Yinput
+  - Players
+  - Creador
+  - Maze
   layers:
   - Default
   - TransparentFX
