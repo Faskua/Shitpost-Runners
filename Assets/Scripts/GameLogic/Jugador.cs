@@ -8,7 +8,6 @@ public class Jugador : IJugador
     List<Ficha> fichas;
     List<char> letras;
     public List<Ficha> Fichas { get => fichas; set => fichas = value;}
-    public List<FichaUN> FichasUN;
     public string Nombre { get => nombre; set => nombre = value; }
     public List<char> LetrasConseguidas { get => letras; set => letras = value; }
     public bool LeToca { get => leToca; set => leToca = value; }
@@ -18,7 +17,6 @@ public class Jugador : IJugador
         this.nombre = nombre;
         letras = new List<char>();
         TurnosSinJugar = 0;
-        FichasUN = GetFichasUN();
     }
     public void AnadirFicha(Ficha ficha){
         Fichas.Add(ficha);
@@ -34,11 +32,5 @@ public class Jugador : IJugador
             return true;
         }
         return false;
-    }
-
-    List<FichaUN> GetFichasUN(){
-        List<FichaUN> output = new List<FichaUN>();
-        foreach (Ficha ficha in Fichas) output.Add(new FichaUN(ficha));
-        return output;
     }
 }

@@ -3,7 +3,7 @@ public class McQueen : Ficha
 {
     public McQueen(Jugador prop) : base(prop, 4, 4) {}
 
-    public override string Descripcion => $"Velocidad: {this.velocidad}, Enfriamiento: {this.enfriamiento}. Aumneta su propia velocidad en 1. Cuchau";
+    public override string Descripcion => $"McQUEEN \nVelocidad: {this.velocidad}, Enfriamiento: {this.enfriamiento}. Aumneta su propia velocidad en 1. Cuchau";
 
     public override TipoFicha tipo => TipoFicha.Mcqueen;
 
@@ -21,7 +21,7 @@ public class CJ : Ficha
 {
     public CJ(Jugador prop) : base(prop, 2, 7) {}
 
-    public override string Descripcion => $"Velocidad: {this.velocidad}, Enfriamiento: {this.enfriamiento}. Si comparte casilla con otra ficha le roba una letra a su propietario";
+    public override string Descripcion => $"CJ \n Velocidad: {this.velocidad}, Enfriamiento: {this.enfriamiento}. Si comparte casilla con otra ficha le roba una letra a su propietario";
 
     public override TipoFicha tipo => TipoFicha.CJ;
 
@@ -48,7 +48,7 @@ public class UNE : Ficha
 {
     public UNE(Jugador prop) : base(prop, 3, 6) {}
 
-    public override string Descripcion => $"Velocidad: {this.velocidad}, Enfriamiento: {this.enfriamiento}. Le quita la luz a un jugador al azar y no podra jugar por dos turnos (incluyendo a Starman)";
+    public override string Descripcion => $"UNE \n Velocidad: {this.velocidad}, Enfriamiento: {this.enfriamiento}. Le quita la luz a un jugador al azar y no podra jugar por dos turnos (incluyendo a Starman)";
 
     public override TipoFicha tipo => TipoFicha.UNE;
 
@@ -59,7 +59,7 @@ public class UNE : Ficha
             System.Random random = new System.Random();
             int objetivo = random.Next(0, controller.Jugadores.Count);
             while(Propietario.Nombre == controller.Jugadores[objetivo].Nombre)  objetivo = random.Next(0, controller.Jugadores.Count);
-            controller.Jugadores[objetivo].TurnosSinJugar += 2;
+            controller.Jugadores[objetivo].jugador.TurnosSinJugar += 2;
         }
     }
 }
@@ -68,7 +68,7 @@ public class Knuckles : Ficha
 {
     public Knuckles(Jugador prop) : base(prop, 3, 4) {}
 
-    public override string Descripcion => $"Velocidad: {this.velocidad}, Enfriamiento: {this.enfriamiento}. Le resta dos turnos de enfriamiento al resto de fichas de su ropietario";
+    public override string Descripcion => $"KNUCKLES \n Velocidad: {this.velocidad}, Enfriamiento: {this.enfriamiento}. Le resta dos turnos de enfriamiento al resto de fichas de su propietario";
 
     public override TipoFicha tipo => TipoFicha.Knuckles;
 
@@ -85,7 +85,7 @@ public class RickRoll : Ficha
 {
     public RickRoll(Jugador prop) : base(prop, 5, 3) {}
 
-    public override string Descripcion => $"Velocidad: {this.velocidad}, Enfriamiento: {this.enfriamiento}. Toma una ficha al azar de un jugador al azar y la manda a un lugar al azar :)";
+    public override string Descripcion => $"RICKROLL \n Velocidad: {this.velocidad}, Enfriamiento: {this.enfriamiento}. Toma una ficha al azar de un jugador al azar y la manda a un lugar al azar :)";
 
     public override TipoFicha tipo => TipoFicha.RickRoll;
 
@@ -98,7 +98,7 @@ public class RickRoll : Ficha
 
         while(controller.Jugadores[jugador].Equals(Propietario)) jugador = random.Next(0, controller.Jugadores.Count - 1);//eligiendo un jugador distinto del propietario
         int ficha = random.Next(0,Propietario.Fichas.Count);
-        if(controller.Jugadores[jugador].Fichas[ficha].tipo == TipoFicha.StarMan){
+        if(controller.Jugadores[jugador].jugador.Fichas[ficha].tipo == TipoFicha.StarMan){
             Console.WriteLine("La Habilidad no tiene efecto sobre Starman");
             return;
         }
@@ -108,12 +108,12 @@ public class RickRoll : Ficha
             columna = random.Next(0,Laberinto.Tamanno);
         }
 
-        controller.Jugadores[jugador].Fichas[ficha].posicionAnterior = controller.Jugadores[jugador].Fichas[ficha].posicion; //cambiando las coordenadas
-        controller.Jugadores[jugador].Fichas[ficha].posicion = (fila, columna); 
+        controller.Jugadores[jugador].jugador.Fichas[ficha].posicionAnterior = controller.Jugadores[jugador].jugador.Fichas[ficha].posicion; //cambiando las coordenadas
+        controller.Jugadores[jugador].jugador.Fichas[ficha].posicion = (fila, columna); 
 
-        (int, int) posicionAnt = controller.Jugadores[jugador].Fichas[ficha].posicionAnterior;
+        (int, int) posicionAnt = controller.Jugadores[jugador].jugador.Fichas[ficha].posicionAnterior;
         controller.Maze.LaberinthCSharp[posicionAnt.Item1,posicionAnt.Item2].FichasEnCasilla.Remove(Laberinto.jugadores[jugador].Fichas[ficha]); //elimino la ficha de la posicion anterior
-        controller.Maze.LaberinthCSharp[fila,columna].FichasEnCasilla.Add(controller.Jugadores[jugador].Fichas[ficha]); //la anado a la nueva
+        controller.Maze.LaberinthCSharp[fila,columna].FichasEnCasilla.Add(controller.Jugadores[jugador].jugador.Fichas[ficha]); //la anado a la nueva
         controller.Maze.LaberinthCSharp[fila,columna].Accion(); //activo la casilla
     }
 }
@@ -122,7 +122,7 @@ public class StarMan : Ficha
 {
     public StarMan(Jugador prop) : base(prop, 4, 0) {}
 
-    public override string Descripcion => $"Velocidad: {this.velocidad}, Enfriamiento: {this.enfriamiento}. Es inmune a las habilidades del resto de fichas";
+    public override string Descripcion => $"STARMAN \n Velocidad: {this.velocidad}, Enfriamiento: {this.enfriamiento}. Es inmune a las habilidades del resto de fichas";
 
     public override TipoFicha tipo => TipoFicha.StarMan;
 
@@ -136,7 +136,7 @@ public class Doge : Ficha
 {
     public Doge(Jugador prop) : base(prop, 3, 5) {}
 
-    public override string Descripcion => $"Velocidad: {this.velocidad}, Enfriamiento: {this.enfriamiento}. De una galleta le baja la velocidad al resto fichas en su fila";
+    public override string Descripcion => $"DOGUE \n Velocidad: {this.velocidad}, Enfriamiento: {this.enfriamiento}. De una galleta le baja la velocidad al resto fichas en su fila";
 
     public override TipoFicha tipo => TipoFicha.Doge;
 
@@ -159,7 +159,7 @@ public class ELChoco : Ficha
 {
     public ELChoco(Jugador prop) : base(prop, 4, 0) {}
 
-    public override string Descripcion => $"Velocidad: {this.velocidad}, Enfriamiento: {this.enfriamiento}. Al choco no hay trampa que le haga daño";
+    public override string Descripcion => $"EL CHOCO \n Velocidad: {this.velocidad}, Enfriamiento: {this.enfriamiento}. Al choco no hay trampa que le haga daño";
 
     public override TipoFicha tipo => TipoFicha.ELChoco;
 

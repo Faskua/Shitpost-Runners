@@ -19,7 +19,7 @@ public class ToGame : MonoBehaviour
         Creador.SetActive(false);
         controller.GenerarJugadores();
         controller.SetName();
-        controller.InstanciarFichas();
+        //controller.InstanciarFichas();
         controller.TransparentarFichas();
     }
 }

@@ -12,7 +12,6 @@ public interface ICasilla
 {
     bool PuedePasar { get; }
     Casilla Tipo { get; }
-    bool Visitada { get; set;}
     List<Ficha> FichasEnCasilla { get; set; }
 
     void Accion();
@@ -40,6 +39,7 @@ public abstract class Ficha
     public int enfriamiento = 0;
     public int velocidad = 0;
     public int turnosSinJugar;
+    public bool seleccionada;
     public virtual string Descripcion { get; }
     public (int, int) posicion;
     public (int, int) posicionAnterior;

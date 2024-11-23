@@ -10,6 +10,7 @@ TagManager:
   - Players
   - Creador
   - Maze
+  - Canvas
   layers:
   - Default
   - TransparentFX

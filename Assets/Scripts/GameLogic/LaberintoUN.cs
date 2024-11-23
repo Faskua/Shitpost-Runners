@@ -57,10 +57,8 @@ public class LaberintoUN : MonoBehaviour
                 cas.GetComponent<CasillaUN>().Casilla = LaberinthCSharp[fila,col];
                 cas.GetComponent<CasillaUN>().Fila = fila;
                 cas.GetComponent<CasillaUN>().Columna = col;
-                cas.GetComponent<CasillaUN>().Visitada = false;
                 if(LaberinthCSharp[fila, col] is Obstaculo){  
-                    cas.GetComponent<Image>().sprite = Obstaculo;
-                    cas.GetComponent<CasillaUN>().Visitada = true;  
+                    cas.GetComponent<Image>().sprite = Obstaculo; 
                 }
                 if(LaberinthCSharp[fila, col] is FanDeBerserk){  
                     cas.GetComponent<Image>().sprite = Fan;

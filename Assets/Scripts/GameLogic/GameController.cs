@@ -9,41 +9,32 @@ public class GameController : MonoBehaviour
     public GameObject Players;
     public Text PlayerName;
     public GameObject PlayerLetters;
-    public GameObject PlayerPiecesHolder;
-    public GameObject FichasPrefab;
     public InputField Xcoord;
     public InputField Ycoord;
-    public List<Jugador> Jugadores; //tiene que ser de JugadorUN
+    public List<JugadorUN> Jugadores;
     public LaberintoUN Maze;
-
-    public Sprite McQueen;
-    public Sprite CJ;
-    public Sprite UNE;
-    public Sprite Knuckles;
-    public Sprite Rick;
-    public Sprite Starman;
-    public Sprite Dogue;
-    public Sprite Choco;
     
     public bool ControlarJugada(int ficha, int fila, int columna){
-        if(Jugadores[Turn].LeToca) {
-            if(Jugadores[Turn].Jugar(ficha, fila, columna, this))     return true;
+        if(Jugadores[Turn].jugador.LeToca) {
+            if(Jugadores[Turn].jugador.Jugar(ficha, fila, columna, this))     return true;
         }
         return false;
     }
 
     public void AvanzarTurno(){
-        Jugadores[Turn].LeToca = false;
+        Jugadores[Turn].jugador.LeToca = false;
         Turn++;
         if(Turn >= Jugadores.Count) Turn = 0; 
-        Jugadores[Turn].LeToca = true;
+        Jugadores[Turn].jugador.LeToca = true;
         SetName();
+        TransparentarFichas();
         foreach (var jugador in Jugadores)
         {
-            if(jugador.TurnosSinJugar > 0) jugador.TurnosSinJugar--;
-            foreach (var ficha in jugador.Fichas)
+            if(jugador.jugador.TurnosSinJugar > 0) jugador.jugador.TurnosSinJugar--;
+            foreach (var ficha in jugador.jugador.Fichas)
             {
                 if(ficha.enfriamiento > 0) ficha.enfriamiento--; 
+                if(ficha.turnosSinJugar > 0) ficha.turnosSinJugar--;
             }
         }
     }
@@ -53,79 +44,12 @@ public class GameController : MonoBehaviour
     }
 
     public void GenerarJugadores(){
-        Jugadores = new List<Jugador>();
+        Jugadores = new List<JugadorUN>();
         for (int i = 0; i < Players.transform.childCount; i++)
         {
-            Players.transform.GetChild(i).GetComponent<JugadorUN>().jugador.Fichas = GenerarFichas(Players.transform.GetChild(i).GetComponent<JugadorUN>()); //le genero 5 fichas al azar
-            Jugadores.Add(Players.transform.GetChild(i).GetComponent<Jugador>());
-        }
-    }
-
-    List<Ficha> GenerarFichas(JugadorUN player){
-        List<Ficha> fichas = new List<Ficha>();
-        List<int> fichasusadas = new List<int>();
-        System.Random random = new System.Random();
-        for (int i = 0; i < 5; i++)
-        {
-            int chance = random.Next(1, 9);
-            while(fichasusadas.Contains(chance)) {
-                chance = random.Next(1, 9);
-            }
-            
-            switch(chance){
-                case 2:
-                    fichas.Add(new CJ(player.jugador));
-                    fichasusadas.Add(2);
-                break;
-                case 3:
-                    fichas.Add(new UNE(player.jugador));
-                    fichasusadas.Add(3);
-                break;
-                case 4:
-                    fichas.Add(new Knuckles(player.jugador));
-                    fichasusadas.Add(4);
-                break;
-                case 5:
-                    fichas.Add(new RickRoll(player.jugador));
-                    fichasusadas.Add(5);
-                break;
-                case 6:
-                    fichas.Add(new StarMan(player.jugador));
-                    fichasusadas.Add(6);
-                break;
-                case 7:
-                    fichas.Add(new Doge(player.jugador));
-                    fichasusadas.Add(7);
-                break;
-                case 8:
-                    fichas.Add(new ELChoco(player.jugador));
-                    fichasusadas.Add(8);
-                break;
-                default:
-                    fichas.Add(new McQueen(player.jugador));
-                    fichasusadas.Add(1);
-                break;
-            }
-        }
-        return fichas;
-    }
-
-    public void InstanciarFichas(){
-        foreach (var jugador in Jugadores)
-        {
-            foreach (var ficha in jugador.FichasUN)
-            {
-                GameObject instance = Instantiate(FichasPrefab, new Vector2(0,0), Quaternion.identity);
-                if(ficha.Tipo == TipoFicha.Mcqueen) instance.GetComponent<Image>().sprite = McQueen;
-                if(ficha.Tipo == TipoFicha.CJ) instance.GetComponent<Image>().sprite = CJ;
-                if(ficha.Tipo == TipoFicha.UNE) instance.GetComponent<Image>().sprite = UNE;
-                if(ficha.Tipo == TipoFicha.Knuckles) instance.GetComponent<Image>().sprite = Knuckles;
-                if(ficha.Tipo == TipoFicha.RickRoll) instance.GetComponent<Image>().sprite = Rick;
-                if(ficha.Tipo == TipoFicha.StarMan) instance.GetComponent<Image>().sprite = Starman;
-                if(ficha.Tipo == TipoFicha.Doge) instance.GetComponent<Image>().sprite = Dogue;
-                if(ficha.Tipo == TipoFicha.ELChoco) instance.GetComponent<Image>().sprite = Choco;
-                instance.transform.SetParent(PlayerPiecesHolder.transform, false);
-            }
+            GenerarFichas(Players.transform.GetChild(i).GetComponent<JugadorUN>()); //le genero 5 fichas al azar
+            Players.transform.GetChild(i).GetComponent<JugadorUN>().GenerateFichasUN();  //genero las del unity
+            Jugadores.Add(Players.transform.GetChild(i).GetComponent<JugadorUN>());  // lo annado a los jugadores del game controller
         }
     }
 
@@ -139,14 +63,63 @@ public class GameController : MonoBehaviour
             if(jugador == Turn) continue;
             foreach (var ficha in Jugadores[jugador].FichasUN)
             {
-                ficha.gameObject.GetComponent<CanvasGroup>().alpha = 0.4f;//transparenta las del resto
+                ficha.gameObject.GetComponent<CanvasGroup>().alpha = 0.2f;//transparenta las del resto
             }
         }
     }
 
+
     void Start(){
         Turn = 0;
         Maze = GameObject.FindGameObjectWithTag("Maze").GetComponent<LaberintoUN>();
+    }
+
+    void GenerarFichas(JugadorUN player){
+        player.jugador.Fichas.Clear();
+        List<int> fichasusadas = new List<int>();
+        System.Random random = new System.Random();
+        for (int i = 0; i < 5; i++)
+        {
+            int chance = random.Next(1, 9);
+            while(fichasusadas.Contains(chance)) {
+                chance = random.Next(1, 9);
+            }
+            
+            switch(chance){
+                case 2:
+                    player.jugador.Fichas.Add(new CJ(player.jugador));
+                    fichasusadas.Add(2);
+                break;
+                case 3:
+                    player.jugador.Fichas.Add(new UNE(player.jugador));
+                    fichasusadas.Add(3);
+                break;
+                case 4:
+                    player.jugador.Fichas.Add(new Knuckles(player.jugador));
+                    fichasusadas.Add(4);
+                break;
+                case 5:
+                    player.jugador.Fichas.Add(new RickRoll(player.jugador));
+                    fichasusadas.Add(5);
+                break;
+                case 6:
+                    player.jugador.Fichas.Add(new StarMan(player.jugador));
+                    fichasusadas.Add(6);
+                break;
+                case 7:
+                    player.jugador.Fichas.Add(new Doge(player.jugador));
+                    fichasusadas.Add(7);
+                break;
+                case 8:
+                    player.jugador.Fichas.Add(new ELChoco(player.jugador));
+                    fichasusadas.Add(8);
+                break;
+                default:
+                    player.jugador.Fichas.Add(new McQueen(player.jugador));
+                    fichasusadas.Add(1);
+                break;
+            }
+        }
     }
 
 }

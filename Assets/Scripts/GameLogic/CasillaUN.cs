@@ -10,10 +10,11 @@ public class CasillaUN : MonoBehaviour
     public int Fila;
     public int Columna;
     public Casilla Tipo => Casilla.Tipo;
-    public bool Visitada { get => Casilla.Visitada; set => Casilla.Visitada = value;}
+    public List<GameObject> Fichas = new List<GameObject>();
 
 
     public void Accion(){
         Casilla.Accion();
+        gameObject.GetComponent<CanvasGroup>().alpha = 1;
     }
 }
