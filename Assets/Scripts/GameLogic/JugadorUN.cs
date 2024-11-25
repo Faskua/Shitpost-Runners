@@ -8,7 +8,7 @@ public class JugadorUN : MonoBehaviour
 {
     public string Nombre { get => jugador.Nombre; set => jugador.Nombre = value; }
     public GameObject FichasPrefab;
-    public GameObject PlayerPiecesHolder;
+    public Canvas PlayerPiecesHolder;
     public Jugador jugador { get; set; }
     public bool seleccionado;
     public List<GameObject> FichasUN;
@@ -30,7 +30,7 @@ public class JugadorUN : MonoBehaviour
         gameObject.GetComponent<Animator>().SetTrigger("Danno");
     }
 
-    public void GenerateFichasUN(){
+    public void GenerateFichasUN(GameController controller){
         FichasUN = new List<GameObject>();
         foreach (Ficha ficha in jugador.Fichas) {
             GameObject instance = Instantiate(FichasPrefab, new Vector2(0,0), Quaternion.identity);
@@ -43,8 +43,8 @@ public class JugadorUN : MonoBehaviour
             if(ficha.tipo == TipoFicha.Doge) instance.GetComponent<Image>().sprite = Dogue;
             if(ficha.tipo == TipoFicha.ELChoco) instance.GetComponent<Image>().sprite = Choco;
             instance.GetComponent<FichaUN>().ficha = ficha; 
-            instance.transform.SetParent(PlayerPiecesHolder.transform, false);
-
+            instance.transform.SetParent(PlayerPiecesHolder.transform, true); //las mueve al lugar donde empiezan
+            instance.transform.position = controller.Maze.LabGameObj[ficha.posicion.Item1, ficha.posicion.Item2].transform.position;
             FichasUN.Add(instance);
         }
     }

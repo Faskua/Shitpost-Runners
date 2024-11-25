@@ -40,7 +40,7 @@ public static class Laberinto
                 switch (Posibilidad)
                 {
                     case 2:
-                        ICasilla berserk = new FanDeBerserk();
+                        ICasilla berserk = new ChillGuy();
                         laberinto[fila,columna] = berserk;
                     break;
                     case 3:

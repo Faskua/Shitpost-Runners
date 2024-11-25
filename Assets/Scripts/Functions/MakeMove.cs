@@ -9,7 +9,7 @@ public class MakeMove : MonoBehaviour
     public InputField y;
     private GameController controller;
     public void Make(){
-        for (int ficha = 0; ficha < controller.Jugadores[controller.Turn].jugador.Fichas.Count; ficha++)
+        for (int ficha = 0; ficha < 5; ficha++)
         {
             if(controller.Jugadores[controller.Turn].jugador.Fichas[ficha].seleccionada){
                 if(!controller.ControlarJugada(ficha, int.Parse(y.text), int.Parse(x.text))){

@@ -261,7 +261,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 2.64
-  m_Text: '1
+  m_Text: '0
+
+    1
 
     2
 
@@ -287,9 +289,7 @@ MonoBehaviour:
 
     13
 
-    14
-
-    15'
+    14'
 --- !u!222 &120728849
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1037,10 +1037,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1214929557}
   - component: {fileID: 1214929559}
-  - component: {fileID: 1214929558}
   - component: {fileID: 1214929560}
   m_Layer: 5
-  m_Name: Fichas
+  m_Name: CasilaNombre
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1065,36 +1064,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0.003540039, y: -38.4544}
   m_SizeDelta: {x: 650, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1214929558
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1214929556}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.2057601, g: 0.2057601, b: 0.21509439, a: 0}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &1214929559
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1112,21 +1081,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 1214929556}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 0
-    m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 4
-  m_StartCorner: 0
-  m_StartAxis: 0
-  m_CellSize: {x: 120, y: 120}
-  m_Spacing: {x: 10, y: 0}
-  m_Constraint: 0
-  m_ConstraintCount: 2
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: ea9cfc11671c90144bb22738c75ae555, type: 3}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 1
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 
 --- !u!1 &1270390319
 GameObject:
   m_ObjectHideFlags: 0
@@ -1241,12 +1220,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Obstaculo: {fileID: 21300000, guid: 9bc724ad8e04b344885f734538ebfe7b, type: 3}
-  Fan: {fileID: 21300000, guid: 6f6ff8f31e8b2af45b9a7bb8b81482dd, type: 3}
+  ChillGuy: {fileID: 21300000, guid: 8df86bab6a9775e4aa7329483ae8b28b, type: 3}
   Abuelito: {fileID: 21300000, guid: ae952a0e81ed3b2438f9341343abd268, type: 3}
   Ducha: {fileID: 21300000, guid: 8ac0827ed16a9bf43a239df6b77093b7, type: 3}
   Morfeo: {fileID: 21300000, guid: 925fbaeadee6d8b40adfdfadc550841d, type: 3}
-  Honguito: {fileID: 21300000, guid: 41dafddcdabd9cb41931912ae1d09165, type: 3}
+  Honguito: {fileID: 21300000, guid: 2291bdf3efb681443b4feb75c17b5295, type: 3}
   Zorro: {fileID: 21300000, guid: 02deb9fd87216384ca06cbf41f295eeb, type: 3}
+  Nulo: {fileID: 21300000, guid: ccaf18f650f97ee4d9fe62c8c2931a83, type: 3}
+  Mondongo: {fileID: 21300000, guid: d48e5e7bad9241f42a3fbeed703e5b08, type: 3}
   casillaPrefab: {fileID: 4915952735489006859, guid: 2672973e8b47be045b5ed029d973c130, type: 3}
 --- !u!1 &1330558307
 GameObject:
@@ -1420,7 +1401,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "1\t2\t3\t4\t5\t6\t7\t8\t9\t10\t11\t12\t13\t14\t15"
+  m_Text: "0\t1\t2\t3\t4\t5\t6\t7\t8\t9\t10\t11\t12\t13\t14"
 --- !u!222 &1333033509
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2501,13 +2482,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Turn: 0
+  ObtainedLetters: 0
   Players: {fileID: 3115185408697832041}
   PlayerName: {fileID: 1571693785}
+  LetterPrefab: {fileID: 8740243267964394364, guid: e46af91e43f91df45b8a5699743f09a3, type: 3}
   PlayerLetters: {fileID: 685982888}
   Xcoord: {fileID: 799824563}
   Ycoord: {fileID: 1330558309}
   Jugadores: []
   Maze: {fileID: 1270390324}
+  CasillaNombre: {fileID: 1214929560}
 --- !u!114 &1773127856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3175,17 +3159,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FichasPrefab: {fileID: 5312336554515113015, guid: d7baeb57d0080d64bbcfbe506c2bf791, type: 3}
-  PlayerPiecesHolder: {fileID: 1214929556}
+  PlayerPiecesHolder: {fileID: 1440621889}
   seleccionado: 0
   FichasUN: []
-  McQueen: {fileID: 21300000, guid: 82ff931eb36acf54c9cabdf3a858df28, type: 3}
-  CJ: {fileID: 21300000, guid: 41dafddcdabd9cb41931912ae1d09165, type: 3}
-  UNE: {fileID: 21300000, guid: ff43edec075992042abdaff76066786f, type: 3}
-  Knuckles: {fileID: 21300000, guid: 6f6ff8f31e8b2af45b9a7bb8b81482dd, type: 3}
-  Rick: {fileID: 21300000, guid: e1e9c237a7d9a444bb3b7dfa4fd215b9, type: 3}
-  Starman: {fileID: 21300000, guid: 9453c113f01b4674a9919c1e7897e199, type: 3}
-  Dogue: {fileID: 21300000, guid: 0b28919ca6b7e854b94cb8beaa929bc3, type: 3}
-  Choco: {fileID: 21300000, guid: 41dafddcdabd9cb41931912ae1d09165, type: 3}
+  McQueen: {fileID: 21300000, guid: 3670a9b7b2b980b4bbaf80827ba12025, type: 3}
+  CJ: {fileID: 21300000, guid: 5c6f268a1b00e4140a691e122be672d6, type: 3}
+  UNE: {fileID: 21300000, guid: f0434c02f1f21df42aec44af69f8d08c, type: 3}
+  Knuckles: {fileID: 21300000, guid: 1010cc7073b50824682b30145e7e5946, type: 3}
+  Rick: {fileID: 21300000, guid: a26c36ad809f3e346a383e48b581ad4c, type: 3}
+  Starman: {fileID: 21300000, guid: fc587bcd80ab4ec42b9f4d7491e09235, type: 3}
+  Dogue: {fileID: 21300000, guid: 7d6e925fbfec9af42989e8cb4ef4691b, type: 3}
+  Choco: {fileID: 21300000, guid: 2a3704bf95cdbd84bbc1ac782743eef3, type: 3}
 --- !u!4 &1330458609345368398
 Transform:
   m_ObjectHideFlags: 0
@@ -3203,8 +3187,8 @@ Transform:
   - {fileID: 8348263344909010405}
   - {fileID: 6593591814198587653}
   - {fileID: 6302539948772398628}
-  - {fileID: 9024394600109232009}
   - {fileID: 6579277083837848783}
+  - {fileID: 9024394600109232009}
   - {fileID: 7838836294289332925}
   m_Father: {fileID: 1440621890}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3222,10 +3206,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 9024394600109232009}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 340, y: -110}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1656386599234293838
 GameObject:
@@ -3493,10 +3477,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 9024394600109232009}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 110, y: -110}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2442360477846270367
 GameObject:
@@ -3677,10 +3661,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 9024394600109232009}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 110, y: -340}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2889069978377488126
 CanvasRenderer:
@@ -3731,10 +3715,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 9024394600109232009}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 340, y: -340}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3170587038708196969
 MonoBehaviour:
@@ -3808,17 +3792,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FichasPrefab: {fileID: 5312336554515113015, guid: d7baeb57d0080d64bbcfbe506c2bf791, type: 3}
-  PlayerPiecesHolder: {fileID: 1214929556}
+  PlayerPiecesHolder: {fileID: 1440621889}
   seleccionado: 0
   FichasUN: []
-  McQueen: {fileID: 21300000, guid: 82ff931eb36acf54c9cabdf3a858df28, type: 3}
-  CJ: {fileID: 21300000, guid: 41dafddcdabd9cb41931912ae1d09165, type: 3}
-  UNE: {fileID: 21300000, guid: ff43edec075992042abdaff76066786f, type: 3}
-  Knuckles: {fileID: 21300000, guid: 6f6ff8f31e8b2af45b9a7bb8b81482dd, type: 3}
-  Rick: {fileID: 21300000, guid: e1e9c237a7d9a444bb3b7dfa4fd215b9, type: 3}
-  Starman: {fileID: 21300000, guid: 9453c113f01b4674a9919c1e7897e199, type: 3}
-  Dogue: {fileID: 21300000, guid: 0b28919ca6b7e854b94cb8beaa929bc3, type: 3}
-  Choco: {fileID: 21300000, guid: 41dafddcdabd9cb41931912ae1d09165, type: 3}
+  McQueen: {fileID: 21300000, guid: 3670a9b7b2b980b4bbaf80827ba12025, type: 3}
+  CJ: {fileID: 21300000, guid: 5c6f268a1b00e4140a691e122be672d6, type: 3}
+  UNE: {fileID: 21300000, guid: f0434c02f1f21df42aec44af69f8d08c, type: 3}
+  Knuckles: {fileID: 21300000, guid: 1010cc7073b50824682b30145e7e5946, type: 3}
+  Rick: {fileID: 21300000, guid: a26c36ad809f3e346a383e48b581ad4c, type: 3}
+  Starman: {fileID: 21300000, guid: fc587bcd80ab4ec42b9f4d7491e09235, type: 3}
+  Dogue: {fileID: 21300000, guid: 7d6e925fbfec9af42989e8cb4ef4691b, type: 3}
+  Choco: {fileID: 21300000, guid: 2a3704bf95cdbd84bbc1ac782743eef3, type: 3}
 --- !u!1 &3728314318514335644
 GameObject:
   m_ObjectHideFlags: 0
@@ -4302,17 +4286,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FichasPrefab: {fileID: 5312336554515113015, guid: d7baeb57d0080d64bbcfbe506c2bf791, type: 3}
-  PlayerPiecesHolder: {fileID: 1214929556}
+  PlayerPiecesHolder: {fileID: 1440621889}
   seleccionado: 0
   FichasUN: []
-  McQueen: {fileID: 21300000, guid: 82ff931eb36acf54c9cabdf3a858df28, type: 3}
-  CJ: {fileID: 21300000, guid: 41dafddcdabd9cb41931912ae1d09165, type: 3}
-  UNE: {fileID: 21300000, guid: ff43edec075992042abdaff76066786f, type: 3}
-  Knuckles: {fileID: 21300000, guid: 6f6ff8f31e8b2af45b9a7bb8b81482dd, type: 3}
-  Rick: {fileID: 21300000, guid: e1e9c237a7d9a444bb3b7dfa4fd215b9, type: 3}
-  Starman: {fileID: 21300000, guid: 9453c113f01b4674a9919c1e7897e199, type: 3}
-  Dogue: {fileID: 21300000, guid: 0b28919ca6b7e854b94cb8beaa929bc3, type: 3}
-  Choco: {fileID: 21300000, guid: 41dafddcdabd9cb41931912ae1d09165, type: 3}
+  McQueen: {fileID: 21300000, guid: 3670a9b7b2b980b4bbaf80827ba12025, type: 3}
+  CJ: {fileID: 21300000, guid: 5c6f268a1b00e4140a691e122be672d6, type: 3}
+  UNE: {fileID: 21300000, guid: f0434c02f1f21df42aec44af69f8d08c, type: 3}
+  Knuckles: {fileID: 21300000, guid: 1010cc7073b50824682b30145e7e5946, type: 3}
+  Rick: {fileID: 21300000, guid: a26c36ad809f3e346a383e48b581ad4c, type: 3}
+  Starman: {fileID: 21300000, guid: fc587bcd80ab4ec42b9f4d7491e09235, type: 3}
+  Dogue: {fileID: 21300000, guid: 7d6e925fbfec9af42989e8cb4ef4691b, type: 3}
+  Choco: {fileID: 21300000, guid: 2a3704bf95cdbd84bbc1ac782743eef3, type: 3}
 --- !u!224 &6302539948772398628
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4366,9 +4350,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1330458609345368398}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 404.99792, y: 185.72717}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 405, y: 129}
   m_SizeDelta: {x: 716, y: 185}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &6593591814198587653
@@ -4568,17 +4552,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FichasPrefab: {fileID: 5312336554515113015, guid: d7baeb57d0080d64bbcfbe506c2bf791, type: 3}
-  PlayerPiecesHolder: {fileID: 1214929556}
+  PlayerPiecesHolder: {fileID: 1440621889}
   seleccionado: 0
   FichasUN: []
-  McQueen: {fileID: 21300000, guid: 82ff931eb36acf54c9cabdf3a858df28, type: 3}
-  CJ: {fileID: 21300000, guid: 41dafddcdabd9cb41931912ae1d09165, type: 3}
-  UNE: {fileID: 21300000, guid: ff43edec075992042abdaff76066786f, type: 3}
-  Knuckles: {fileID: 21300000, guid: 6f6ff8f31e8b2af45b9a7bb8b81482dd, type: 3}
-  Rick: {fileID: 21300000, guid: e1e9c237a7d9a444bb3b7dfa4fd215b9, type: 3}
-  Starman: {fileID: 21300000, guid: 9453c113f01b4674a9919c1e7897e199, type: 3}
-  Dogue: {fileID: 21300000, guid: 0b28919ca6b7e854b94cb8beaa929bc3, type: 3}
-  Choco: {fileID: 21300000, guid: 41dafddcdabd9cb41931912ae1d09165, type: 3}
+  McQueen: {fileID: 21300000, guid: 3670a9b7b2b980b4bbaf80827ba12025, type: 3}
+  CJ: {fileID: 21300000, guid: 5c6f268a1b00e4140a691e122be672d6, type: 3}
+  UNE: {fileID: 21300000, guid: f0434c02f1f21df42aec44af69f8d08c, type: 3}
+  Knuckles: {fileID: 21300000, guid: 1010cc7073b50824682b30145e7e5946, type: 3}
+  Rick: {fileID: 21300000, guid: a26c36ad809f3e346a383e48b581ad4c, type: 3}
+  Starman: {fileID: 21300000, guid: fc587bcd80ab4ec42b9f4d7491e09235, type: 3}
+  Dogue: {fileID: 21300000, guid: 7d6e925fbfec9af42989e8cb4ef4691b, type: 3}
+  Choco: {fileID: 21300000, guid: 2a3704bf95cdbd84bbc1ac782743eef3, type: 3}
 --- !u!114 &7195908485701374805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5203,10 +5187,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2300795941657993469}
   - {fileID: 2799889567348726109}
   - {fileID: 1429838783258235044}
   - {fileID: 3130169871800840102}
-  - {fileID: 2300795941657993469}
   m_Father: {fileID: 1330458609345368398}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}

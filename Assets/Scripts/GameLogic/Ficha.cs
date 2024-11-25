@@ -103,7 +103,7 @@ public class RickRoll : Ficha
             return;
         }
 
-        while(controller.Maze.LaberinthCSharp[fila, columna].Tipo == Casilla.LetraClave){ //eligiendo una casilla que no tenga letra
+        while(controller.Maze.LaberinthCSharp[fila, columna].Tipo == Casilla.LetraMondongo){ //eligiendo una casilla que no tenga letra
             fila = random.Next(0,Laberinto.Tamanno);
             columna = random.Next(0,Laberinto.Tamanno);
         }
@@ -114,7 +114,7 @@ public class RickRoll : Ficha
         (int, int) posicionAnt = controller.Jugadores[jugador].jugador.Fichas[ficha].posicionAnterior;
         controller.Maze.LaberinthCSharp[posicionAnt.Item1,posicionAnt.Item2].FichasEnCasilla.Remove(Laberinto.jugadores[jugador].Fichas[ficha]); //elimino la ficha de la posicion anterior
         controller.Maze.LaberinthCSharp[fila,columna].FichasEnCasilla.Add(controller.Jugadores[jugador].jugador.Fichas[ficha]); //la anado a la nueva
-        controller.Maze.LaberinthCSharp[fila,columna].Accion(); //activo la casilla
+        controller.Maze.LaberinthCSharp[fila,columna].Accion(controller); //activo la casilla
     }
 }
 

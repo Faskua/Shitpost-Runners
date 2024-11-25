@@ -8,13 +8,16 @@ using UnityEngine.UI;
 public class LaberintoUN : MonoBehaviour
 {
     public Sprite Obstaculo;
-    public Sprite Fan;
+    public Sprite ChillGuy;
     public Sprite Abuelito;
     public Sprite Ducha;
     public Sprite Morfeo;
     public Sprite Honguito;
     public Sprite Zorro;
+    public Sprite Nulo;
+    public Sprite Mondongo;
     public ICasilla[,] LaberinthCSharp;
+    public GameObject[,] LabGameObj;
     public GameObject casillaPrefab;
     private static (int, int)[] Directions = {(0,2),(2,0),(0,-2),(-2,0)};
 
@@ -45,9 +48,11 @@ public class LaberintoUN : MonoBehaviour
             }
         }
         AbrirCaminos(1,1);
+        ReorganiceLetters();
     }
 
     public void InstanciarCasillas(){
+        LabGameObj = new GameObject[15,15];
         for (int fila = 0; fila < 15; fila++)
         {
             for (int col = 0; col < 15; col++)
@@ -57,37 +62,43 @@ public class LaberintoUN : MonoBehaviour
                 cas.GetComponent<CasillaUN>().Casilla = LaberinthCSharp[fila,col];
                 cas.GetComponent<CasillaUN>().Fila = fila;
                 cas.GetComponent<CasillaUN>().Columna = col;
+
                 if(LaberinthCSharp[fila, col] is Obstaculo){  
                     cas.GetComponent<Image>().sprite = Obstaculo; 
                 }
-                if(LaberinthCSharp[fila, col] is FanDeBerserk){  
-                    cas.GetComponent<Image>().sprite = Fan;
-                    cas.GetComponent<CanvasGroup>().alpha = 0;  
+                if(LaberinthCSharp[fila, col] is ChillGuy){  
+                    cas.GetComponent<Image>().sprite = ChillGuy;
+                    cas.GetComponent<Image>().GetComponent<CanvasGroup>().alpha = 0; 
                 }
                 if(LaberinthCSharp[fila, col] is Abuelito){  
                     cas.GetComponent<Image>().sprite = Abuelito;  
-                    cas.GetComponent<CanvasGroup>().alpha = 0;
+                    cas.GetComponent<Image>().GetComponent<CanvasGroup>().alpha = 0; 
                 }
                 if(LaberinthCSharp[fila, col] is Ducha){  
                     cas.GetComponent<Image>().sprite = Ducha;  
-                    cas.GetComponent<CanvasGroup>().alpha = 0;
+                    cas.GetComponent<Image>().GetComponent<CanvasGroup>().alpha = 0; 
                 }
                 if(LaberinthCSharp[fila, col] is Morfeo){  
                     cas.GetComponent<Image>().sprite = Morfeo; 
-                    cas.GetComponent<CanvasGroup>().alpha = 0;
+                    cas.GetComponent<Image>().GetComponent<CanvasGroup>().alpha = 0; 
                 }
                 if(LaberinthCSharp[fila, col] is Honguito){  
                     cas.GetComponent<Image>().sprite = Honguito;  
-                    cas.GetComponent<CanvasGroup>().alpha = 0;
+                    cas.GetComponent<Image>().GetComponent<CanvasGroup>().alpha = 0; 
+                }
+                if(LaberinthCSharp[fila, col] is LetraClave){  
+                    cas.GetComponent<Image>().sprite = Mondongo;
+                    cas.GetComponent<Image>().GetComponent<CanvasGroup>().alpha = 0; 
                 }
                 if(LaberinthCSharp[fila, col] is Zorro){  
                     cas.GetComponent<Image>().sprite = Zorro;  
-                    cas.GetComponent<CanvasGroup>().alpha = 0;
+                    cas.GetComponent<Image>().GetComponent<CanvasGroup>().alpha = 0; 
                 }
                 if(LaberinthCSharp[fila, col] is Vacia){  
-                    cas.GetComponent<Image>().sprite = Zorro;  
-                    cas.GetComponent<CanvasGroup>().alpha = 0;
+                    cas.GetComponent<Image>().sprite = Nulo;  
+                    cas.GetComponent<Image>().GetComponent<CanvasGroup>().alpha = 0; 
                 }
+                LabGameObj[fila,col] = cas;
             }
         }
     }
@@ -107,14 +118,14 @@ public class LaberintoUN : MonoBehaviour
         }
     }
 
-    private ICasilla GenerarCasilla(){
+    ICasilla GenerarCasilla(){
         ICasilla casilla = new Vacia();
         System.Random random = new System.Random();
         int Posibilidad= random.Next(1, 8);
         switch (Posibilidad)
         {
             case 2:
-                casilla = new FanDeBerserk();
+                casilla = new ChillGuy();
             break;
             case 3:
                 casilla = new Abuelito();
@@ -137,5 +148,21 @@ public class LaberintoUN : MonoBehaviour
             break;
         }
         return casilla;
+    }
+
+    void ReorganiceLetters(){
+        char[] Letras = {'M','O','N','D','O','N','G','O'};
+        for (int letra = 0; letra < Letras.Length; letra++)
+        {
+            System.Random random = new System.Random();
+            int fila = random.Next(0,15);
+            int columna = random.Next(0,15);
+            while(LaberinthCSharp[fila,columna].Tipo == Casilla.Obstáculo || LaberinthCSharp[fila,columna].Tipo == Casilla.LetraMondongo){
+                fila = random.Next(0,15);
+                columna = random.Next(0,15);
+            }
+            ICasilla cas = new LetraClave(Letras[letra]);
+            LaberinthCSharp[fila,columna] = cas;
+        }
     }
 }

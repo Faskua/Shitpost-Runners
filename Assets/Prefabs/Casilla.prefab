@@ -91,6 +91,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Fila: 0
   Columna: 0
+  Fichas: []
 --- !u!225 &6999243390491082742
 CanvasGroup:
   m_ObjectHideFlags: 0

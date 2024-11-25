@@ -1,4 +1,8 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.UI;
 
 public interface IJugador
 {
@@ -14,15 +18,15 @@ public interface ICasilla
     Casilla Tipo { get; }
     List<Ficha> FichasEnCasilla { get; set; }
 
-    void Accion();
+    void Accion(GameController controller);
 }
 
 public enum Casilla
 {
-    LetraClave,     Vacia,  
-    Obstaculo,      Berserk,
+    LetraMondongo,     Vacia,  
+    Obstáculo,      UnConsorteRelajao,
     Abuelo,         Ducha,  
-    Ojo,            Zorro,
+    Morfeo,            Zorro,
     Honguito
 }
 
@@ -55,14 +59,16 @@ public abstract class Ficha
 
     public abstract void Habilidad(GameController controller);
 
-    public void Jugar(int fila, int columna, GameController controller){
+    public bool Jugar(int fila, int columna, GameController controller){
         if(turnosSinJugar == 0)
         {
             posicionAnterior = posicion;
-            controller.Maze.LaberinthCSharp[posicionAnterior.Item1,posicionAnterior.Item2].FichasEnCasilla.RemoveAt(Laberinto.laberinto[posicionAnterior.Item1,posicionAnterior.Item2].FichasEnCasilla.Count - 1);
+            controller.Maze.LaberinthCSharp[posicionAnterior.Item1,posicionAnterior.Item2].FichasEnCasilla.Remove(this); 
             posicion = (fila,columna);
-            controller.Maze.LaberinthCSharp[posicion.Item1,posicion.Item2].FichasEnCasilla.Add(this);
-            controller.Maze.LaberinthCSharp[fila, columna].Accion(); 
+            controller.Maze.LaberinthCSharp[fila,columna].FichasEnCasilla.Add(this);
+            controller.Maze.LaberinthCSharp[fila, columna].Accion(controller); 
+            return true;
         }   
+        return false;
     }
 }

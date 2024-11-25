@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System;
+using UnityEngine;
 public class Jugador : IJugador
 {
     string nombre;
@@ -22,14 +23,12 @@ public class Jugador : IJugador
         Fichas.Add(ficha);
     }
 
-    public bool Jugar(int ficha, int fila, int columna, GameController controller){ //esta funcion la estoy podiendo junta para no olvidarme, pero jugar es solo lo que esta en el if, el resto es para el boton
+    public bool Jugar(int ficha, int fila, int columna, GameController controller){ 
         if(TurnosSinJugar > 0) controller.AvanzarTurno();
         Ficha prueba = Fichas[ficha];
         int pasosDados = Math.Abs(fila - prueba.posicion.Item1 + columna - prueba.posicion.Item2);
-        if(pasosDados <= prueba.velocidad){
-            Fichas[ficha].Jugar(fila, columna, controller);
-            //FinDeMiturno =  true;
-            return true;
+        if(pasosDados <= prueba.velocidad){// && controller.Maze.LaberinthCSharp[fila,columna].Tipo != Casilla.Obstaculo){
+            return Fichas[ficha].Jugar(fila, columna, controller);
         }
         return false;
     }

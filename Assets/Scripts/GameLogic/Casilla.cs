@@ -2,6 +2,7 @@ using System.Dynamic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 public class LetraClave : ICasilla
 {
@@ -16,15 +17,16 @@ public class LetraClave : ICasilla
     }
     public bool PuedePasar => true;
 
-    public Casilla Tipo => Casilla.LetraClave;
+    public Casilla Tipo => Casilla.LetraMondongo;
 
     public List<Ficha> FichasEnCasilla { get => fichas; set => fichas = value; }
     public string Descripcion { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-    public void Accion()
+    public void Accion(GameController controller)
     {
         if(Letra != '.'){
             fichas.Last().Propietario.LetrasConseguidas.Add(Letra);
+            Debug.Log($"Letra annadida {Letra}");
         }
         Letra = '.';
     }
@@ -37,7 +39,7 @@ public class Vacia : ICasilla
     public Casilla Tipo => Casilla.Vacia;
 
     public List<Ficha> FichasEnCasilla { get => fichas; set => fichas = value; }
-    public void Accion(){
+    public void Accion(GameController controller){
     }
 }
 
@@ -49,26 +51,26 @@ public class Obstaculo : ICasilla //obstaculo, simplemente impide el paso
     */
     List<Ficha> fichas = new List<Ficha>();
     public bool PuedePasar => false;
-    public Casilla Tipo => Casilla.Obstaculo;
+    public Casilla Tipo => Casilla.Obstáculo;
 
     public List<Ficha> FichasEnCasilla { get => fichas; set => fichas = value; }
 
-    public void Accion(){
+    public void Accion(GameController controller){
     }
 }
 
-public class FanDeBerserk : ICasilla
+public class ChillGuy : ICasilla
 {
     /*
         Se pegara a ti explicandote el lore de berserk y reducira tu velocidad en 1 (no hace nada si solo tienes 1 de velocidad)
     */
     List<Ficha> fichas = new List<Ficha>();
     public bool PuedePasar => true;
-    public Casilla Tipo => Casilla.Berserk;
+    public Casilla Tipo => Casilla.UnConsorteRelajao;
 
     public List<Ficha> FichasEnCasilla { get => fichas; set => fichas = value; }
 
-    public void Accion()
+    public void Accion(GameController controller)
     {
         if(fichas.Last().tipo == TipoFicha.ELChoco)  return;
         if(fichas.Last().velocidad > 1) fichas.Last().velocidad--;
@@ -87,12 +89,13 @@ public class Abuelito : ICasilla
 
     public List<Ficha> FichasEnCasilla { get => fichas; set => fichas = value; }
 
-    public void Accion()
+    public void Accion(GameController controller)
     {
         if(fichas.Last().tipo == TipoFicha.ELChoco){
             return;
         }
         fichas.Last().turnosSinJugar = 2 * Laberinto.jugadores.Count;
+        Debug.Log($"turnos sin jugar: {fichas.Last().turnosSinJugar}");
     }
 }
 
@@ -107,16 +110,16 @@ public class Ducha : ICasilla
 
     public List<Ficha> FichasEnCasilla { get => fichas; set => fichas = value; }
 
-    public void Accion()
+    public void Accion(GameController controller)
     {
         if(fichas.Last().tipo == TipoFicha.ELChoco){
             return;
         }
         (int,int) posicionAnt = fichas.Last().posicionAnterior;
         (int,int) posicionAct = fichas.Last().posicion;
-        Laberinto.laberinto[posicionAnt.Item1, posicionAnt.Item2].FichasEnCasilla.Add(fichas.Last());
-        Laberinto.laberinto[posicionAct.Item1, posicionAct.Item2].FichasEnCasilla.RemoveAt(Laberinto.laberinto[posicionAct.Item1,posicionAct.Item2].FichasEnCasilla.Count - 1);
-        fichas.Last().posicion = fichas.Last().posicionAnterior;
+        controller.Maze.LaberinthCSharp[posicionAnt.Item1, posicionAnt.Item2].FichasEnCasilla.Add(fichas.Last());
+        controller.Maze.LaberinthCSharp[posicionAct.Item1, posicionAct.Item2].FichasEnCasilla.RemoveAt(controller.Maze.LaberinthCSharp[posicionAct.Item1,posicionAct.Item2].FichasEnCasilla.Count - 1);
+        fichas.Last().posicion = posicionAnt;
     }
 }
 
@@ -129,16 +132,16 @@ public class Morfeo : ICasilla
     */
     List<Ficha> fichas = new List<Ficha>();
     public bool PuedePasar => true;
-    public Casilla Tipo => Casilla.Ojo;
+    public Casilla Tipo => Casilla.Morfeo;
 
     public List<Ficha> FichasEnCasilla { get => fichas; set => fichas = value; }
 
-    public void Accion()
+    public void Accion(GameController controller)
     {
         if(fichas.Last().tipo == TipoFicha.ELChoco){
             return;
         }
-        Random random = new Random();
+        System.Random random = new System.Random();
         int rnd = random.Next(1,2);
         if (rnd == 1) {
             FichasEnCasilla.Last().velocidad++;
@@ -159,11 +162,8 @@ public class Honguito : ICasilla
     public Casilla Tipo => Casilla.Honguito;
     public List<Ficha> FichasEnCasilla { get => fichas; set => fichas = value; }
 
-    public void Accion()
+    public void Accion(GameController controller)
     {
-        if(fichas.Last().tipo == TipoFicha.ELChoco){
-            return;
-        }
         fichas.Last().enfriamiento = 0;
     }
 }
@@ -178,7 +178,7 @@ public class Zorro : ICasilla
     public Casilla Tipo => Casilla.Zorro;
     public List<Ficha> FichasEnCasilla { get => fichas; set => fichas = value; }
 
-    public void Accion()
+    public void Accion(GameController controller)
     {
         if(fichas.Last().tipo == TipoFicha.ELChoco){
             return;
@@ -186,15 +186,16 @@ public class Zorro : ICasilla
         if(fichas.Last().Propietario.LetrasConseguidas.Count > 0){
             char letra = fichas.Last().Propietario.LetrasConseguidas.Last();
             fichas.Last().Propietario.LetrasConseguidas.RemoveAt(fichas.Last().Propietario.LetrasConseguidas.Count - 1);
-            Random random = new Random();
-            int fila = random.Next(0,Laberinto.Tamanno);
-            int columna = random.Next(0,Laberinto.Tamanno);
-            while(Laberinto.laberinto[fila,columna] is LetraClave){
-                fila = random.Next(0,Laberinto.Tamanno);
-                columna = random.Next(0,Laberinto.Tamanno);
+            System.Random random = new System.Random();
+            int fila = random.Next(0,15);
+            int columna = random.Next(0,15);
+            while(controller.Maze.LaberinthCSharp[fila,columna] is LetraClave){
+                fila = random.Next(0,15);
+                columna = random.Next(0,15);
             }
             ICasilla Letra = new LetraClave(letra);
-            Laberinto.laberinto[fila,columna] = Letra;
+            controller.Maze.LaberinthCSharp[fila,columna] = Letra;
+            Debug.Log($"letra eliminada");
         }
     }
 }

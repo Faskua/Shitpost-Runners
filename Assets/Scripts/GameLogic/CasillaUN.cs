@@ -13,8 +13,8 @@ public class CasillaUN : MonoBehaviour
     public List<GameObject> Fichas = new List<GameObject>();
 
 
-    public void Accion(){
-        Casilla.Accion();
+    public void Accion(GameController controller){
+        Casilla.Accion(controller);
         gameObject.GetComponent<CanvasGroup>().alpha = 1;
     }
 }
