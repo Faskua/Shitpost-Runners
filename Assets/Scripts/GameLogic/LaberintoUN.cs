@@ -62,41 +62,43 @@ public class LaberintoUN : MonoBehaviour
                 cas.GetComponent<CasillaUN>().Casilla = LaberinthCSharp[fila,col];
                 cas.GetComponent<CasillaUN>().Fila = fila;
                 cas.GetComponent<CasillaUN>().Columna = col;
+                Color color = cas.GetComponent<Image>().color;
+                color.a = 0;
 
                 if(LaberinthCSharp[fila, col] is Obstaculo){  
                     cas.GetComponent<Image>().sprite = Obstaculo; 
                 }
                 if(LaberinthCSharp[fila, col] is ChillGuy){  
                     cas.GetComponent<Image>().sprite = ChillGuy;
-                    cas.GetComponent<Image>().GetComponent<CanvasGroup>().alpha = 0; 
+                    cas.GetComponent<Image>().color = color;
                 }
                 if(LaberinthCSharp[fila, col] is Abuelito){  
                     cas.GetComponent<Image>().sprite = Abuelito;  
-                    cas.GetComponent<Image>().GetComponent<CanvasGroup>().alpha = 0; 
+                    cas.GetComponent<Image>().color = color;
                 }
                 if(LaberinthCSharp[fila, col] is Ducha){  
                     cas.GetComponent<Image>().sprite = Ducha;  
-                    cas.GetComponent<Image>().GetComponent<CanvasGroup>().alpha = 0; 
+                    cas.GetComponent<Image>().color = color;
                 }
                 if(LaberinthCSharp[fila, col] is Morfeo){  
                     cas.GetComponent<Image>().sprite = Morfeo; 
-                    cas.GetComponent<Image>().GetComponent<CanvasGroup>().alpha = 0; 
+                    cas.GetComponent<Image>().color = color;
                 }
                 if(LaberinthCSharp[fila, col] is Honguito){  
                     cas.GetComponent<Image>().sprite = Honguito;  
-                    cas.GetComponent<Image>().GetComponent<CanvasGroup>().alpha = 0; 
+                    cas.GetComponent<Image>().color = color;
                 }
                 if(LaberinthCSharp[fila, col] is LetraClave){  
                     cas.GetComponent<Image>().sprite = Mondongo;
-                    cas.GetComponent<Image>().GetComponent<CanvasGroup>().alpha = 0; 
+                    //cas.GetComponent<Image>().color = color;
                 }
                 if(LaberinthCSharp[fila, col] is Zorro){  
                     cas.GetComponent<Image>().sprite = Zorro;  
-                    cas.GetComponent<Image>().GetComponent<CanvasGroup>().alpha = 0; 
+                    cas.GetComponent<Image>().color = color;
                 }
-                if(LaberinthCSharp[fila, col] is Vacia){  
+                if(LaberinthCSharp[fila, col] is Cofre){  
                     cas.GetComponent<Image>().sprite = Nulo;  
-                    cas.GetComponent<Image>().GetComponent<CanvasGroup>().alpha = 0; 
+                    cas.GetComponent<Image>().color = color;
                 }
                 LabGameObj[fila,col] = cas;
             }
@@ -119,7 +121,7 @@ public class LaberintoUN : MonoBehaviour
     }
 
     ICasilla GenerarCasilla(){
-        ICasilla casilla = new Vacia();
+        ICasilla casilla = new Cofre();
         System.Random random = new System.Random();
         int Posibilidad= random.Next(1, 8);
         switch (Posibilidad)
@@ -144,7 +146,7 @@ public class LaberintoUN : MonoBehaviour
                 if(chance == 1) casilla = new Zorro();
             break;
             default:
-                casilla = new Vacia();
+                casilla = new Cofre();
             break;
         }
         return casilla;

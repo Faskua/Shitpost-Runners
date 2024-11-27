@@ -6,10 +6,8 @@ using UnityEngine;
 
 public class LetraClave : ICasilla
 {
-    /*
-        Junto a otras siete letras forman un meme tan poderoso que destruira el laberinto
-    */
     char Letra { get; set; }
+    
     List<Ficha> fichas = new List<Ficha>();
 
     public LetraClave(char letra){
@@ -22,24 +20,34 @@ public class LetraClave : ICasilla
     public List<Ficha> FichasEnCasilla { get => fichas; set => fichas = value; }
     public string Descripcion { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
+    public string Mensaje => "Junto a otras siete letras forman un meme tan poderoso que destruira el laberinto";
+
     public void Accion(GameController controller)
     {
         if(Letra != '.'){
             fichas.Last().Propietario.LetrasConseguidas.Add(Letra);
+            controller.ObtainedLetters++;
             Debug.Log($"Letra annadida {Letra}");
         }
         Letra = '.';
     }
 }
 
-public class Vacia : ICasilla
+public class Cofre : ICasilla
 {
     List<Ficha> fichas = new List<Ficha>();
     public bool PuedePasar => true;
-    public Casilla Tipo => Casilla.Vacia;
+    public Casilla Tipo => Casilla.MemeCoin;
+    private int memecoin;
 
     public List<Ficha> FichasEnCasilla { get => fichas; set => fichas = value; }
+
+    public string Mensaje => $"Has obtenido {memecoin} MemeCoins c:";
+
     public void Accion(GameController controller){
+        System.Random random = new System.Random();
+        memecoin = random.Next(1,11);
+        FichasEnCasilla.Last().Propietario.MemeCoin += memecoin;
     }
 }
 
@@ -55,6 +63,8 @@ public class Obstaculo : ICasilla //obstaculo, simplemente impide el paso
 
     public List<Ficha> FichasEnCasilla { get => fichas; set => fichas = value; }
 
+    public string Mensaje => "Por aquí no se pasa tanque";
+
     public void Accion(GameController controller){
     }
 }
@@ -69,6 +79,8 @@ public class ChillGuy : ICasilla
     public Casilla Tipo => Casilla.UnConsorteRelajao;
 
     public List<Ficha> FichasEnCasilla { get => fichas; set => fichas = value; }
+
+    public string Mensaje => "Usted es un consorte relajao, no te hace falta ir mandao. Velocidad--";
 
     public void Accion(GameController controller)
     {
@@ -89,12 +101,14 @@ public class Abuelito : ICasilla
 
     public List<Ficha> FichasEnCasilla { get => fichas; set => fichas = value; }
 
+    public string Mensaje => "Te tocó explicarle los memes al puro. Esta ficha no se moverá por dos turnos";
+
     public void Accion(GameController controller)
     {
         if(fichas.Last().tipo == TipoFicha.ELChoco){
             return;
         }
-        fichas.Last().turnosSinJugar = 2 * Laberinto.jugadores.Count;
+        fichas.Last().turnosSinJugar = 2 * controller.Jugadores.Count;
         Debug.Log($"turnos sin jugar: {fichas.Last().turnosSinJugar}");
     }
 }
@@ -107,19 +121,17 @@ public class Ducha : ICasilla
     List<Ficha> fichas = new List<Ficha>();
     public bool PuedePasar => true;
     public Casilla Tipo => Casilla.Ducha;
-
     public List<Ficha> FichasEnCasilla { get => fichas; set => fichas = value; }
+    public string Mensaje => mensaje;
+    private string mensaje;
 
     public void Accion(GameController controller)
     {
         if(fichas.Last().tipo == TipoFicha.ELChoco){
+            mensaje = "El Choco es un preso, sin miedo";
             return;
         }
-        (int,int) posicionAnt = fichas.Last().posicionAnterior;
-        (int,int) posicionAct = fichas.Last().posicion;
-        controller.Maze.LaberinthCSharp[posicionAnt.Item1, posicionAnt.Item2].FichasEnCasilla.Add(fichas.Last());
-        controller.Maze.LaberinthCSharp[posicionAct.Item1, posicionAct.Item2].FichasEnCasilla.RemoveAt(controller.Maze.LaberinthCSharp[posicionAct.Item1,posicionAct.Item2].FichasEnCasilla.Count - 1);
-        fichas.Last().posicion = posicionAnt;
+        mensaje = "Vira pa tra que esto es tremenda candela";
     }
 }
 
@@ -136,6 +148,9 @@ public class Morfeo : ICasilla
 
     public List<Ficha> FichasEnCasilla { get => fichas; set => fichas = value; }
 
+    public string Mensaje => $"Esta vez morfeo hara la desicion por ti. {mensaje}";
+    private string mensaje = "";
+
     public void Accion(GameController controller)
     {
         if(fichas.Last().tipo == TipoFicha.ELChoco){
@@ -145,9 +160,11 @@ public class Morfeo : ICasilla
         int rnd = random.Next(1,2);
         if (rnd == 1) {
             FichasEnCasilla.Last().velocidad++;
+            mensaje = "Velocidad aumentada";
         }
         else{
             FichasEnCasilla.Last().enfriamiento += 3;
+            mensaje = "Enfriamiento aumentado";
         }
     }
 }
@@ -161,6 +178,8 @@ public class Honguito : ICasilla
     public bool PuedePasar => true;
     public Casilla Tipo => Casilla.Honguito;
     public List<Ficha> FichasEnCasilla { get => fichas; set => fichas = value; }
+
+    public string Mensaje => "Come este graciosillo hongo y recupera la habilidad de la ficha(nintendo me va a demandar)";
 
     public void Accion(GameController controller)
     {
@@ -177,6 +196,8 @@ public class Zorro : ICasilla
     public bool PuedePasar => true;
     public Casilla Tipo => Casilla.Zorro;
     public List<Ficha> FichasEnCasilla { get => fichas; set => fichas = value; }
+
+    public string Mensaje => "Zorro ya no entiende de no te lo lleves y te quita una letra (si tienes)";
 
     public void Accion(GameController controller)
     {
@@ -195,6 +216,7 @@ public class Zorro : ICasilla
             }
             ICasilla Letra = new LetraClave(letra);
             controller.Maze.LaberinthCSharp[fila,columna] = Letra;
+            controller.Maze.LabGameObj[fila,columna].GetComponent<CasillaUN>().Mondongo();
             Debug.Log($"letra eliminada");
         }
     }

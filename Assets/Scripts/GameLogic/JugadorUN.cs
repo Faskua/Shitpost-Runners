@@ -43,7 +43,7 @@ public class JugadorUN : MonoBehaviour
             if(ficha.tipo == TipoFicha.Doge) instance.GetComponent<Image>().sprite = Dogue;
             if(ficha.tipo == TipoFicha.ELChoco) instance.GetComponent<Image>().sprite = Choco;
             instance.GetComponent<FichaUN>().ficha = ficha; 
-            instance.transform.SetParent(PlayerPiecesHolder.transform, true); //las mueve al lugar donde empiezan
+            instance.transform.SetParent(controller.Maze.LabGameObj[ficha.posicion.Item1, ficha.posicion.Item2].transform, true); //las mueve al lugar donde empiezan
             instance.transform.position = controller.Maze.LabGameObj[ficha.posicion.Item1, ficha.posicion.Item2].transform.position;
             FichasUN.Add(instance);
         }

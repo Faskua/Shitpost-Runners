@@ -17,7 +17,7 @@ public static class Laberinto
         {
             for (int columna = 0; columna < tamanno; columna++)
             {
-                ICasilla vacia = new Vacia();
+                ICasilla vacia = new Cofre();
                 laberinto[fila,columna] = vacia;
             }
         }
@@ -64,7 +64,7 @@ public static class Laberinto
                         laberinto[fila,columna] = zorro;
                     break;
                     default:
-                        ICasilla CasillaVacia = new Vacia();
+                        ICasilla CasillaVacia = new Cofre();
                         laberinto[fila, columna] = CasillaVacia;
                     break;
                 }

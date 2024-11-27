@@ -92,6 +92,7 @@ MonoBehaviour:
   Fila: 0
   Columna: 0
   Fichas: []
+  mondongo: {fileID: 21300000, guid: d48e5e7bad9241f42a3fbeed703e5b08, type: 3}
 --- !u!225 &6999243390491082742
 CanvasGroup:
   m_ObjectHideFlags: 0

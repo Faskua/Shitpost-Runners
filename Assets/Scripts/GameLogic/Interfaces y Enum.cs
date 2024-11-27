@@ -15,6 +15,7 @@ public interface IJugador
 public interface ICasilla
 {
     bool PuedePasar { get; }
+    string Mensaje { get; }
     Casilla Tipo { get; }
     List<Ficha> FichasEnCasilla { get; set; }
 
@@ -23,7 +24,7 @@ public interface ICasilla
 
 public enum Casilla
 {
-    LetraMondongo,     Vacia,  
+    LetraMondongo,     MemeCoin,  
     Obstáculo,      UnConsorteRelajao,
     Abuelo,         Ducha,  
     Morfeo,            Zorro,
@@ -47,7 +48,7 @@ public abstract class Ficha
     public virtual string Descripcion { get; }
     public (int, int) posicion;
     public (int, int) posicionAnterior;
-    public IJugador Propietario;
+    public Jugador Propietario;
     public abstract TipoFicha tipo { get; }
 
     public Ficha(Jugador propietario, int vel, int enf){
@@ -62,6 +63,9 @@ public abstract class Ficha
     public bool Jugar(int fila, int columna, GameController controller){
         if(turnosSinJugar == 0)
         {
+            if(controller.Maze.LaberinthCSharp[fila,columna] is Ducha && tipo != TipoFicha.ELChoco){
+                return true;
+            }
             posicionAnterior = posicion;
             controller.Maze.LaberinthCSharp[posicionAnterior.Item1,posicionAnterior.Item2].FichasEnCasilla.Remove(this); 
             posicion = (fila,columna);

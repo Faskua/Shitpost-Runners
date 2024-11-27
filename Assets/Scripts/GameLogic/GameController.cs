@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,7 @@ public class GameController : MonoBehaviour
     public int Turn;
     public int ObtainedLetters;
     public GameObject Players;
+    public GameObject Mondongo;
     public Text PlayerName;
     public GameObject LetterPrefab;
     public GameObject PlayerLetters;
@@ -21,18 +23,36 @@ public class GameController : MonoBehaviour
     
     public bool ControlarJugada(int ficha, int fila, int columna){
         if(Jugadores[Turn].jugador.Jugar(ficha, fila, columna, this)){ //mover la ficha desde la logica
-            
+            CasillaNombre.text = Maze.LaberinthCSharp[fila,columna].Mensaje;
+            Color color = Maze.LabGameObj[fila, columna].GetComponent<Image>().color;
+            color.a = 1;
+            Maze.LabGameObj[fila, columna].GetComponent<Image>().color = color;
+
+            if(Maze.LaberinthCSharp[fila,columna] is Ducha && Jugadores[Turn].jugador.Fichas[ficha].tipo != TipoFicha.ELChoco) return true;
+
+            Jugadores[Turn].FichasUN[ficha].transform.SetParent(Maze.LabGameObj[fila,columna].transform, true);
             Jugadores[Turn].FichasUN[ficha].transform.position = Maze.LabGameObj[fila,columna].transform.position; //mover la ficha de forma visual
             
-            CasillaNombre.text = Maze.LaberinthCSharp[fila,columna].Tipo.ToString();
-            Maze.LabGameObj[fila, columna].GetComponent<CanvasGroup>().alpha = 1;
             return true;
         }  
         return false;
     }
 
     public void AvanzarTurno(){
-        if(ObtainedLetters == 8) return; //Condicion de victoria no implementada aun, cambio a la escena de victoria con el mondongo
+        if(ObtainedLetters == 8){  //Condicion de victoria 
+            Mondongo.SetActive(true);
+            Mondongo.GetComponent<AudioSource>().Play();
+            int mayor = 0;
+            int ind = 0;
+            for (int i = 0; i < Jugadores.Count; i++)
+            {
+                if(Jugadores[i].jugador.LetrasConseguidas.Count > mayor){
+                    mayor = Jugadores[i].jugador.LetrasConseguidas.Count;
+                    ind = i;
+                }
+            }
+            Debug.Log($"EL ganador es {Jugadores[ind].jugador.Nombre}");
+        }
         Turn++;
         if(Turn >= Jugadores.Count) Turn = 0; 
         SetName();
@@ -79,7 +99,7 @@ public class GameController : MonoBehaviour
             if(jugador == Turn) continue;
             foreach (var ficha in Jugadores[jugador].FichasUN)
             {
-                ficha.gameObject.GetComponent<CanvasGroup>().alpha = 0.1f;//transparenta las del resto
+                ficha.gameObject.GetComponent<CanvasGroup>().alpha = 0.2f;//transparenta las del resto
             }
         }
     }
@@ -88,6 +108,7 @@ public class GameController : MonoBehaviour
     void Start(){
         Turn = 0;
         Maze = GameObject.FindGameObjectWithTag("Maze").GetComponent<LaberintoUN>();
+        Mondongo.SetActive(false);
     }
 
     void GenerarFichas(JugadorUN player){
