@@ -12,21 +12,24 @@ public class GameController : MonoBehaviour
     public GameObject Players;
     public GameObject Mondongo;
     public Text PlayerName;
+    public Text HabilidadDescr;
+    public Text CasillaNombre;
     public GameObject LetterPrefab;
     public GameObject PlayerLetters;
     public InputField Xcoord;
     public InputField Ycoord;
     public List<JugadorUN> Jugadores;
     public LaberintoUN Maze;
-    public Text CasillaNombre;
 
     
     public bool ControlarJugada(int ficha, int fila, int columna){
         if(Jugadores[Turn].jugador.Jugar(ficha, fila, columna, this)){ //mover la ficha desde la logica
             CasillaNombre.text = Maze.LaberinthCSharp[fila,columna].Mensaje;
-            Color color = Maze.LabGameObj[fila, columna].GetComponent<Image>().color;
-            color.a = 1;
-            Maze.LabGameObj[fila, columna].GetComponent<Image>().color = color;
+            if(Maze.LaberinthCSharp[fila,columna].Tipo != Casilla.LetraMondongo){
+                Color color = Maze.LabGameObj[fila, columna].GetComponent<Image>().color;
+                color.a = 1;
+                Maze.LabGameObj[fila, columna].GetComponent<Image>().color = color;
+            }
 
             if(Maze.LaberinthCSharp[fila,columna] is Ducha && Jugadores[Turn].jugador.Fichas[ficha].tipo != TipoFicha.ELChoco) return true;
 
@@ -41,7 +44,7 @@ public class GameController : MonoBehaviour
     public void AvanzarTurno(){
         if(ObtainedLetters == 8){  //Condicion de victoria 
             Mondongo.SetActive(true);
-            Mondongo.GetComponent<AudioSource>().Play();
+            //Mondongo.GetComponent<AudioSource>().Play();
             int mayor = 0;
             int ind = 0;
             for (int i = 0; i < Jugadores.Count; i++)
@@ -52,27 +55,34 @@ public class GameController : MonoBehaviour
                 }
             }
             Debug.Log($"EL ganador es {Jugadores[ind].jugador.Nombre}");
+            return;
         }
         Turn++;
         if(Turn >= Jugadores.Count) Turn = 0; 
         SetName();
         TransparentarFichas();
-        foreach (var jugador in Jugadores)
-        {
-            if(jugador.jugador.TurnosSinJugar > 0) jugador.jugador.TurnosSinJugar--;
-            foreach (var ficha in jugador.jugador.Fichas)
+        if(Turn == 0){
+            foreach (var jugador in Jugadores)
             {
-                if(ficha.enfriamiento > 0) ficha.enfriamiento--; 
-                if(ficha.turnosSinJugar > 0) ficha.turnosSinJugar--;
+                if(jugador.jugador.TurnosSinJugar > 0) jugador.jugador.TurnosSinJugar--;
+                foreach (var ficha in jugador.jugador.Fichas)
+                {
+                    if(ficha.EnfActual > 0) ficha.EnfActual--; 
+                    if(ficha.turnosSinJugar > 0) ficha.turnosSinJugar--;
+                }
             }
         }
-        for (int hijo = 0; hijo < PlayerLetters.transform.childCount; hijo++){  Destroy(PlayerLetters.transform.GetChild(hijo).gameObject);  }
+        
+        for (int hijo = 0; hijo < PlayerLetters.transform.childCount; hijo++){  Destroy(PlayerLetters.transform.GetChild(hijo).gameObject);  }//destruir las letras del jugador anterior
         for (int letter = 0; letter < Jugadores[Turn].jugador.LetrasConseguidas.Count; letter++)
-        {
+        { //instanciar las del jugador actual
             GameObject letra = Instantiate(LetterPrefab, new Vector2(0,0), Quaternion.identity);
             letra.GetComponent<Text>().text = Jugadores[Turn].jugador.LetrasConseguidas[letter].ToString();
             letra.transform.SetParent(PlayerLetters.transform, false);
         }
+
+        HabilidadDescr.text = "";
+        CasillaNombre.text = "";
     }
 
     public void SetName(){

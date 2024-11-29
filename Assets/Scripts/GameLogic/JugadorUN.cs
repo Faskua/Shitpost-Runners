@@ -45,6 +45,7 @@ public class JugadorUN : MonoBehaviour
             instance.GetComponent<FichaUN>().ficha = ficha; 
             instance.transform.SetParent(controller.Maze.LabGameObj[ficha.posicion.Item1, ficha.posicion.Item2].transform, true); //las mueve al lugar donde empiezan
             instance.transform.position = controller.Maze.LabGameObj[ficha.posicion.Item1, ficha.posicion.Item2].transform.position;
+            controller.Maze.LaberinthCSharp[ficha.posicion.Item1, ficha.posicion.Item2].FichasEnCasilla.Add(ficha);
             FichasUN.Add(instance);
         }
     }

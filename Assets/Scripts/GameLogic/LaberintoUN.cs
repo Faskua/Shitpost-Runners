@@ -78,7 +78,7 @@ public class LaberintoUN : MonoBehaviour
                 }
                 if(LaberinthCSharp[fila, col] is Ducha){  
                     cas.GetComponent<Image>().sprite = Ducha;  
-                    cas.GetComponent<Image>().color = color;
+                    //cas.GetComponent<Image>().color = color;
                 }
                 if(LaberinthCSharp[fila, col] is Morfeo){  
                     cas.GetComponent<Image>().sprite = Morfeo; 

@@ -26,10 +26,9 @@ public class Jugador : IJugador
     }
 
     public bool Jugar(int ficha, int fila, int columna, GameController controller){ 
-        if(TurnosSinJugar > 0) controller.AvanzarTurno();
         Ficha prueba = Fichas[ficha];
         int pasosDados = Math.Abs(fila - prueba.posicion.Item1 + columna - prueba.posicion.Item2);
-        if(pasosDados <= prueba.velocidad){// && controller.Maze.LaberinthCSharp[fila,columna].Tipo != Casilla.Obstaculo){
+        if(pasosDados <= prueba.velocidad && controller.Maze.LaberinthCSharp[fila,columna].Tipo != Casilla.Obstáculo && TurnosSinJugar <= 0){
             return Fichas[ficha].Jugar(fila, columna, controller);
         }
         return false;

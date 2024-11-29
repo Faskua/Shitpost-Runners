@@ -101,14 +101,14 @@ public class Abuelito : ICasilla
 
     public List<Ficha> FichasEnCasilla { get => fichas; set => fichas = value; }
 
-    public string Mensaje => "Te tocó explicarle los memes al puro. Esta ficha no se moverá por dos turnos";
+    public string Mensaje => "Vas a tener que explicarle los memes al puro. Esta ficha no puede moverse por dos turnos";
 
     public void Accion(GameController controller)
     {
         if(fichas.Last().tipo == TipoFicha.ELChoco){
             return;
         }
-        fichas.Last().turnosSinJugar = 2 * controller.Jugadores.Count;
+        fichas.Last().turnosSinJugar += 2;
         Debug.Log($"turnos sin jugar: {fichas.Last().turnosSinJugar}");
     }
 }
@@ -127,11 +127,14 @@ public class Ducha : ICasilla
 
     public void Accion(GameController controller)
     {
-        if(fichas.Last().tipo == TipoFicha.ELChoco){
-            mensaje = "El Choco es un preso, sin miedo";
-            return;
+        if(fichas.Count != 0){
+            if(fichas.Last().tipo == TipoFicha.ELChoco){
+                mensaje = "El Choco es un preso, sin miedo";
+                return;
+            }
+
         }
-        mensaje = "Vira pa tra que esto es tremenda candela";
+        mensaje = "Vira que esto es tremenda candela";
     }
 }
 

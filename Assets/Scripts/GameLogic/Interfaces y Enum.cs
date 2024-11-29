@@ -42,9 +42,11 @@ public enum TipoFicha
 public abstract class Ficha
 {
     public int enfriamiento = 0;
+    public int EnfActual = 0;
     public int velocidad = 0;
     public int turnosSinJugar;
     public bool seleccionada;
+    public string HabilidadDescrp = "";
     public virtual string Descripcion { get; }
     public (int, int) posicion;
     public (int, int) posicionAnterior;
@@ -64,6 +66,7 @@ public abstract class Ficha
         if(turnosSinJugar == 0)
         {
             if(controller.Maze.LaberinthCSharp[fila,columna] is Ducha && tipo != TipoFicha.ELChoco){
+                controller.Maze.LaberinthCSharp[fila, columna].Accion(controller); 
                 return true;
             }
             posicionAnterior = posicion;
