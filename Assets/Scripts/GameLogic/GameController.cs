@@ -20,6 +20,7 @@ public class GameController : MonoBehaviour
     public InputField Ycoord;
     public List<JugadorUN> Jugadores;
     public LaberintoUN Maze;
+    private AudioController Music;
 
     
     public bool ControlarJugada(int ficha, int fila, int columna){
@@ -44,7 +45,7 @@ public class GameController : MonoBehaviour
     public void AvanzarTurno(){
         if(ObtainedLetters == 8){  //Condicion de victoria 
             Mondongo.SetActive(true);
-            //Mondongo.GetComponent<AudioSource>().Play();
+            Music.Mondongo();
             int mayor = 0;
             int ind = 0;
             for (int i = 0; i < Jugadores.Count; i++)
@@ -76,9 +77,7 @@ public class GameController : MonoBehaviour
         for (int hijo = 0; hijo < PlayerLetters.transform.childCount; hijo++){  Destroy(PlayerLetters.transform.GetChild(hijo).gameObject);  }//destruir las letras del jugador anterior
         for (int letter = 0; letter < Jugadores[Turn].jugador.LetrasConseguidas.Count; letter++)
         { //instanciar las del jugador actual
-            GameObject letra = Instantiate(LetterPrefab, new Vector2(0,0), Quaternion.identity);
-            letra.GetComponent<Text>().text = Jugadores[Turn].jugador.LetrasConseguidas[letter].ToString();
-            letra.transform.SetParent(PlayerLetters.transform, false);
+            InstanciarLetra(Jugadores[Turn].jugador.LetrasConseguidas[letter]);
         }
 
         HabilidadDescr.text = "";
@@ -114,11 +113,18 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public void InstanciarLetra(char Letra){
+        GameObject letra = Instantiate(LetterPrefab, new Vector2(0,0), Quaternion.identity);
+        letra.GetComponent<Text>().text = Letra.ToString();
+        letra.transform.SetParent(PlayerLetters.transform, false);
+    }
+
 
     void Start(){
         Turn = 0;
         Maze = GameObject.FindGameObjectWithTag("Maze").GetComponent<LaberintoUN>();
         Mondongo.SetActive(false);
+        Music = GameObject.FindGameObjectWithTag("Music").GetComponent<AudioController>();
     }
 
     void GenerarFichas(JugadorUN player){

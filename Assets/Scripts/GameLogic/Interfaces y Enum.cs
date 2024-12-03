@@ -24,7 +24,7 @@ public interface ICasilla
 
 public enum Casilla
 {
-    LetraMondongo,     MemeCoin,  
+    LetraMondongo,     Vacia,  
     Obstáculo,      UnConsorteRelajao,
     Abuelo,         Ducha,  
     Morfeo,            Zorro,

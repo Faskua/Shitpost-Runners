@@ -27,27 +27,24 @@ public class LetraClave : ICasilla
         if(Letra != '.'){
             fichas.Last().Propietario.LetrasConseguidas.Add(Letra);
             controller.ObtainedLetters++;
+            controller.InstanciarLetra(Letra);
             Debug.Log($"Letra annadida {Letra}");
         }
         Letra = '.';
     }
 }
 
-public class Cofre : ICasilla
+public class Vacia : ICasilla
 {
     List<Ficha> fichas = new List<Ficha>();
     public bool PuedePasar => true;
-    public Casilla Tipo => Casilla.MemeCoin;
-    private int memecoin;
+    public Casilla Tipo => Casilla.Vacia;
 
     public List<Ficha> FichasEnCasilla { get => fichas; set => fichas = value; }
 
-    public string Mensaje => $"Has obtenido {memecoin} MemeCoins c:";
+    public string Mensaje => $"Casilla Vacia";
 
     public void Accion(GameController controller){
-        System.Random random = new System.Random();
-        memecoin = random.Next(1,11);
-        FichasEnCasilla.Last().Propietario.MemeCoin += memecoin;
     }
 }
 
@@ -160,8 +157,8 @@ public class Morfeo : ICasilla
             return;
         }
         System.Random random = new System.Random();
-        int rnd = random.Next(1,2);
-        if (rnd == 1) {
+        int rnd = random.Next(1,3);
+        if(rnd == 1) {
             FichasEnCasilla.Last().velocidad++;
             mensaje = "Velocidad aumentada";
         }

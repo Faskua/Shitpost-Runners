@@ -6,7 +6,6 @@ public class Jugador : IJugador
     string nombre;
     bool leToca = false;
     public int TurnosSinJugar;
-    public int MemeCoin;
     List<Ficha> fichas;
     List<char> letras;
     public List<Ficha> Fichas { get => fichas; set => fichas = value;}
@@ -18,7 +17,6 @@ public class Jugador : IJugador
         fichas = new List<Ficha>();
         this.nombre = nombre;
         letras = new List<char>();
-        MemeCoin = 0;
         TurnosSinJugar = 0;
     }
     public void AnadirFicha(Ficha ficha){

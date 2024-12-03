@@ -78,7 +78,7 @@ public class LaberintoUN : MonoBehaviour
                 }
                 if(LaberinthCSharp[fila, col] is Ducha){  
                     cas.GetComponent<Image>().sprite = Ducha;  
-                    //cas.GetComponent<Image>().color = color;
+                    cas.GetComponent<Image>().color = color;
                 }
                 if(LaberinthCSharp[fila, col] is Morfeo){  
                     cas.GetComponent<Image>().sprite = Morfeo; 
@@ -96,7 +96,7 @@ public class LaberintoUN : MonoBehaviour
                     cas.GetComponent<Image>().sprite = Zorro;  
                     cas.GetComponent<Image>().color = color;
                 }
-                if(LaberinthCSharp[fila, col] is Cofre){  
+                if(LaberinthCSharp[fila, col] is Vacia){  
                     cas.GetComponent<Image>().sprite = Nulo;  
                     cas.GetComponent<Image>().color = color;
                 }
@@ -121,7 +121,7 @@ public class LaberintoUN : MonoBehaviour
     }
 
     ICasilla GenerarCasilla(){
-        ICasilla casilla = new Cofre();
+        ICasilla casilla = new Vacia();
         System.Random random = new System.Random();
         int Posibilidad= random.Next(1, 8);
         switch (Posibilidad)
@@ -146,7 +146,7 @@ public class LaberintoUN : MonoBehaviour
                 if(chance == 1) casilla = new Zorro();
             break;
             default:
-                casilla = new Cofre();
+                casilla = new Vacia();
             break;
         }
         return casilla;

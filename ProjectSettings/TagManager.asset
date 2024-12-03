@@ -11,6 +11,7 @@ TagManager:
   - Creador
   - Maze
   - Canvas
+  - Music
   layers:
   - Default
   - TransparentFX
