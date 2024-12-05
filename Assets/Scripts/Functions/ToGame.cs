@@ -18,7 +18,7 @@ public class ToGame : MonoBehaviour
         Players.transform.position = PlayersHolder.transform.position;
         Creador.SetActive(false);
         controller.GenerarJugadores();
-        controller.SetName();
-        controller.TransparentarFichas();
+        controller.visual.SetName(controller);
+        controller.visual.TransparentarFichas(controller);
     }
 }

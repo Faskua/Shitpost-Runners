@@ -17,11 +17,9 @@ public class CasillaUN : MonoBehaviour
 
     public void Accion(GameController controller){
         Casilla.Accion(controller);
-        if(Casilla.Tipo == global::Casilla.LetraMondongo){
-            Color color = gameObject.GetComponent<Image>().color;
-            color.a = 0;
-            gameObject.GetComponent<Image>().color = color;
-        }
+        Color color = gameObject.GetComponent<Image>().color;
+        color.a = 1;
+        gameObject.GetComponent<Image>().color = color;
     }
 
     public void Mondongo(){

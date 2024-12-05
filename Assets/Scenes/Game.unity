@@ -1992,8 +1992,10 @@ RectTransform:
   - {fileID: 1333033507}
   - {fileID: 1805312673}
   - {fileID: 1773127854}
+  - {fileID: 1466475475}
   - {fileID: 1330458609345368398}
   - {fileID: 710881997}
+  - {fileID: 1503548848}
   - {fileID: 1655103654}
   - {fileID: 1039298128}
   - {fileID: 2925317113041490733}
@@ -2085,6 +2087,57 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: (     ;     )
+--- !u!1 &1466475474
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1466475475}
+  - component: {fileID: 1466475476}
+  m_Layer: 0
+  m_Name: VisualCOntroller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1466475475
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1466475474}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -189.6529, y: 38.102905, z: -1.8076692}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1440621890}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1466475476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1466475474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f0667def60148a4699010f86efb20fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mondongo: {fileID: 710881996}
+  PlayerName: {fileID: 1571693785}
+  HabilidadDescr: {fileID: 1274509127}
+  ganador: {fileID: 1503548847}
+  CasillaNombre: {fileID: 1214929560}
+  LetterPrefab: {fileID: 8740243267964394364, guid: e46af91e43f91df45b8a5699743f09a3, type: 3}
+  PlayerLetters: {fileID: 685982888}
 --- !u!1 &1480181851
 GameObject:
   m_ObjectHideFlags: 0
@@ -2159,6 +2212,85 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1480181851}
+  m_CullTransparentMesh: 1
+--- !u!1 &1503548847
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1503548848}
+  - component: {fileID: 1503548850}
+  - component: {fileID: 1503548849}
+  m_Layer: 0
+  m_Name: Ganador
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1503548848
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503548847}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -1.8076692}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1440621890}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 34, y: 58}
+  m_SizeDelta: {x: 1544.874, y: 399.7575}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1503548849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503548847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: ea9cfc11671c90144bb22738c75ae555, type: 3}
+    m_FontSize: 14
+    m_FontStyle: 0
+    m_BestFit: 1
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 
+--- !u!222 &1503548850
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503548847}
   m_CullTransparentMesh: 1
 --- !u!1 &1571693783
 GameObject:
@@ -2737,16 +2869,11 @@ MonoBehaviour:
   Turn: 0
   ObtainedLetters: 0
   Players: {fileID: 3115185408697832041}
-  Mondongo: {fileID: 710881996}
-  PlayerName: {fileID: 1571693785}
-  HabilidadDescr: {fileID: 1274509127}
-  CasillaNombre: {fileID: 1214929560}
-  LetterPrefab: {fileID: 8740243267964394364, guid: e46af91e43f91df45b8a5699743f09a3, type: 3}
-  PlayerLetters: {fileID: 685982888}
   Xcoord: {fileID: 799824563}
   Ycoord: {fileID: 1330558309}
   Jugadores: []
   Maze: {fileID: 1270390324}
+  visual: {fileID: 1466475476}
 --- !u!114 &1773127856
 MonoBehaviour:
   m_ObjectHideFlags: 0

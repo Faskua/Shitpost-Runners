@@ -10,33 +10,17 @@ public class GameController : MonoBehaviour
     public int Turn;
     public int ObtainedLetters;
     public GameObject Players;
-    public GameObject Mondongo;
-    public Text PlayerName;
-    public Text HabilidadDescr;
-    public Text CasillaNombre;
-    public GameObject LetterPrefab;
-    public GameObject PlayerLetters;
     public InputField Xcoord;
     public InputField Ycoord;
     public List<JugadorUN> Jugadores;
     public LaberintoUN Maze;
+    public VisualController visual;
     private AudioController Music;
 
     
     public bool ControlarJugada(int ficha, int fila, int columna){
         if(Jugadores[Turn].jugador.Jugar(ficha, fila, columna, this)){ //mover la ficha desde la logica
-            CasillaNombre.text = Maze.LaberinthCSharp[fila,columna].Mensaje;
-            if(Maze.LaberinthCSharp[fila,columna].Tipo != Casilla.LetraMondongo){
-                Color color = Maze.LabGameObj[fila, columna].GetComponent<Image>().color;
-                color.a = 1;
-                Maze.LabGameObj[fila, columna].GetComponent<Image>().color = color;
-            }
-
-            if(Maze.LaberinthCSharp[fila,columna] is Ducha && Jugadores[Turn].jugador.Fichas[ficha].tipo != TipoFicha.ELChoco) return true;
-
-            Jugadores[Turn].FichasUN[ficha].transform.SetParent(Maze.LabGameObj[fila,columna].transform, true);
-            Jugadores[Turn].FichasUN[ficha].transform.position = Maze.LabGameObj[fila,columna].transform.position; //mover la ficha de forma visual
-            
+            visual.MoverFicha(this, ficha, fila, columna); //moverla en el visual
             return true;
         }  
         return false;
@@ -44,7 +28,7 @@ public class GameController : MonoBehaviour
 
     public void AvanzarTurno(){
         if(ObtainedLetters == 8){  //Condicion de victoria 
-            Mondongo.SetActive(true);
+            visual.Mondongo();
             Music.Mondongo();
             int mayor = 0;
             int ind = 0;
@@ -55,13 +39,11 @@ public class GameController : MonoBehaviour
                     ind = i;
                 }
             }
-            Debug.Log($"EL ganador es {Jugadores[ind].jugador.Nombre}");
+            visual.Ganador(Jugadores[ind].jugador.Nombre);
             return;
         }
         Turn++;
         if(Turn >= Jugadores.Count) Turn = 0; 
-        SetName();
-        TransparentarFichas();
         if(Turn == 0){
             foreach (var jugador in Jugadores)
             {
@@ -74,18 +56,7 @@ public class GameController : MonoBehaviour
             }
         }
         
-        for (int hijo = 0; hijo < PlayerLetters.transform.childCount; hijo++){  Destroy(PlayerLetters.transform.GetChild(hijo).gameObject);  }//destruir las letras del jugador anterior
-        for (int letter = 0; letter < Jugadores[Turn].jugador.LetrasConseguidas.Count; letter++)
-        { //instanciar las del jugador actual
-            InstanciarLetra(Jugadores[Turn].jugador.LetrasConseguidas[letter]);
-        }
-
-        HabilidadDescr.text = "";
-        CasillaNombre.text = "";
-    }
-
-    public void SetName(){
-        PlayerName.text = Jugadores[Turn].Nombre;
+        visual.AvanzarTurno(this);
     }
 
     public void GenerarJugadores(){
@@ -98,32 +69,10 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void TransparentarFichas(){
-        foreach (var ficha in Jugadores[Turn].FichasUN)
-        {
-            ficha.gameObject.GetComponent<CanvasGroup>().alpha = 1; //vuelve completamente visibles las fichas del jugador actual
-        }
-        for (int jugador = 0; jugador < Jugadores.Count; jugador++)
-        {
-            if(jugador == Turn) continue;
-            foreach (var ficha in Jugadores[jugador].FichasUN)
-            {
-                ficha.gameObject.GetComponent<CanvasGroup>().alpha = 0.2f;//transparenta las del resto
-            }
-        }
-    }
-
-    public void InstanciarLetra(char Letra){
-        GameObject letra = Instantiate(LetterPrefab, new Vector2(0,0), Quaternion.identity);
-        letra.GetComponent<Text>().text = Letra.ToString();
-        letra.transform.SetParent(PlayerLetters.transform, false);
-    }
-
 
     void Start(){
         Turn = 0;
         Maze = GameObject.FindGameObjectWithTag("Maze").GetComponent<LaberintoUN>();
-        Mondongo.SetActive(false);
         Music = GameObject.FindGameObjectWithTag("Music").GetComponent<AudioController>();
     }
 

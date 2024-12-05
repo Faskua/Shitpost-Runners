@@ -73,7 +73,7 @@ public abstract class Ficha
             controller.Maze.LaberinthCSharp[posicionAnterior.Item1,posicionAnterior.Item2].FichasEnCasilla.Remove(this); 
             posicion = (fila,columna);
             controller.Maze.LaberinthCSharp[fila,columna].FichasEnCasilla.Add(this);
-            controller.Maze.LaberinthCSharp[fila, columna].Accion(controller); 
+            controller.Maze.LabGameObj[fila, columna].GetComponent<CasillaUN>().Accion(controller); 
             return true;
         }   
         return false;

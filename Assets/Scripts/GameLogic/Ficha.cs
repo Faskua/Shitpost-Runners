@@ -132,7 +132,7 @@ public class RickRoll : Ficha
             controller.Jugadores[jugador].FichasUN[ficha].transform.position = controller.Maze.LabGameObj[fila,columna].transform.position;
 
             controller.Maze.LaberinthCSharp[fila,columna].Accion(controller); //activo la casilla
-            controller.CasillaNombre.text = controller.Maze.LaberinthCSharp[fila,columna].Mensaje;
+            controller.visual.CasillaNombre.text = controller.Maze.LaberinthCSharp[fila,columna].Mensaje;
 
             EnfActual = enfriamiento;
             HabilidadDescrp = $"La ficha {controller.Jugadores[jugador].jugador.Fichas[ficha].tipo} de {controller.Jugadores[jugador].jugador.Nombre} ha sido llevada a la casila ({fila},{columna})";

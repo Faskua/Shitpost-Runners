@@ -27,8 +27,7 @@ public class LetraClave : ICasilla
         if(Letra != '.'){
             fichas.Last().Propietario.LetrasConseguidas.Add(Letra);
             controller.ObtainedLetters++;
-            controller.InstanciarLetra(Letra);
-            Debug.Log($"Letra annadida {Letra}");
+            controller.visual.InstanciarLetra(Letra);
         }
         Letra = '.';
     }
