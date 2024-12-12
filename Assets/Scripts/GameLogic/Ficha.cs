@@ -42,6 +42,7 @@ public class CJ : Ficha
                     this.Propietario.LetrasConseguidas.Add(ficha.Propietario.LetrasConseguidas[ficha.Propietario.LetrasConseguidas.Count - 1]);
                     ficha.Propietario.LetrasConseguidas.RemoveAt(ficha.Propietario.LetrasConseguidas.Count - 1);
                     HabilidadDescrp = $"Letra {Propietario.LetrasConseguidas.Last()} robada";
+                    controller.visual.InstanciarLetra(Propietario.LetrasConseguidas.Last());
                     return;
                 }
                 EnfActual = enfriamiento;

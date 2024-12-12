@@ -14,6 +14,7 @@ public class MakeMove : MonoBehaviour
             if(controller.Jugadores[controller.Turn].jugador.Fichas[ficha].seleccionada){
                 if(!controller.ControlarJugada(ficha, int.Parse(y.text), int.Parse(x.text))){
                     gameObject.GetComponent<Animator>().SetTrigger("Temblar");
+                    controller.Jugadores[controller.Turn].jugador.Fichas[ficha].seleccionada = false;
                 }
                 else {
                     controller.Jugadores[controller.Turn].jugador.Fichas[ficha].seleccionada = false;

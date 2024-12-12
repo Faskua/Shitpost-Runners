@@ -16,10 +16,10 @@ public class CasillaUN : MonoBehaviour
 
 
     public void Accion(GameController controller){
-        Casilla.Accion(controller);
         Color color = gameObject.GetComponent<Image>().color;
         color.a = 1;
         gameObject.GetComponent<Image>().color = color;
+        Casilla.Accion(controller);
     }
 
     public void Mondongo(){

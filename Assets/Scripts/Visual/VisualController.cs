@@ -12,14 +12,28 @@ public class VisualController : MonoBehaviour
     public GameObject ganador;
     public GameObject LetterPrefab;
     public GameObject PlayerLetters;
+    private GameController controller;
+    private int Ficha;
+    private int Fila;
+    private int Columna;
 
     public void MoverFicha(GameController controller, int ficha, int fila, int columna){
+        this.controller = controller;
+        Ficha = ficha;
+        Fila = fila;
+        Columna = columna;
         CasillaNombre.text = controller.Maze.LaberinthCSharp[fila,columna].Mensaje;
 
         if(controller.Maze.LaberinthCSharp[fila,columna] is Ducha && controller.Jugadores[controller.Turn].jugador.Fichas[ficha].tipo != TipoFicha.ELChoco) return;
 
-        controller.Jugadores[controller.Turn].FichasUN[ficha].transform.SetParent(controller.Maze.LabGameObj[fila,columna].transform, false);
-        controller.Jugadores[controller.Turn].FichasUN[ficha].transform.position = controller.Maze.LabGameObj[fila,columna].transform.position;
+        controller.Jugadores[controller.Turn].FichasUN[ficha].GetComponent<Animator>().SetTrigger("Animation");
+        Invoke("movimiento", 0.2f);        
+        //controller.Jugadores[controller.Turn].FichasUN[ficha].GetComponent<Animator>().SetTrigger("Crece");
+    }
+
+    public void movimiento(){
+        controller.Jugadores[controller.Turn].FichasUN[Ficha].transform.SetParent(controller.Maze.LabGameObj[Fila,Columna].transform, false);
+        controller.Jugadores[controller.Turn].FichasUN[Ficha].transform.position = controller.Maze.LabGameObj[Fila,Columna].transform.position;
     }
 
     public void AvanzarTurno(GameController controller){

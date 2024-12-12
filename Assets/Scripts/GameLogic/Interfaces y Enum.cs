@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -53,6 +55,9 @@ public abstract class Ficha
     public Jugador Propietario;
     public abstract TipoFicha tipo { get; }
 
+    private int[] dFil = new int[] { 1, 0, -1, 0};
+    private int[] dCol = new int[] { 0, 1, 0, -1};
+
     public Ficha(Jugador propietario, int vel, int enf){
         Propietario = propietario;
         velocidad = vel;
@@ -65,17 +70,47 @@ public abstract class Ficha
     public bool Jugar(int fila, int columna, GameController controller){
         if(turnosSinJugar == 0)
         {
-            if(controller.Maze.LaberinthCSharp[fila,columna] is Ducha && tipo != TipoFicha.ELChoco){
-                controller.Maze.LaberinthCSharp[fila, columna].Accion(controller); 
+            int minimo = int.MaxValue;
+            Caminar(posicion.Item1, posicion.Item2, fila, columna, controller, 0, velocidad, ref minimo);
+            Debug.Log($"El minimo es: {minimo}");
+            if(minimo <= velocidad){
+                if(controller.Maze.LaberinthCSharp[fila,columna] is Ducha && tipo != TipoFicha.ELChoco){
+                    controller.Maze.LabGameObj[fila, columna].GetComponent<CasillaUN>().Accion(controller); 
+                    return true;
+                }
+                posicionAnterior = posicion;
+                controller.Maze.LaberinthCSharp[posicionAnterior.Item1,posicionAnterior.Item2].FichasEnCasilla.Remove(this); 
+                posicion = (fila,columna);
+                controller.Maze.LaberinthCSharp[fila,columna].FichasEnCasilla.Add(this);
+                controller.Maze.LabGameObj[fila, columna].GetComponent<CasillaUN>().Accion(controller); 
                 return true;
             }
-            posicionAnterior = posicion;
-            controller.Maze.LaberinthCSharp[posicionAnterior.Item1,posicionAnterior.Item2].FichasEnCasilla.Remove(this); 
-            posicion = (fila,columna);
-            controller.Maze.LaberinthCSharp[fila,columna].FichasEnCasilla.Add(this);
-            controller.Maze.LabGameObj[fila, columna].GetComponent<CasillaUN>().Accion(controller); 
-            return true;
+            // if(controller.Maze.LaberinthCSharp[fila,columna] is Ducha && tipo != TipoFicha.ELChoco){
+            //     controller.Maze.LabGameObj[fila, columna].GetComponent<CasillaUN>().Accion(controller); 
+            //     return true;
+            // }
+            // posicionAnterior = posicion;
+            // controller.Maze.LaberinthCSharp[posicionAnterior.Item1,posicionAnterior.Item2].FichasEnCasilla.Remove(this); 
+            // posicion = (fila,columna);
+            // controller.Maze.LaberinthCSharp[fila,columna].FichasEnCasilla.Add(this);
+            // controller.Maze.LabGameObj[fila, columna].GetComponent<CasillaUN>().Accion(controller); 
+            // return true;
         }   
         return false;
+    }
+
+    private void Caminar(int filaAct, int colAct, int fila, int col, GameController controller, int pasos, int velocidad, ref int minimo){
+        if(filaAct == fila && colAct == col){
+            if(pasos <= minimo) minimo = pasos;
+        } 
+        else{
+            for (int i = 0; i < 4; i++)
+            {
+                int sigFila = filaAct+dFil[i];
+                int sigCol = colAct+dCol[i];
+                if(filaAct >= 15 || colAct >= 15 || controller.Maze.LaberinthCSharp[filaAct,colAct].Tipo == Casilla.Obstáculo || pasos == velocidad) return;
+                Caminar(sigFila, sigCol, fila, col, controller, pasos+1, velocidad, ref minimo);
+            }
+        }
     }
 }
