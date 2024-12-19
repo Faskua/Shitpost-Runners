@@ -90,7 +90,7 @@ public class LaberintoUN : MonoBehaviour
                 }
                 if(LaberinthCSharp[fila, col] is LetraClave){  
                     cas.GetComponent<Image>().sprite = Mondongo;
-                    //cas.GetComponent<Image>().color = color;
+                    cas.GetComponent<Image>().color = color;
                 }
                 if(LaberinthCSharp[fila, col] is Zorro){  
                     cas.GetComponent<Image>().sprite = Zorro;  
@@ -159,7 +159,7 @@ public class LaberintoUN : MonoBehaviour
             System.Random random = new System.Random();
             int fila = random.Next(0,15);
             int columna = random.Next(0,15);
-            while(LaberinthCSharp[fila,columna].Tipo == Casilla.Obstáculo || LaberinthCSharp[fila,columna].Tipo == Casilla.LetraMondongo){
+            while(LaberinthCSharp[fila,columna].Tipo == Casilla.Obstaculo || LaberinthCSharp[fila,columna].Tipo == Casilla.LetraMondongo){
                 fila = random.Next(0,15);
                 columna = random.Next(0,15);
             }

@@ -55,7 +55,7 @@ public class Obstaculo : ICasilla //obstaculo, simplemente impide el paso
     */
     List<Ficha> fichas = new List<Ficha>();
     public bool PuedePasar => false;
-    public Casilla Tipo => Casilla.Obstáculo;
+    public Casilla Tipo => Casilla.Obstaculo;
 
     public List<Ficha> FichasEnCasilla { get => fichas; set => fichas = value; }
 
@@ -162,7 +162,7 @@ public class Morfeo : ICasilla
             mensaje = "Velocidad aumentada";
         }
         else{
-            FichasEnCasilla.Last().enfriamiento += 3;
+            FichasEnCasilla.Last().EnfActual += 3;
             mensaje = "Enfriamiento aumentado";
         }
     }
@@ -182,7 +182,7 @@ public class Honguito : ICasilla
 
     public void Accion(GameController controller)
     {
-        fichas.Last().enfriamiento = 0;
+        fichas.Last().EnfActual = 0;
     }
 }
 
@@ -207,16 +207,19 @@ public class Zorro : ICasilla
             char letra = fichas.Last().Propietario.LetrasConseguidas.Last();
             fichas.Last().Propietario.LetrasConseguidas.RemoveAt(fichas.Last().Propietario.LetrasConseguidas.Count - 1);
             System.Random random = new System.Random();
+
             int fila = random.Next(0,15);
             int columna = random.Next(0,15);
-            while(controller.Maze.LaberinthCSharp[fila,columna] is LetraClave){
+            while(controller.Maze.LaberinthCSharp[fila,columna] is LetraClave || controller.Maze.LaberinthCSharp[fila,columna] is Obstaculo){
                 fila = random.Next(0,15);
                 columna = random.Next(0,15);
             }
+
             ICasilla Letra = new LetraClave(letra);
             controller.Maze.LaberinthCSharp[fila,columna] = Letra;
             controller.Maze.LabGameObj[fila,columna].GetComponent<CasillaUN>().Mondongo();
-            Debug.Log($"letra eliminada");
+
+            controller.visual.ActualizarLetra();
         }
     }
 }

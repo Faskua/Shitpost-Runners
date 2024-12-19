@@ -56,7 +56,7 @@ public class GameController : MonoBehaviour
             }
         }
         
-        visual.AvanzarTurno(this);
+        visual.AvanzarTurno();
     }
 
     public void GenerarJugadores(){
@@ -69,11 +69,14 @@ public class GameController : MonoBehaviour
         }
     }
 
+    void Awake(){
+    }
 
     void Start(){
         Turn = 0;
         Maze = GameObject.FindGameObjectWithTag("Maze").GetComponent<LaberintoUN>();
         Music = GameObject.FindGameObjectWithTag("Music").GetComponent<AudioController>();
+        
     }
 
     void GenerarFichas(JugadorUN player){
@@ -123,7 +126,7 @@ public class GameController : MonoBehaviour
             }
             int fila = random.Next(0,15);
             int columna = random.Next(0,15);
-            while(Maze.LaberinthCSharp[fila,columna].Tipo == Casilla.Obstáculo || Maze.LaberinthCSharp[fila,columna].Tipo == Casilla.LetraMondongo || Maze.LaberinthCSharp[fila,columna].FichasEnCasilla.Count >= 1){
+            while(Maze.LaberinthCSharp[fila,columna].Tipo == Casilla.Obstaculo || Maze.LaberinthCSharp[fila,columna].Tipo == Casilla.LetraMondongo || Maze.LaberinthCSharp[fila,columna].FichasEnCasilla.Count >= 1){
                 fila = random.Next(0,15);
                 columna = random.Next(0,15);
             }

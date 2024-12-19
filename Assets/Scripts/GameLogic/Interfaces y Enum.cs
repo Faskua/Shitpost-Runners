@@ -27,7 +27,7 @@ public interface ICasilla
 public enum Casilla
 {
     LetraMondongo,     Vacia,  
-    Obstáculo,      UnConsorteRelajao,
+    Obstaculo,      UnConsorteRelajao,
     Abuelo,         Ducha,  
     Morfeo,            Zorro,
     Honguito
@@ -85,16 +85,6 @@ public abstract class Ficha
                 controller.Maze.LabGameObj[fila, columna].GetComponent<CasillaUN>().Accion(controller); 
                 return true;
             }
-            // if(controller.Maze.LaberinthCSharp[fila,columna] is Ducha && tipo != TipoFicha.ELChoco){
-            //     controller.Maze.LabGameObj[fila, columna].GetComponent<CasillaUN>().Accion(controller); 
-            //     return true;
-            // }
-            // posicionAnterior = posicion;
-            // controller.Maze.LaberinthCSharp[posicionAnterior.Item1,posicionAnterior.Item2].FichasEnCasilla.Remove(this); 
-            // posicion = (fila,columna);
-            // controller.Maze.LaberinthCSharp[fila,columna].FichasEnCasilla.Add(this);
-            // controller.Maze.LabGameObj[fila, columna].GetComponent<CasillaUN>().Accion(controller); 
-            // return true;
         }   
         return false;
     }
@@ -108,7 +98,7 @@ public abstract class Ficha
             {
                 int sigFila = filaAct+dFil[i];
                 int sigCol = colAct+dCol[i];
-                if(filaAct >= 15 || colAct >= 15 || controller.Maze.LaberinthCSharp[filaAct,colAct].Tipo == Casilla.Obstáculo || pasos == velocidad) return;
+                if(filaAct >= 15 || colAct >= 15 || controller.Maze.LaberinthCSharp[filaAct,colAct].Tipo == Casilla.Obstaculo || pasos == velocidad) return;
                 Caminar(sigFila, sigCol, fila, col, controller, pasos+1, velocidad, ref minimo);
             }
         }

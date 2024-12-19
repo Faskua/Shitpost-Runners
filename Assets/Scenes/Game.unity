@@ -2138,6 +2138,7 @@ MonoBehaviour:
   ganador: {fileID: 1503548847}
   LetterPrefab: {fileID: 8740243267964394364, guid: e46af91e43f91df45b8a5699743f09a3, type: 3}
   PlayerLetters: {fileID: 685982888}
+  controller: {fileID: 1773127855}
 --- !u!1 &1480181851
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,10 +12,14 @@ public class VisualController : MonoBehaviour
     public GameObject ganador;
     public GameObject LetterPrefab;
     public GameObject PlayerLetters;
-    private GameController controller;
+    public GameController controller;
     private int Ficha;
     private int Fila;
     private int Columna;
+
+    public VisualController(GameController contr){
+        controller = contr;
+    }
 
     public void MoverFicha(GameController controller, int ficha, int fila, int columna){
         this.controller = controller;
@@ -29,7 +33,6 @@ public class VisualController : MonoBehaviour
         controller.Jugadores[controller.Turn].FichasUN[ficha].GetComponent<Animator>().SetTrigger("Animation");
         controller.Jugadores[controller.Turn].FichasUN[ficha].GetComponent<AudioSource>().Play();
         Invoke("movimiento", 0.2f);        
-        //controller.Jugadores[controller.Turn].FichasUN[ficha].GetComponent<Animator>().SetTrigger("Crece");
     }
 
     public void movimiento(){
@@ -37,10 +40,10 @@ public class VisualController : MonoBehaviour
         controller.Jugadores[controller.Turn].FichasUN[Ficha].transform.position = controller.Maze.LabGameObj[Fila,Columna].transform.position;
     }
 
-    public void AvanzarTurno(GameController controller){
-        SetName(controller);
-        TransparentarFichas(controller);
-        ActualizarLetra(controller);
+    public void AvanzarTurno(){
+        SetName();
+        TransparentarFichas();
+        ActualizarLetra();
         CasillaNombre.text = "";
         HabilidadDescr.text = "";
     }
@@ -54,14 +57,16 @@ public class VisualController : MonoBehaviour
         ganador.SetActive(true);
     }
 
-    public void SetName(GameController controller){
+    public void SetName(){
         PlayerName.text = controller.Jugadores[controller.Turn].Nombre;
     }
 
-    public void TransparentarFichas(GameController controller){
+    public void TransparentarFichas(){
         foreach (var ficha in controller.Jugadores[controller.Turn].FichasUN)
         {
             ficha.gameObject.GetComponent<CanvasGroup>().alpha = 1; //vuelve completamente visibles las fichas del jugador actual
+            ficha.gameObject.GetComponent<CanvasGroup>().interactable = true;
+            ficha.gameObject.GetComponent<CanvasGroup>().blocksRaycasts = true;
         }
         for (int jugador = 0; jugador < controller.Jugadores.Count; jugador++)
         {
@@ -69,6 +74,8 @@ public class VisualController : MonoBehaviour
             foreach (var ficha in controller.Jugadores[jugador].FichasUN)
             {
                 ficha.gameObject.GetComponent<CanvasGroup>().alpha = 0.2f;//transparenta las del resto
+                ficha.gameObject.GetComponent<CanvasGroup>().interactable = false;
+                ficha.gameObject.GetComponent<CanvasGroup>().blocksRaycasts = false;
             }
         }
     }
@@ -79,15 +86,12 @@ public class VisualController : MonoBehaviour
         letra.transform.SetParent(PlayerLetters.transform, false);
     }
 
-    public void ActualizarLetra(GameController controller){
+    public void ActualizarLetra(){
         for (int hijo = 0; hijo < PlayerLetters.transform.childCount; hijo++){  Destroy(PlayerLetters.transform.GetChild(hijo).gameObject);  }//destruir las letras del jugador anterior
         for (int letter = 0; letter < controller.Jugadores[controller.Turn].jugador.LetrasConseguidas.Count; letter++)
         { //instanciar las del jugador actual
             InstanciarLetra(controller.Jugadores[controller.Turn].jugador.LetrasConseguidas[letter]);
         }
-
-        HabilidadDescr.text = "";
-        CasillaNombre.text = "";
     }
     
     void Start()

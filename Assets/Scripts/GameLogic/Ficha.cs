@@ -108,7 +108,8 @@ public class RickRoll : Ficha
     {
         if(EnfActual <= 0){
             System.Random random = new System.Random();
-            int jugador = random.Next(0, controller.Jugadores.Count - 1);
+            int jugador = random.Next(0, controller.Jugadores.Count);
+            while(controller.Jugadores[jugador].Nombre == Propietario.Nombre){   jugador = random.Next(0, controller.Jugadores.Count - 1);   }
             int fila = random.Next(0,15);
             int columna = random.Next(0,15);
             int ficha = random.Next(0,5);
@@ -118,7 +119,7 @@ public class RickRoll : Ficha
                 return;
             }
 
-            while(controller.Maze.LaberinthCSharp[fila, columna].Tipo == Casilla.LetraMondongo || controller.Maze.LaberinthCSharp[fila, columna].Tipo == Casilla.Obstáculo){ //eligiendo una casilla 
+            while(controller.Maze.LaberinthCSharp[fila, columna].Tipo == Casilla.LetraMondongo || controller.Maze.LaberinthCSharp[fila, columna].Tipo == Casilla.Obstaculo){ //eligiendo una casilla 
                 fila = random.Next(0,15);
                 columna = random.Next(0,15);
             }
@@ -129,7 +130,7 @@ public class RickRoll : Ficha
             controller.Maze.LaberinthCSharp[posicionAnt.Item1,posicionAnt.Item2].FichasEnCasilla.Remove(controller.Jugadores[jugador].jugador.Fichas[ficha]); //elimino la ficha de la posicion anterior
             controller.Maze.LaberinthCSharp[fila,columna].FichasEnCasilla.Add(controller.Jugadores[jugador].jugador.Fichas[ficha]); //la anado a la nueva
 
-            controller.Jugadores[jugador].FichasUN[ficha].transform.SetParent(controller.Maze.LabGameObj[fila,columna].transform, false); //moviendola en lo visual
+            controller.Jugadores[jugador].FichasUN[ficha].transform.SetParent(controller.Maze.LabGameObj[fila,columna].transform, true); //moviendola en lo visual
             controller.Jugadores[jugador].FichasUN[ficha].transform.position = controller.Maze.LabGameObj[fila,columna].transform.position;
 
             controller.Maze.LaberinthCSharp[fila,columna].Accion(controller); //activo la casilla
