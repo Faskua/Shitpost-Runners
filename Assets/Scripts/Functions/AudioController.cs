@@ -19,6 +19,11 @@ public class AudioController : MonoBehaviour
 
     public void Stop() => source.Stop();
 
+    public void Skip(){
+        source.clip = audios[index++];
+        source.Play();
+    }
+
     void Start()
     {
         source = gameObject.GetComponent<AudioSource>();
@@ -34,8 +39,7 @@ public class AudioController : MonoBehaviour
             Shuffle();
         }
         if(!source.isPlaying){
-            source.clip = audios[index++];
-            source.Play();
+            Skip();
         }   
     }
 
