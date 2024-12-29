@@ -7,6 +7,8 @@ using UnityEngine;
 public class LetraClave : ICasilla
 {
     char Letra { get; set; }
+    private int fila; 
+    private int col;
     
     List<Ficha> fichas = new List<Ficha>();
 
@@ -22,6 +24,10 @@ public class LetraClave : ICasilla
 
     public string Mensaje => "Junto a otras siete letras forman un meme tan poderoso que destruira el laberinto";
 
+    public int Fila { get => fila; set => fila = value; }
+    public int Col { get => col; set => col = value; }
+
+
     public void Accion(GameController controller)
     {
         if(Letra != '.'){
@@ -35,6 +41,8 @@ public class LetraClave : ICasilla
 
 public class Vacia : ICasilla
 {
+    private int fila; 
+    private int col;
     List<Ficha> fichas = new List<Ficha>();
     public bool PuedePasar => true;
     public Casilla Tipo => Casilla.Vacia;
@@ -42,6 +50,9 @@ public class Vacia : ICasilla
     public List<Ficha> FichasEnCasilla { get => fichas; set => fichas = value; }
 
     public string Mensaje => $"Casilla Vacia";
+
+    public int Fila { get => fila; set => fila = value; }
+    public int Col { get => col; set => col = value; }
 
     public void Accion(GameController controller){
     }
@@ -53,6 +64,8 @@ public class Obstaculo : ICasilla //obstaculo, simplemente impide el paso
         Una prueba de logica salvaje se ha cruzado en tu camino y no te dejara aprobarla
         Los truhanes no te dejaran pasar
     */
+    private int fila; 
+    private int col;
     List<Ficha> fichas = new List<Ficha>();
     public bool PuedePasar => false;
     public Casilla Tipo => Casilla.Obstaculo;
@@ -60,6 +73,9 @@ public class Obstaculo : ICasilla //obstaculo, simplemente impide el paso
     public List<Ficha> FichasEnCasilla { get => fichas; set => fichas = value; }
 
     public string Mensaje => "Por aquí no se pasa tanque";
+
+    public int Fila { get => fila; set => fila = value; }
+    public int Col { get => col; set => col = value; }
 
     public void Accion(GameController controller){
     }
@@ -70,6 +86,8 @@ public class ChillGuy : ICasilla
     /*
         Se pegara a ti explicandote el lore de berserk y reducira tu velocidad en 1 (no hace nada si solo tienes 1 de velocidad)
     */
+    private int fila; 
+    private int col;
     List<Ficha> fichas = new List<Ficha>();
     public bool PuedePasar => true;
     public Casilla Tipo => Casilla.UnConsorteRelajao;
@@ -77,6 +95,8 @@ public class ChillGuy : ICasilla
     public List<Ficha> FichasEnCasilla { get => fichas; set => fichas = value; }
 
     public string Mensaje => "Usted es un consorte relajao, no te hace falta ir mandao. Velocidad--";
+    public int Fila { get => fila; set => fila = value; }
+    public int Col { get => col; set => col = value; }
 
     public void Accion(GameController controller)
     {
@@ -91,6 +111,8 @@ public class Abuelito : ICasilla
         Tu abuelito no entiende todos estos memes a su alrededor, tendras que quedarte 
         con el por un par de turnos para explicarle
     */
+    private int fila; 
+    private int col;
     List<Ficha> fichas = new List<Ficha>();
     public bool PuedePasar => true;
     public Casilla Tipo => Casilla.Abuelo;
@@ -98,6 +120,8 @@ public class Abuelito : ICasilla
     public List<Ficha> FichasEnCasilla { get => fichas; set => fichas = value; }
 
     public string Mensaje => "Vas a tener que explicarle los memes al puro. Esta ficha no puede moverse por dos turnos";
+    public int Fila { get => fila; set => fila = value; }
+    public int Col { get => col; set => col = value; }
 
     public void Accion(GameController controller)
     {
@@ -114,11 +138,15 @@ public class Ducha : ICasilla
     /*
         Superalo, no te bannas, la ducha te perseguira hasta la casilla de la que vienes
     */
+    private int fila; 
+    private int col;
     List<Ficha> fichas = new List<Ficha>();
     public bool PuedePasar => true;
     public Casilla Tipo => Casilla.Ducha;
     public List<Ficha> FichasEnCasilla { get => fichas; set => fichas = value; }
     public string Mensaje => mensaje;
+    public int Fila { get => fila; set => fila = value; }
+    public int Col { get => col; set => col = value; }
     private string mensaje;
 
     public void Accion(GameController controller)
@@ -141,6 +169,8 @@ public class Morfeo : ICasilla
         Esta vez morfeo hara la desicion por ti y eligira entre
         aumentar tu velocidad o disminuirla
     */
+    private int fila; 
+    private int col;
     List<Ficha> fichas = new List<Ficha>();
     public bool PuedePasar => true;
     public Casilla Tipo => Casilla.Morfeo;
@@ -148,6 +178,8 @@ public class Morfeo : ICasilla
     public List<Ficha> FichasEnCasilla { get => fichas; set => fichas = value; }
 
     public string Mensaje => $"Esta vez morfeo hara la desicion por ti. {mensaje}";
+    public int Fila { get => fila; set => fila = value; }
+    public int Col { get => col; set => col = value; }
     private string mensaje = "";
 
     public void Accion(GameController controller)
@@ -173,12 +205,16 @@ public class Honguito : ICasilla
     /*
         Come este graciosillo hongo y recupera la habilidad de la ficha(nintendo me va a demandar)
     */
+    private int fila; 
+    private int col;
     List<Ficha> fichas = new List<Ficha>();
     public bool PuedePasar => true;
     public Casilla Tipo => Casilla.Honguito;
     public List<Ficha> FichasEnCasilla { get => fichas; set => fichas = value; }
 
     public string Mensaje => "Come este graciosillo hongo y recupera la habilidad de la ficha(nintendo me va a demandar)";
+    public int Fila { get => fila; set => fila = value; }
+    public int Col { get => col; set => col = value; }
 
     public void Accion(GameController controller)
     {
@@ -186,40 +222,54 @@ public class Honguito : ICasilla
     }
 }
 
-public class Zorro : ICasilla
+public class Ojo : ICasilla
 {
     /*
         El zorro te quitara una letra(si tienes) y la tirara en algun lado del laberinto(es abakua)
     */
+    private int fila; 
+    private int col;
     List<Ficha> fichas = new List<Ficha>();
     public bool PuedePasar => true;
     public Casilla Tipo => Casilla.Zorro;
     public List<Ficha> FichasEnCasilla { get => fichas; set => fichas = value; }
 
-    public string Mensaje => "Zorro ya no entiende de no te lo lleves y te quita una letra (si tienes)";
+    public string Mensaje => "Ojo desbloquea las casillas cercanas a ella";
+    public int Fila { get => fila; set => fila = value; }
+    public int Col { get => col; set => col = value; }
 
     public void Accion(GameController controller)
     {
-        if(fichas.Last().tipo == TipoFicha.ELChoco){
-            return;
-        }
-        if(fichas.Last().Propietario.LetrasConseguidas.Count > 0){
-            char letra = fichas.Last().Propietario.LetrasConseguidas.Last();
-            fichas.Last().Propietario.LetrasConseguidas.RemoveAt(fichas.Last().Propietario.LetrasConseguidas.Count - 1);
-            System.Random random = new System.Random();
+        // if(fichas.Last().tipo == TipoFicha.ELChoco){
+        //     return;
+        // }
+        // if(fichas.Last().Propietario.LetrasConseguidas.Count > 0){
+        //     char letra = fichas.Last().Propietario.LetrasConseguidas.Last();
+        //     fichas.Last().Propietario.LetrasConseguidas.RemoveAt(fichas.Last().Propietario.LetrasConseguidas.Count - 1);
+        //     System.Random random = new System.Random();
 
-            int fila = random.Next(0,15);
-            int columna = random.Next(0,15);
-            while(controller.Maze.LaberinthCSharp[fila,columna] is LetraClave || controller.Maze.LaberinthCSharp[fila,columna] is Obstaculo){
-                fila = random.Next(0,15);
-                columna = random.Next(0,15);
-            }
+        //     int fila = random.Next(0,15);
+        //     int columna = random.Next(0,15);
+        //     while(controller.Maze.LaberinthCSharp[fila,columna] is LetraClave || controller.Maze.LaberinthCSharp[fila,columna] is Obstaculo){
+        //         fila = random.Next(0,15);
+        //         columna = random.Next(0,15);
+        //     }
 
-            ICasilla Letra = new LetraClave(letra);
-            controller.Maze.LaberinthCSharp[fila,columna] = Letra;
-            controller.Maze.LabGameObj[fila,columna].GetComponent<CasillaUN>().Mondongo();
+        //     ICasilla Letra = new LetraClave(letra);
+        //     controller.Maze.LaberinthCSharp[fila,columna] = Letra;
+        //     controller.Maze.LabGameObj[fila,columna].GetComponent<CasillaUN>().Mondongo();
 
-            controller.visual.ActualizarLetra();
+        //     controller.visual.ActualizarLetra();
+        // }
+
+        int[] x = {0, 1, 0, -1};
+        int[] y = {1, 0, -1, 0};
+
+        for (int i = 0; i < 4; i++)
+        {
+            int fila = this.Fila + y[i];
+            int col = this.Col + x[i];
+            if(fila < 15 && fila >=0 && col < 15 && col >= 0) controller.Maze.LabGameObj[fila, col].GetComponent<CasillaUN>().Visible();
         }
     }
 }

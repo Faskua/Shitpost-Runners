@@ -10,10 +10,10 @@ public class LaberintoUN : MonoBehaviour
     public Sprite Obstaculo;
     public Sprite ChillGuy;
     public Sprite Abuelito;
-    public Sprite Ducha;
+    public Sprite AmongUs;
     public Sprite Morfeo;
     public Sprite Honguito;
-    public Sprite Zorro;
+    public Sprite Ojo;
     public Sprite Nulo;
     public Sprite Mondongo;
     public ICasilla[,] LaberinthCSharp;
@@ -77,7 +77,7 @@ public class LaberintoUN : MonoBehaviour
                     cas.GetComponent<Image>().color = color;
                 }
                 if(LaberinthCSharp[fila, col] is Ducha){  
-                    cas.GetComponent<Image>().sprite = Ducha;  
+                    cas.GetComponent<Image>().sprite = AmongUs;  
                     cas.GetComponent<Image>().color = color;
                 }
                 if(LaberinthCSharp[fila, col] is Morfeo){  
@@ -92,9 +92,9 @@ public class LaberintoUN : MonoBehaviour
                     cas.GetComponent<Image>().sprite = Mondongo;
                     cas.GetComponent<Image>().color = color;
                 }
-                if(LaberinthCSharp[fila, col] is Zorro){  
-                    cas.GetComponent<Image>().sprite = Zorro;  
-                    cas.GetComponent<Image>().color = color;
+                if(LaberinthCSharp[fila, col] is Ojo){  
+                    cas.GetComponent<Image>().sprite = Ojo;  
+                    //cas.GetComponent<Image>().color = color;
                 }
                 if(LaberinthCSharp[fila, col] is Vacia){  
                     cas.GetComponent<Image>().sprite = Nulo;  
@@ -106,7 +106,7 @@ public class LaberintoUN : MonoBehaviour
     }
 
     private void AbrirCaminos(int x, int y){
-        LaberinthCSharp[x,y] = GenerarCasilla();
+        LaberinthCSharp[x,y] = GenerarCasilla(y, x);
         ShuffleDirections();
         foreach (var direction in Directions)
         {
@@ -114,13 +114,13 @@ public class LaberintoUN : MonoBehaviour
             int newY = y + direction.Item2;
 
             if(newX >= 1 && newX < 14 && newY >= 1 && newY < 14 && LaberinthCSharp[newX,newY] is Obstaculo){
-                LaberinthCSharp[newX - direction.Item1/2, newY - direction.Item2/2] = GenerarCasilla();
+                LaberinthCSharp[newX - direction.Item1/2, newY - direction.Item2/2] = GenerarCasilla(y, x);
                 AbrirCaminos(newX, newY);
             }
         }
     }
 
-    ICasilla GenerarCasilla(){
+    ICasilla GenerarCasilla(int fila, int col){
         ICasilla casilla = new Vacia();
         System.Random random = new System.Random();
         int Posibilidad= random.Next(1, 8);
@@ -142,13 +142,14 @@ public class LaberintoUN : MonoBehaviour
                 casilla = new Honguito();
             break;
             case 7:
-                int chance = random.Next(0,3);
-                if(chance == 1) casilla = new Zorro();
+                casilla = new Ojo();
             break;
             default:
                 casilla = new Vacia();
             break;
         }
+        casilla.Fila = fila;
+        casilla.Col = col;
         return casilla;
     }
 

@@ -109,13 +109,13 @@ public class RickRoll : Ficha
         if(EnfActual <= 0){
             System.Random random = new System.Random();
             int jugador = random.Next(0, controller.Jugadores.Count);
-            while(controller.Jugadores[jugador].Nombre == Propietario.Nombre){   jugador = random.Next(0, controller.Jugadores.Count - 1);   }
+            while(controller.Jugadores[jugador].Nombre == Propietario.Nombre && controller.Jugadores.Count > 1){   jugador = random.Next(0, controller.Jugadores.Count - 1);   }
             int fila = random.Next(0,15);
             int columna = random.Next(0,15);
             int ficha = random.Next(0,5);
 
             if(controller.Jugadores[jugador].jugador.Fichas[ficha].tipo == TipoFicha.StarMan){
-                Debug.Log("La Habilidad no tiene efecto sobre Starman");
+                HabilidadDescrp = "La Habilidad no tiene efecto sobre Starman";
                 return;
             }
 
@@ -137,7 +137,7 @@ public class RickRoll : Ficha
             controller.visual.CasillaNombre.text = controller.Maze.LaberinthCSharp[fila,columna].Mensaje;
 
             EnfActual = enfriamiento;
-            HabilidadDescrp = $"La ficha {controller.Jugadores[jugador].jugador.Fichas[ficha].tipo} de {controller.Jugadores[jugador].jugador.Nombre} ha sido llevada a la casila ({fila},{columna})";
+            HabilidadDescrp = $"La ficha {controller.Jugadores[jugador].jugador.Fichas[ficha].tipo} de {controller.Jugadores[jugador].jugador.Nombre} ha sido llevada a la casila ({columna},{fila})";
         }
             
     }

@@ -1478,10 +1478,10 @@ MonoBehaviour:
   Obstaculo: {fileID: 21300000, guid: 9bc724ad8e04b344885f734538ebfe7b, type: 3}
   ChillGuy: {fileID: 21300000, guid: 8df86bab6a9775e4aa7329483ae8b28b, type: 3}
   Abuelito: {fileID: 21300000, guid: ae952a0e81ed3b2438f9341343abd268, type: 3}
-  Ducha: {fileID: 21300000, guid: 8ac0827ed16a9bf43a239df6b77093b7, type: 3}
+  AmongUs: {fileID: 21300000, guid: dbd85646a911f5a46b3e4f974b91017e, type: 3}
   Morfeo: {fileID: 21300000, guid: 925fbaeadee6d8b40adfdfadc550841d, type: 3}
   Honguito: {fileID: 21300000, guid: 2291bdf3efb681443b4feb75c17b5295, type: 3}
-  Zorro: {fileID: 21300000, guid: 02deb9fd87216384ca06cbf41f295eeb, type: 3}
+  Ojo: {fileID: 21300000, guid: 378e2a55f94f31b46b3417da225c194f, type: 3}
   Nulo: {fileID: 21300000, guid: ccaf18f650f97ee4d9fe62c8c2931a83, type: 3}
   Mondongo: {fileID: 21300000, guid: d48e5e7bad9241f42a3fbeed703e5b08, type: 3}
   casillaPrefab: {fileID: 4915952735489006859, guid: 2672973e8b47be045b5ed029d973c130, type: 3}

@@ -16,6 +16,8 @@ public interface IJugador
 
 public interface ICasilla
 {
+    int Fila { get; set; }
+    int Col { get; set; }
     bool PuedePasar { get; }
     string Mensaje { get; }
     Casilla Tipo { get; }

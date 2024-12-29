@@ -12,17 +12,16 @@ public class CasillaUN : MonoBehaviour
     public int Columna;
     public Casilla Tipo => Casilla.Tipo;
     public List<GameObject> Fichas = new List<GameObject>();
-    public Sprite mondongo;
 
 
     public void Accion(GameController controller){
-        Color color = gameObject.GetComponent<Image>().color;
-        color.a = 1;
-        gameObject.GetComponent<Image>().color = color;
+        Visible();
         Casilla.Accion(controller);
     }
 
-    public void Mondongo(){
-        gameObject.GetComponent<Image>().sprite = mondongo;
+    public void Visible(){
+        Color color = gameObject.GetComponent<Image>().color;
+        color.a = 1;
+        gameObject.GetComponent<Image>().color = color;
     }
 }
