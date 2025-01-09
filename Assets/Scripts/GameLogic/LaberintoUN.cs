@@ -76,7 +76,7 @@ public class LaberintoUN : MonoBehaviour
                     cas.GetComponent<Image>().sprite = Abuelito;  
                     cas.GetComponent<Image>().color = color;
                 }
-                if(LaberinthCSharp[fila, col] is Ducha){  
+                if(LaberinthCSharp[fila, col] is AmongUs){  
                     cas.GetComponent<Image>().sprite = AmongUs;  
                     cas.GetComponent<Image>().color = color;
                 }
@@ -94,7 +94,7 @@ public class LaberintoUN : MonoBehaviour
                 }
                 if(LaberinthCSharp[fila, col] is Ojo){  
                     cas.GetComponent<Image>().sprite = Ojo;  
-                    //cas.GetComponent<Image>().color = color;
+                    cas.GetComponent<Image>().color = color;
                 }
                 if(LaberinthCSharp[fila, col] is Vacia){  
                     cas.GetComponent<Image>().sprite = Nulo;  
@@ -106,7 +106,7 @@ public class LaberintoUN : MonoBehaviour
     }
 
     private void AbrirCaminos(int x, int y){
-        LaberinthCSharp[x,y] = GenerarCasilla(y, x);
+        LaberinthCSharp[x,y] = GenerarCasilla(x, y);
         ShuffleDirections();
         foreach (var direction in Directions)
         {
@@ -114,7 +114,7 @@ public class LaberintoUN : MonoBehaviour
             int newY = y + direction.Item2;
 
             if(newX >= 1 && newX < 14 && newY >= 1 && newY < 14 && LaberinthCSharp[newX,newY] is Obstaculo){
-                LaberinthCSharp[newX - direction.Item1/2, newY - direction.Item2/2] = GenerarCasilla(y, x);
+                LaberinthCSharp[newX - direction.Item1/2, newY - direction.Item2/2] = GenerarCasilla(newX - direction.Item1/2, newY - direction.Item2/2);
                 AbrirCaminos(newX, newY);
             }
         }
@@ -133,7 +133,7 @@ public class LaberintoUN : MonoBehaviour
                 casilla = new Abuelito();
             break;
             case 4:
-                casilla = new Ducha();
+                casilla = new AmongUs();
             break;
             case 5:
                 casilla = new Morfeo();

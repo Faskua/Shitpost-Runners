@@ -66,7 +66,7 @@ public class UNE : Ficha
         {
             System.Random random = new System.Random();
             int objetivo = random.Next(0, controller.Jugadores.Count);
-            while(Propietario.Nombre == controller.Jugadores[objetivo].Nombre)  objetivo = random.Next(0, controller.Jugadores.Count);
+            while(Propietario.Nombre == controller.Jugadores[objetivo].Nombre && controller.Jugadores.Count > 1)  objetivo = random.Next(0, controller.Jugadores.Count);
             controller.Jugadores[objetivo].jugador.TurnosSinJugar += 2;
             EnfActual = enfriamiento;
             HabilidadDescrp = $"{controller.Jugadores[objetivo].jugador.Nombre} no va a tener luz por 2 turnos";
@@ -124,10 +124,8 @@ public class RickRoll : Ficha
                 columna = random.Next(0,15);
             }
 
-            controller.Jugadores[jugador].jugador.Fichas[ficha].posicionAnterior = controller.Jugadores[jugador].jugador.Fichas[ficha].posicion; //moviendola en la logica
+            controller.Maze.LaberinthCSharp[posicion.Item1,posicion.Item2].FichasEnCasilla.Remove(controller.Jugadores[jugador].jugador.Fichas[ficha]); //elimino la ficha de la posicion anterior
             controller.Jugadores[jugador].jugador.Fichas[ficha].posicion = (fila, columna); 
-            (int, int) posicionAnt = controller.Jugadores[jugador].jugador.Fichas[ficha].posicionAnterior;
-            controller.Maze.LaberinthCSharp[posicionAnt.Item1,posicionAnt.Item2].FichasEnCasilla.Remove(controller.Jugadores[jugador].jugador.Fichas[ficha]); //elimino la ficha de la posicion anterior
             controller.Maze.LaberinthCSharp[fila,columna].FichasEnCasilla.Add(controller.Jugadores[jugador].jugador.Fichas[ficha]); //la anado a la nueva
 
             controller.Jugadores[jugador].FichasUN[ficha].transform.SetParent(controller.Maze.LabGameObj[fila,columna].transform, true); //moviendola en lo visual

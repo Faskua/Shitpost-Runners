@@ -16,9 +16,6 @@ public class FichaUN : MonoBehaviour
             habilidadDesc.text = ficha.HabilidadDescrp;
         }
     }
-    public void Seleccionar(){
-        ficha.seleccionada = true;
-    }
 
     void Start(){
         habilidadDesc = GameObject.Find("FichaHabilidad").GetComponent<Text>();

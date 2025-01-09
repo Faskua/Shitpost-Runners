@@ -10,8 +10,6 @@ public class GameController : MonoBehaviour
     public int Turn;
     public int ObtainedLetters;
     public GameObject Players;
-    public InputField Xcoord;
-    public InputField Ycoord;
     public List<JugadorUN> Jugadores;
     public LaberintoUN Maze;
     public VisualController visual;
@@ -67,9 +65,6 @@ public class GameController : MonoBehaviour
             Players.transform.GetChild(i).GetComponent<JugadorUN>().GenerateFichasUN(this);  //genero las del unity
             Jugadores.Add(Players.transform.GetChild(i).GetComponent<JugadorUN>());  // lo annado a los jugadores del game controller
         }
-    }
-
-    void Awake(){
     }
 
     void Start(){

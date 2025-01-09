@@ -6,19 +6,10 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public interface IJugador
-{
-    string Nombre { get; set; }
-    bool LeToca { get; set; }
-    List<char> LetrasConseguidas { get; set; }
-    List<Ficha> Fichas { get; set; }
-}
-
 public interface ICasilla
 {
     int Fila { get; set; }
     int Col { get; set; }
-    bool PuedePasar { get; }
     string Mensaje { get; }
     Casilla Tipo { get; }
     List<Ficha> FichasEnCasilla { get; set; }
@@ -30,7 +21,7 @@ public enum Casilla
 {
     LetraMondongo,     Vacia,  
     Obstaculo,      UnConsorteRelajao,
-    Abuelo,         Ducha,  
+    Abuelo,         AmongUs,  
     Morfeo,            Zorro,
     Honguito
 }
@@ -53,7 +44,6 @@ public abstract class Ficha
     public string HabilidadDescrp = "";
     public virtual string Descripcion { get; }
     public (int, int) posicion;
-    public (int, int) posicionAnterior;
     public Jugador Propietario;
     public abstract TipoFicha tipo { get; }
 
@@ -74,19 +64,18 @@ public abstract class Ficha
         {
             int minimo = int.MaxValue;
             Caminar(posicion.Item1, posicion.Item2, fila, columna, controller, 0, velocidad, ref minimo);
-            Debug.Log($"El minimo es: {minimo}");
             if(minimo <= velocidad){
-                if(controller.Maze.LaberinthCSharp[fila,columna] is Ducha && tipo != TipoFicha.ELChoco){
+                if(controller.Maze.LaberinthCSharp[fila,columna].Tipo is Casilla.AmongUs && tipo != TipoFicha.ELChoco){
                     controller.Maze.LabGameObj[fila, columna].GetComponent<CasillaUN>().Accion(controller); 
                     return true;
                 }
-                posicionAnterior = posicion;
-                controller.Maze.LaberinthCSharp[posicionAnterior.Item1,posicionAnterior.Item2].FichasEnCasilla.Remove(this); 
+                controller.Maze.LaberinthCSharp[posicion.Item1,posicion.Item2].FichasEnCasilla.Remove(this); 
                 posicion = (fila,columna);
                 controller.Maze.LaberinthCSharp[fila,columna].FichasEnCasilla.Add(this);
                 controller.Maze.LabGameObj[fila, columna].GetComponent<CasillaUN>().Accion(controller); 
                 return true;
             }
+            else return false;
         }   
         return false;
     }

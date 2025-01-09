@@ -17,12 +17,21 @@ public class ScenesManager : MonoBehaviour
         Invoke("Menu", 1);
     }
 
+    public void AnimTuto(){
+        SceneLoader.SetTrigger("Start");
+        Invoke("Tuto", 1);
+    }
+
     public void Exit(){
         Application.Quit();
     }
 
     void Game(){
         SceneManager.LoadScene(1);
+    }
+
+    void Tuto(){
+        SceneManager.LoadScene(2);
     }
 
     void Menu(){

@@ -28,7 +28,7 @@ public class VisualController : MonoBehaviour
         Columna = columna;
         CasillaNombre.text = controller.Maze.LaberinthCSharp[fila,columna].Mensaje;
 
-        if(controller.Maze.LaberinthCSharp[fila,columna] is Ducha && controller.Jugadores[controller.Turn].jugador.Fichas[ficha].tipo != TipoFicha.ELChoco) return;
+        if(controller.Maze.LaberinthCSharp[fila,columna] is AmongUs && controller.Jugadores[controller.Turn].jugador.Fichas[ficha].tipo != TipoFicha.ELChoco) return;
 
         controller.Jugadores[controller.Turn].FichasUN[ficha].GetComponent<Animator>().SetTrigger("Animation");
         controller.Jugadores[controller.Turn].FichasUN[ficha].GetComponent<AudioSource>().Play();

@@ -8,7 +8,6 @@ public class JugadorUN : MonoBehaviour
 {
     public string Nombre { get => jugador.Nombre; set => jugador.Nombre = value; }
     public GameObject FichasPrefab;
-    public Canvas PlayerPiecesHolder;
     public Jugador jugador { get; set; }
     public bool seleccionado;
     public List<GameObject> FichasUN;
