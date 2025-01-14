@@ -7,6 +7,7 @@ public class FichaUN : MonoBehaviour
 {
     public Ficha ficha;
     public TipoFicha Tipo => ficha.tipo;
+    public bool Seleccionada => ficha.seleccionada;
     private Text habilidadDesc;
 
     public void Habilidad(){
@@ -16,6 +17,8 @@ public class FichaUN : MonoBehaviour
             habilidadDesc.text = ficha.HabilidadDescrp;
         }
     }
+
+    public void Seleccionar() => ficha.seleccionada = true;
 
     void Start(){
         habilidadDesc = GameObject.Find("FichaHabilidad").GetComponent<Text>();
