@@ -167,6 +167,7 @@ public class Doge : Ficha
     {
         if(EnfActual <= 0){
             int fila = posicion.Item1;
+            int vel = this.velocidad;
             for (int columna = 0; columna < 15; columna++)
             {
                 if(controller.Maze.LaberinthCSharp[fila,columna].FichasEnCasilla.Count > 0){
@@ -178,7 +179,7 @@ public class Doge : Ficha
                     }
                 }
             }
-            velocidad++;
+            this.velocidad = vel;
             EnfActual = enfriamiento;
             HabilidadDescrp = $"A todas las fichas en la fila {fila} se les ha disminuido hasta 2 puntos en velocidad";
         }

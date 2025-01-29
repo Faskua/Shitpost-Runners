@@ -18,7 +18,13 @@ public class FichaUN : MonoBehaviour
         }
     }
 
-    public void Seleccionar() => ficha.seleccionada = true;
+    public void Seleccionar(){
+        foreach (var ficha in ficha.Propietario.Fichas)
+        {
+            ficha.seleccionada = false;
+        }
+        ficha.seleccionada = true;
+    }
 
     void Start(){
         habilidadDesc = GameObject.Find("FichaHabilidad").GetComponent<Text>();

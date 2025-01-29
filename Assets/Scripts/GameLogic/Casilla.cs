@@ -30,6 +30,7 @@ public class LetraClave : ICasilla
     public void Accion(GameController controller)
     {
         if(Letra != '.'){
+            if(FichasEnCasilla == null) Debug.Log("es null");
             FichasEnCasilla.Last().Propietario.LetrasConseguidas.Add(Letra);
             controller.ObtainedLetters++;
             controller.visual.InstanciarLetra(Letra);

@@ -165,6 +165,7 @@ public class LaberintoUN : MonoBehaviour
                 columna = random.Next(0,15);
             }
             ICasilla cas = new LetraClave(Letras[letra]);
+            cas.FichasEnCasilla = new List<Ficha>();
             LaberinthCSharp[fila,columna] = cas;
         }
     }

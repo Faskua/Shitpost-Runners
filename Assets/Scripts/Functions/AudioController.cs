@@ -11,7 +11,7 @@ public class AudioController : MonoBehaviour
     private int index = 0;
 
     public void Mondongo(){
-        Stop();
+        source.Stop();
         source.clip = mondongo;
         source.loop = false;
         source.Play();
@@ -20,13 +20,27 @@ public class AudioController : MonoBehaviour
     public void Stop() => source.Stop();
 
     public void Skip(){
-        source.clip = audios[index++];
+        if(index == audios.Count - 1) index = -1;
+        index += 1;
+        source.clip = audios[index];
         source.Play();
+    }
+
+    void Awake() 
+    {
+        if(source != null) 
+        {
+            Destroy(gameObject);
+        }
+        else 
+        {
+            DontDestroyOnLoad(this.gameObject); 
+            source = GetComponent<AudioSource>();
+        }
     }
 
     void Start()
     {
-        source = gameObject.GetComponent<AudioSource>();
         Shuffle();
         index = 0;
         source.clip = audios[index++];

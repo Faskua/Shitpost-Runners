@@ -81,6 +81,10 @@ public abstract class Ficha
     }
 
     private void Caminar(int filaAct, int colAct, int fila, int col, GameController controller, int pasos, int velocidad, ref int minimo){
+        if(controller.Maze.LaberinthCSharp[fila, col].Tipo == Casilla.Obstaculo){
+            minimo = int.MaxValue;
+            return;
+        }
         if(filaAct == fila && colAct == col){
             if(pasos <= minimo) minimo = pasos;
         } 
