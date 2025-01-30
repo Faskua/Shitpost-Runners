@@ -6844,7 +6844,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Para crear a tu personaje debes hacer click derecho sobre uno de estos
+  m_Text: 'Para crear a tu personaje debes hacer click izquierdo sobre uno de estos
     dinosaurios. Luego ingresar tu nombre y seleccionar el boton de "Agregar Jugador".
 
     Para

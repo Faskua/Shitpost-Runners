@@ -20,6 +20,7 @@ public class McQueen : Ficha
             EnfActual = 4;
             HabilidadDescrp = "Velocidad aumentada";
         }
+        else HabilidadDescrp = $"Habilidad gastada, espera {EnfActual} turnos";
     }
 }
 
@@ -49,6 +50,7 @@ public class CJ : Ficha
             }
             HabilidadDescrp = "You just had to steal the damm letter CJ!!";
         }
+        else HabilidadDescrp = $"Habilidad gastada, espera {EnfActual} turnos";
     }
 }
 
@@ -71,6 +73,7 @@ public class UNE : Ficha
             EnfActual = enfriamiento;
             HabilidadDescrp = $"{controller.Jugadores[objetivo].jugador.Nombre} no va a tener luz por 2 turnos";
         }
+        else HabilidadDescrp = $"Habilidad gastada, espera {EnfActual} turnos";
     }
 }
 
@@ -93,6 +96,7 @@ public class Knuckles : Ficha
             EnfActual = enfriamiento;
             HabilidadDescrp = $"Las fichas de {Propietario.Nombre} tienen hasta dos turnos menos de enfriamiento";
         }
+        else HabilidadDescrp = $"Habilidad gastada, espera {EnfActual} turnos";
     }
 }
 
@@ -131,13 +135,13 @@ public class RickRoll : Ficha
             controller.Jugadores[jugador].FichasUN[ficha].transform.SetParent(controller.Maze.LabGameObj[fila,columna].transform, true); //moviendola en lo visual
             controller.Jugadores[jugador].FichasUN[ficha].transform.position = controller.Maze.LabGameObj[fila,columna].transform.position;
 
-            controller.Maze.LaberinthCSharp[fila,columna].Accion(controller); //activo la casilla
+            controller.Maze.LabGameObj[fila,columna].GetComponent<CasillaUN>().Accion(controller); //activo la casilla
             controller.visual.CasillaNombre.text = controller.Maze.LaberinthCSharp[fila,columna].Mensaje;
 
             EnfActual = enfriamiento;
             HabilidadDescrp = $"La ficha {controller.Jugadores[jugador].jugador.Fichas[ficha].tipo} de {controller.Jugadores[jugador].jugador.Nombre} ha sido llevada a la casila ({columna},{fila})";
         }
-            
+        else HabilidadDescrp = $"Habilidad gastada, espera {EnfActual} turnos";  
     }
 }
 
@@ -183,6 +187,7 @@ public class Doge : Ficha
             EnfActual = enfriamiento;
             HabilidadDescrp = $"A todas las fichas en la fila {fila} se les ha disminuido hasta 2 puntos en velocidad";
         }
+        else HabilidadDescrp = $"Habilidad gastada, espera {EnfActual} turnos";
     }
 }
 
@@ -190,7 +195,7 @@ public class ELChoco : Ficha
 {
     public ELChoco(Jugador prop) : base(prop, 4, 0) {}
 
-    public override string Descripcion => $"EL CHOCO \n Velocidad: {this.velocidad}, Enfriamiento: {this.EnfActual}. Al choco no hay trampa que le haga daño";
+    public override string Descripcion => $"EL CHOCO \n Velocidad: {this.velocidad}, Enfriamiento: {this.EnfActual}. Al Rey del reparto las trampas no le hacen nada, todavia no tiene la boca llena de hormigas";
 
     public override TipoFicha tipo => TipoFicha.ELChoco;
 

@@ -179,7 +179,7 @@ public class Morfeo : ICasilla
     public void Accion(GameController controller)
     {
         if(FichasEnCasilla.Last().tipo == TipoFicha.ELChoco){
-            mensaje = "Pero no le puede hcaer nada al Choco";
+            mensaje = "Pero no le puede hacer nada al Choco";
             return;
         }
         System.Random random = new System.Random();
