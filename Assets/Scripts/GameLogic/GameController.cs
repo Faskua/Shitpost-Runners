@@ -9,22 +9,29 @@ public class GameController : MonoBehaviour
 {
     public int Turn;
     public int ObtainedLetters;
+    public bool started = false;
     public GameObject Players;
     public List<JugadorUN> Jugadores;
     public LaberintoUN Maze;
     public VisualController visual;
     private AudioController Music;
+    private bool IA = false;
 
     
     public bool ControlarJugada(int ficha, int fila, int columna){
+        Debug.Log("Aun no entra");
         if(Jugadores[Turn].jugador.Jugar(ficha, fila, columna, this)){ //mover la ficha desde la logica
+            Debug.Log("Hace la jugada");
             visual.MoverFicha(this, ficha, fila, columna); //moverla en el visual
+            IA = false;
+            //if(Jugadores[Turn].jugador is not Jugador)      Invoke("AvanzarTurno", 2);
             return true;
         }  
         return false;
     }
 
     public void AvanzarTurno(){
+        IA = false;
         if(ObtainedLetters == 8){  //Condicion de victoria 
             visual.Mondongo();
             Music.Mondongo();
@@ -71,7 +78,8 @@ public class GameController : MonoBehaviour
         Turn = 0;
         Maze = GameObject.FindGameObjectWithTag("Maze").GetComponent<LaberintoUN>();
         Music = GameObject.FindGameObjectWithTag("Music").GetComponent<AudioController>();
-        
+        IA = false;
+        started = false;
     }
 
     void GenerarFichas(JugadorUN player){
@@ -127,6 +135,15 @@ public class GameController : MonoBehaviour
             }
             ficha.posicion = (fila, columna);
             player.jugador.Fichas.Add(ficha);
+        }
+    }
+
+    void Update(){
+        if(started){
+            if(Jugadores[Turn].jugador is not Jugador && !IA){
+                IA = true;
+                ControlarJugada(0,0,0);
+            }
         }
     }
 }

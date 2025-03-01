@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,6 +13,7 @@ public class SelectPlayers : MonoBehaviour
     public GameObject Characters;
     public GameObject Players;
     public InputField Name;
+    public TMP_Dropdown drop;
 
     public void Crear(){
         if(Blue.GetComponent<JugadorUN>().jugador == null && Blue.GetComponent<JugadorUN>().seleccionado){
@@ -45,7 +47,19 @@ public class SelectPlayers : MonoBehaviour
     }
 
     public void Mover(GameObject objetivo){
-        objetivo.GetComponent<JugadorUN>().jugador = new Jugador(Name.text);
+        int index = drop.value;
+        switch (index)
+        {
+            case 1:
+                objetivo.GetComponent<JugadorUN>().jugador = new Principiante(Name.text);
+                Debug.Log(drop.captionText.text);
+                break;
+            default:
+                objetivo.GetComponent<JugadorUN>().jugador = new Jugador(Name.text);
+                Debug.Log(drop.captionText.text);
+                break;
+        }
+        
         objetivo.transform.SetParent(Players.transform, false);
         objetivo.GetComponent<JugadorUN>().seleccionado = false;
         objetivo.GetComponent<Animator>().SetTrigger("Correr");

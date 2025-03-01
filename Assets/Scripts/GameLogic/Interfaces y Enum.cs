@@ -44,13 +44,13 @@ public abstract class Ficha
     public string HabilidadDescrp = "";
     public virtual string Descripcion { get; }
     public (int, int) posicion;
-    public Jugador Propietario;
+    public IJugador Propietario;
     public abstract TipoFicha tipo { get; }
 
     private int[] dFil = new int[] { 1, 0, -1, 0};
     private int[] dCol = new int[] { 0, 1, 0, -1};
 
-    public Ficha(Jugador propietario, int vel, int enf){
+    public Ficha(IJugador propietario, int vel, int enf){
         Propietario = propietario;
         velocidad = vel;
         enfriamiento = enf;
@@ -98,4 +98,14 @@ public abstract class Ficha
             }
         }
     }
+}
+
+public interface IJugador
+{
+    public int TurnosSinJugar { get; set; }
+    public List<Ficha> Fichas { get; set;}
+    public string Nombre { get; set; }
+    public List<char> LetrasConseguidas { get; set; }
+
+    public bool Jugar(int ficha, int fila, int columna, GameController controller);
 }

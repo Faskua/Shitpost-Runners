@@ -14,6 +14,7 @@ public class ToGame : MonoBehaviour
     }
 
     public void Game(){
+        controller.started = true;
         Players.transform.SetParent(PlayersHolder.transform, true);
         Players.transform.position = PlayersHolder.transform.position;
         Creador.SetActive(false);

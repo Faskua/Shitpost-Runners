@@ -61,6 +61,10 @@ public class VisualController : MonoBehaviour
         PlayerName.text = controller.Jugadores[controller.Turn].Nombre;
     }
 
+    public void SetHabilidad(string text){
+        HabilidadDescr.text = text;
+    }
+
     public void TransparentarFichas(){
         foreach (var ficha in controller.Jugadores[controller.Turn].FichasUN)
         {

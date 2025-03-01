@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class McQueen : Ficha
 {
-    public McQueen(Jugador prop) : base(prop, 4, 4) {}
+    public McQueen(IJugador prop) : base(prop, 4, 4) {}
 
     public override string Descripcion => $"McQUEEN \nVelocidad: {this.velocidad}, Enfriamiento: {this.EnfActual}. Aumenta su propia velocidad en 1. Cuchau";
 
@@ -26,7 +26,7 @@ public class McQueen : Ficha
 
 public class CJ : Ficha
 {
-    public CJ(Jugador prop) : base(prop, 2, 7) {}
+    public CJ(IJugador prop) : base(prop, 2, 7) {}
 
     public override string Descripcion => $"CJ \n Velocidad: {this.velocidad}, Enfriamiento: {this.EnfActual}. Si comparte casilla con otra ficha le roba una letra a su propietario";
 
@@ -56,7 +56,7 @@ public class CJ : Ficha
 
 public class UNE : Ficha
 {
-    public UNE(Jugador prop) : base(prop, 3, 6) {}
+    public UNE(IJugador prop) : base(prop, 3, 6) {}
 
     public override string Descripcion => $"UNE \n Velocidad: {this.velocidad}, Enfriamiento: {this.EnfActual}. Le quita la luz a un jugador al azar y no podra jugar por dos turnos (incluyendo a Starman)";
 
@@ -79,7 +79,7 @@ public class UNE : Ficha
 
 public class Knuckles : Ficha
 {
-    public Knuckles(Jugador prop) : base(prop, 3, 4) {}
+    public Knuckles(IJugador prop) : base(prop, 3, 4) {}
 
     public override string Descripcion => $"KNUCKLES \n Velocidad: {this.velocidad}, Enfriamiento: {this.EnfActual}. Le resta dos turnos de enfriamiento al resto de fichas de su propietario";
 
@@ -102,7 +102,7 @@ public class Knuckles : Ficha
 
 public class RickRoll : Ficha
 {
-    public RickRoll(Jugador prop) : base(prop, 5, 3) {}
+    public RickRoll(IJugador prop) : base(prop, 5, 3) {}
 
     public override string Descripcion => $"RICKROLL \n Velocidad: {this.velocidad}, Enfriamiento: {this.EnfActual}. Toma una ficha al azar de un jugador al azar y la manda a un lugar al azar :)";
 
@@ -147,7 +147,7 @@ public class RickRoll : Ficha
 
 public class StarMan : Ficha
 {
-    public StarMan(Jugador prop) : base(prop, 4, 0) {}
+    public StarMan(IJugador prop) : base(prop, 4, 0) {}
 
     public override string Descripcion => $"STARMAN \n Velocidad: {this.velocidad}, Enfriamiento: {this.EnfActual}. Es inmune a las habilidades del resto de fichas";
 
@@ -161,7 +161,7 @@ public class StarMan : Ficha
 
 public class Doge : Ficha
 {
-    public Doge(Jugador prop) : base(prop, 3, 5) {}
+    public Doge(IJugador prop) : base(prop, 3, 5) {}
 
     public override string Descripcion => $"DOGUE \n Velocidad: {this.velocidad}, Enfriamiento: {this.EnfActual}. De una galleta le baja hasta 2 puntos en velocidad al resto fichas en su fila";
 
@@ -193,7 +193,7 @@ public class Doge : Ficha
 
 public class ELChoco : Ficha
 {
-    public ELChoco(Jugador prop) : base(prop, 4, 0) {}
+    public ELChoco(IJugador prop) : base(prop, 4, 0) {}
 
     public override string Descripcion => $"EL CHOCO \n Velocidad: {this.velocidad}, Enfriamiento: {this.EnfActual}. Al Rey del reparto las trampas no le hacen nada, todavia no tiene la boca llena de hormigas";
 

@@ -14,7 +14,7 @@ public class FichaUN : MonoBehaviour
         if(Input.GetMouseButtonUp(1)){
             GameController controller = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameController>();
             ficha.Habilidad(controller);
-            habilidadDesc.text = ficha.HabilidadDescrp;
+            controller.visual.SetHabilidad(ficha.HabilidadDescrp);
         }
     }
 
