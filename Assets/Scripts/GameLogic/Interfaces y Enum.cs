@@ -64,11 +64,13 @@ public abstract class Ficha
         {
             int minimo = int.MaxValue;
             Caminar(posicion.Item1, posicion.Item2, fila, columna, controller, 0, velocidad, ref minimo);
+            Debug.Log("cant de pasos: " + minimo);
             if(minimo <= velocidad){
                 if(controller.Maze.LaberinthCSharp[fila,columna].Tipo is Casilla.AmongUs && tipo != TipoFicha.ELChoco){
                     controller.Maze.LabGameObj[fila, columna].GetComponent<CasillaUN>().Accion(controller); 
                     return true;
                 }
+                Debug.Log($"La casilla es {controller.Maze.LaberinthCSharp[fila,columna].Tipo.ToString()}");
                 controller.Maze.LaberinthCSharp[posicion.Item1,posicion.Item2].FichasEnCasilla.Remove(this); 
                 posicion = (fila,columna);
                 controller.Maze.LaberinthCSharp[fila,columna].FichasEnCasilla.Add(this);
@@ -107,5 +109,5 @@ public interface IJugador
     public string Nombre { get; set; }
     public List<char> LetrasConseguidas { get; set; }
 
-    public bool Jugar(int ficha, int fila, int columna, GameController controller);
+    public bool Jugar(ref int ficha, ref int fila, ref int columna, GameController controller);
 }

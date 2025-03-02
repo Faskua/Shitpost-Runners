@@ -15,7 +15,7 @@ public class Jugador : IJugador
         TurnosSinJugar = 0;
     }
 
-    public bool Jugar(int ficha, int fila, int columna, GameController controller){ 
+    public bool Jugar( ref int ficha, ref  int fila, ref int columna, GameController controller){ 
         if(TurnosSinJugar == 0){
             return Fichas[ficha].Jugar(fila, columna, controller);
         }
@@ -37,43 +37,64 @@ class Principiante : IJugador
         TurnosSinJugar = 0;
     }
 
-    public bool Jugar(int ficha, int fila, int columna, GameController controller){ 
+    public bool Jugar( ref int ficha, ref  int fila, ref int columna, GameController controller){ 
         if(TurnosSinJugar != 0) return false;
         System.Random random = new System.Random();
-        int Ficha = random.Next(0, Fichas.Count);
+        ficha = random.Next(0, Fichas.Count);
         int contador = 0;
-        while(Fichas[Ficha].turnosSinJugar != 0 && contador < 15){ //eligiendo la ficha a usar
-            Ficha = random.Next(0, Fichas.Count);
+        while(Fichas[ficha].turnosSinJugar != 0 && contador < 15){ //eligiendo la ficha a usar
+            ficha = random.Next(0, Fichas.Count);
             contador++;
         }    
         if(contador >= 15) return false;  //no se puede usar ninguna ficha
-        int Fila = Fichas[Ficha].posicion.Item1;
-        int Col = Fichas[Ficha].posicion.Item2;
 
-        if(Fichas[Ficha]. EnfActual == 0){
-            Fichas[Ficha].Habilidad(controller);
-            controller.visual.SetHabilidad(Fichas[Ficha].HabilidadDescrp);
+        fila = Fichas[ficha].posicion.Item1;
+        columna = Fichas[ficha].posicion.Item2;
+        int vel = random.Next(1, Fichas[ficha].velocidad+1);
+
+        ElegirCasilla(vel, controller, ref fila, ref columna);
+
+        if(Fichas[ficha]. EnfActual == 0){
+            Fichas[ficha].Habilidad(controller);
+            controller.visual.SetHabilidad(Fichas[ficha].HabilidadDescrp);
         } 
 
-        do{     //eligiendo la casilla destino
-            Fila = Fichas[Ficha].posicion.Item1;
-            Col = Fichas[Ficha].posicion.Item2;
+        Debug.Log($"Antes estaba en la posicion ({Fichas[ficha].posicion.Item2},{Fichas[ficha].posicion.Item1})");
+        Debug.Log($"Juega la ficha {Fichas[ficha].tipo.ToString()} en ({columna}, {fila})");
+        return Fichas[ficha].Jugar(fila, columna, controller);
+    }
 
-            int PasosRestantes = Fichas[Ficha].velocidad;
-            int Vertical = random.Next(0, PasosRestantes+1);
-            PasosRestantes -= Vertical;
-            int Horizontal = random.Next(0, PasosRestantes+1);
-            int direction = random.Next(0, 2);
-            if(direction == 0) Vertical *= -1;
-            direction = random.Next(0, 2);
-            if(direction == 0) Horizontal *= -1;
-
-            Fila += Vertical;
-            Col += Horizontal;
+    public void ElegirCasilla(int pasos, GameController controller, ref int fila, ref int col){
+        Debug.Log("supuesta cantidad de pasos: " + pasos);
+        System.Random random = new System.Random();
+        int filaAct = fila;
+        int colAct = col;
+        for (int i = pasos; i > 0 ; i--)
+        {
+            do{
+                int direction = random.Next(0, 4);
+                filaAct = fila;
+                colAct = col;
+                switch (direction)
+                {
+                    case 0:
+                        filaAct++;
+                        break;
+                    case 1:
+                        colAct++;
+                        break;
+                    case 2:
+                        filaAct--;
+                        break;
+                    default:
+                        colAct--;
+                        break;
+                }
+                //Debug.Log($"({colAct}, {filaAct})");
+            }
+            while(filaAct > 14 || filaAct < 0 || colAct > 14 || colAct < 0 || controller.Maze.LaberinthCSharp[filaAct,colAct].Tipo == Casilla.Obstaculo);
+            fila = filaAct;
+            col = colAct;
         }
-        while(Fila >= 15 || Col >= 15 || Fila < 0 || Col < 0 || controller.Maze.LaberinthCSharp[Fila,Col].Tipo == Casilla.Obstaculo); 
-
-        Debug.Log($"Juega la ficha {Fichas[Ficha].tipo.ToString()} en ({Col}, {Fila})");
-        return Fichas[Ficha].Jugar(Fila, Col, controller);
     }
 }

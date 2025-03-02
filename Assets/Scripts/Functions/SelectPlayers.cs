@@ -52,11 +52,9 @@ public class SelectPlayers : MonoBehaviour
         {
             case 1:
                 objetivo.GetComponent<JugadorUN>().jugador = new Principiante(Name.text);
-                Debug.Log(drop.captionText.text);
                 break;
             default:
                 objetivo.GetComponent<JugadorUN>().jugador = new Jugador(Name.text);
-                Debug.Log(drop.captionText.text);
                 break;
         }
         

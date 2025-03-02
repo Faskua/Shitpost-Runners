@@ -19,20 +19,20 @@ public class GameController : MonoBehaviour
 
     
     public bool ControlarJugada(int ficha, int fila, int columna){
-        Debug.Log("Aun no entra");
-        if(Jugadores[Turn].jugador.Jugar(ficha, fila, columna, this)){ //mover la ficha desde la logica
-            Debug.Log("Hace la jugada");
+        if(Jugadores[Turn].jugador.Jugar(ref ficha, ref fila, ref columna, this)){ //mover la ficha desde la logica
+            //Debug.Log($"ficha: {Jugadores[Turn].jugador.Fichas[ficha].tipo}, fila: {fila}, columna: {columna}");
             visual.MoverFicha(this, ficha, fila, columna); //moverla en el visual
-            IA = false;
-            //if(Jugadores[Turn].jugador is not Jugador)      Invoke("AvanzarTurno", 2);
+            if(Jugadores[Turn].jugador is not Jugador)      Invoke("AvanzarTurno", 2);
             return true;
         }  
+        else if(Jugadores[Turn].jugador is not Jugador)      Invoke("AvanzarTurno", 2);
         return false;
     }
 
     public void AvanzarTurno(){
         IA = false;
         if(ObtainedLetters == 8){  //Condicion de victoria 
+            started = false;
             visual.Mondongo();
             Music.Mondongo();
             int mayor = 0;
@@ -138,11 +138,13 @@ public class GameController : MonoBehaviour
         }
     }
 
+    void InvokeJugada() => ControlarJugada(0,0,0);
+
     void Update(){
         if(started){
             if(Jugadores[Turn].jugador is not Jugador && !IA){
                 IA = true;
-                ControlarJugada(0,0,0);
+                Invoke("InvokeJugada", 1);
             }
         }
     }
