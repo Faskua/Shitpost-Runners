@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class LetraClave : ICasilla
 {
-    char Letra { get; set; }
+    public char Letra { get; set; }
 
     public LetraClave(char letra){
         Letra = letra;
@@ -30,7 +30,6 @@ public class LetraClave : ICasilla
     public void Accion(GameController controller)
     {
         if(Letra != '.'){
-            if(FichasEnCasilla == null) Debug.Log("es null");
             FichasEnCasilla.Last().Propietario.LetrasConseguidas.Add(Letra);
             controller.ObtainedLetters++;
             controller.visual.InstanciarLetra(Letra);

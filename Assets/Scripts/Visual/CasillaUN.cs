@@ -11,13 +11,15 @@ public class CasillaUN : MonoBehaviour
     public int Fila;
     public int Columna;
     public Casilla Tipo => Casilla.Tipo;
-    public List<GameObject> Fichas = new List<GameObject>();
 
 
     public void Accion(GameController controller){
         Visible();
+        if(Casilla.Tipo is global::Casilla.LetraMondongo){
+            if((Casilla as LetraClave).Letra != '.')    ChangeColor();
+        } 
         Casilla.Accion(controller);
-        if(Casilla.Tipo is global::Casilla.LetraMondongo) GoGreen();
+        
     }
 
     public void Visible(){
@@ -26,11 +28,26 @@ public class CasillaUN : MonoBehaviour
         gameObject.GetComponent<Image>().color = color;
     }
 
-    void GoGreen(){
+    void ChangeColor(){
         Color color = gameObject.GetComponent<Image>().color;
-        color.g = 120;
+        color.g = 0;
         color.b = 0;
         color.r = 0;
+        switch(Casilla.FichasEnCasilla[Casilla.FichasEnCasilla.Count-1].Propietario.Tipo){
+            case TipoJugador.Rojo:
+                color.r = 255;
+            break;
+            case TipoJugador.Azul:
+                color.b = 255;
+            break;
+            case TipoJugador.Amarillo:
+                color.r = 255;
+                color.g = 255;
+            break;
+            default:
+                color.g = 120;
+            break;
+        }
         gameObject.GetComponent<Image>().color = color;
     }
 }

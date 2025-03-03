@@ -17,16 +17,16 @@ public class SelectPlayers : MonoBehaviour
 
     public void Crear(){
         if(Blue.GetComponent<JugadorUN>().jugador == null && Blue.GetComponent<JugadorUN>().seleccionado){
-            Mover(Blue);
+            Mover(Blue, TipoJugador.Azul);
         }
         else if(Red.GetComponent<JugadorUN>().jugador == null && Red.GetComponent<JugadorUN>().seleccionado){
-            Mover(Red);
+            Mover(Red, TipoJugador.Rojo);
         }
         else if(Yellow.GetComponent<JugadorUN>().jugador == null && Yellow.GetComponent<JugadorUN>().seleccionado){
-            Mover(Yellow);
+            Mover(Yellow, TipoJugador.Amarillo);
         }
         else if(Green.GetComponent<JugadorUN>().jugador == null && Green.GetComponent<JugadorUN>().seleccionado){
-            Mover(Green);
+            Mover(Green, TipoJugador.Verde);
         }
         Name.text = "";
     }
@@ -46,15 +46,15 @@ public class SelectPlayers : MonoBehaviour
         }
     }
 
-    public void Mover(GameObject objetivo){
+    public void Mover(GameObject objetivo, TipoJugador tipo){
         int index = drop.value;
         switch (index)
         {
             case 1:
-                objetivo.GetComponent<JugadorUN>().jugador = new Principiante(Name.text);
+                objetivo.GetComponent<JugadorUN>().jugador = new Principiante(Name.text, tipo);
                 break;
             default:
-                objetivo.GetComponent<JugadorUN>().jugador = new Jugador(Name.text);
+                objetivo.GetComponent<JugadorUN>().jugador = new Jugador(Name.text, tipo);
                 break;
         }
         

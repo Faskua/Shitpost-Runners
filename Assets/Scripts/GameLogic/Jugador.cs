@@ -6,11 +6,13 @@ public class Jugador : IJugador
     public int TurnosSinJugar { get; set; }
     public List<Ficha> Fichas { get; set;}
     public string Nombre { get; set; }
+    public TipoJugador Tipo { get; set; }
     public List<char> LetrasConseguidas { get; set; }
 
-    public Jugador(string nombre){
+    public Jugador(string nombre, TipoJugador tipo){
         Fichas = new List<Ficha>();
-        this.Nombre = nombre;
+        Nombre = nombre;
+        Tipo = tipo;
         LetrasConseguidas = new List<char>();
         TurnosSinJugar = 0;
     }
@@ -28,11 +30,13 @@ class Principiante : IJugador
     public int TurnosSinJugar { get; set; }
     public List<Ficha> Fichas { get; set;}
     public string Nombre { get; set; }
+    public TipoJugador Tipo { get; set; }
     public List<char> LetrasConseguidas { get; set; }
 
-    public Principiante(string nombre){
+    public Principiante(string nombre, TipoJugador tipo){
         Fichas = new List<Ficha>();
-        this.Nombre = nombre;
+        Nombre = nombre;
+        Tipo = tipo;
         LetrasConseguidas = new List<char>();
         TurnosSinJugar = 0;
     }
@@ -58,14 +62,11 @@ class Principiante : IJugador
             Fichas[ficha].Habilidad(controller);
             controller.visual.SetHabilidad(Fichas[ficha].HabilidadDescrp);
         } 
-
-        Debug.Log($"Antes estaba en la posicion ({Fichas[ficha].posicion.Item2},{Fichas[ficha].posicion.Item1})");
-        Debug.Log($"Juega la ficha {Fichas[ficha].tipo.ToString()} en ({columna}, {fila})");
+        
         return Fichas[ficha].Jugar(fila, columna, controller);
     }
 
     public void ElegirCasilla(int pasos, GameController controller, ref int fila, ref int col){
-        Debug.Log("supuesta cantidad de pasos: " + pasos);
         System.Random random = new System.Random();
         int filaAct = fila;
         int colAct = col;
