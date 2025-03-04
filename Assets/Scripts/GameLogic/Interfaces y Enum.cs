@@ -10,7 +10,8 @@ public interface ICasilla
 {
     int Fila { get; set; }
     int Col { get; set; }
-    string Mensaje { get; }
+    string Mensaje { get; set; }
+    bool Visitada { get; set; }
     Casilla Tipo { get; }
     List<Ficha> FichasEnCasilla { get; set; }
 

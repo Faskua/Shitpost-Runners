@@ -90,7 +90,7 @@ public class LaberintoUN : MonoBehaviour
                 }
                 if(LaberinthCSharp[fila, col] is LetraClave){  
                     cas.GetComponent<Image>().sprite = Mondongo;
-                    //cas.GetComponent<Image>().color = color;
+                    cas.GetComponent<Image>().color = color;
                 }
                 if(LaberinthCSharp[fila, col] is Ojo){  
                     cas.GetComponent<Image>().sprite = Ojo;  

@@ -15,9 +15,7 @@ public class CasillaUN : MonoBehaviour
 
     public void Accion(GameController controller){
         Visible();
-        if(Casilla.Tipo is global::Casilla.LetraMondongo){
-            if((Casilla as LetraClave).Letra != '.')    ChangeColor();
-        } 
+        if(Casilla.Tipo is global::Casilla.LetraMondongo && !Casilla.Visitada)  ChangeColor();
         Casilla.Accion(controller);
         
     }

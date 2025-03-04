@@ -17,24 +17,26 @@ public class LetraClave : ICasilla
     public List<Ficha> FichasEnCasilla { get; set; }
     public string Descripcion { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
-    public string Mensaje => "Junto a otras siete letras forman un meme tan poderoso que destruira el laberinto";
+    public string Mensaje { get => "Junto a otras siete letras forman un meme tan poderoso que destruira el laberinto"; set => Mensaje = value;}
 
     public int Fila { get; set; }
     public int Col { get; set; }
+    public bool Visitada{ get; set; }
 
     public LetraClave(){
+        Visitada = false;
         FichasEnCasilla = new List<Ficha>();
     }
 
 
     public void Accion(GameController controller)
     {
-        if(Letra != '.'){
+        if(!Visitada){
             FichasEnCasilla.Last().Propietario.LetrasConseguidas.Add(Letra);
             controller.ObtainedLetters++;
             controller.visual.InstanciarLetra(Letra);
         }
-        Letra = '.';
+        Visitada = true;
     }
 }
 
@@ -44,193 +46,194 @@ public class Vacia : ICasilla
 
     public List<Ficha> FichasEnCasilla { get; set; }
 
-    public string Mensaje => $"Casilla Vacia";
+    public string Mensaje { get => $"Casilla Vacia"; set => Mensaje = value; }
 
     public int Fila { get; set; }
     public int Col { get; set; }
+    public bool Visitada{ get; set; }
     public Vacia(){
+        Visitada = false;
         FichasEnCasilla = new List<Ficha>();
     }
 
-    public void Accion(GameController controller){
+    public void Accion(GameController controller){ Visitada = true;
     }
 }
 
 public class Obstaculo : ICasilla //obstaculo, simplemente impide el paso
 {
-    /*
-        Una prueba de logica salvaje se ha cruzado en tu camino y no te dejara aprobarla
-        Los truhanes no te dejaran pasar
-    */
     public Casilla Tipo => Casilla.Obstaculo;
 
     public List<Ficha> FichasEnCasilla { get; set; }
 
-    public string Mensaje => "Por aquí no se pasa tanque";
+    public string Mensaje { get => "Por aquí no se pasa tanque"; set => Mensaje = value; }
 
     public int Fila { get; set; }
     public int Col { get; set; }
+    public bool Visitada{ get; set; }
     public Obstaculo(){
+        Visitada = false;
         FichasEnCasilla = new List<Ficha>();
     }
 
-    public void Accion(GameController controller){
+    public void Accion(GameController controller){  Visitada = true;
     }
 }
 
 public class ChillGuy : ICasilla
 {
-    /*
-        Se pegara a ti explicandote el lore de berserk y reducira tu velocidad en 1 (no hace nada si solo tienes 1 de velocidad)
-    */
     public Casilla Tipo => Casilla.UnConsorteRelajao;
 
     public List<Ficha> FichasEnCasilla { get; set; }
 
-    public string Mensaje => "Usted es un consorte relajao, no te hace falta ir mandao. Velocidad--";
+    public string Mensaje { get; set; }
     public int Fila { get; set; }
     public int Col { get; set; }
+    public bool Visitada{ get; set; }
 
     public ChillGuy(){
+        Visitada = false;
         FichasEnCasilla = new List<Ficha>();
     }
 
     public void Accion(GameController controller)
     {
-        if(FichasEnCasilla.Last().tipo == TipoFicha.ELChoco)  return;
+        Visitada = true;
+        if(FichasEnCasilla.Last().tipo == TipoFicha.ELChoco){
+            Mensaje = "El Choco no tiene freno";
+            return;
+        } 
+        else Mensaje =  "Usted es un consorte relajao, no te hace falta ir mandao. Velocidad--";
         if(FichasEnCasilla.Last().velocidad > 1) FichasEnCasilla.Last().velocidad--;
     }
 }
 
 public class Abuelito : ICasilla
 {
-    /*
-        Tu abuelito no entiende todos estos memes a su alrededor, tendras que quedarte 
-        con el por un par de turnos para explicarle
-    */
     public Casilla Tipo => Casilla.Abuelo;
 
     public List<Ficha> FichasEnCasilla { get; set; }
 
-    public string Mensaje => "Vas a tener que explicarle los memes al puro. Esta ficha no puede moverse por dos turnos";
+    public string Mensaje { get; set; }
     public int Fila { get; set; }
     public int Col { get; set; }
+    public bool Visitada{ get; set; }
 
     public Abuelito(){
+        Visitada = false;
         FichasEnCasilla = new List<Ficha>();
     }
 
     public void Accion(GameController controller)
     {
+        Visitada = true;
         if(FichasEnCasilla.Last().tipo == TipoFicha.ELChoco){
+            Mensaje = "El Choco no pierde el tiempo con gente de la tercera edad";
             return;
         }
+        else Mensaje = "Vas a tener que explicarle los memes al puro. Esta ficha no puede moverse por dos turnos";
         FichasEnCasilla.Last().turnosSinJugar += 2;
     }
 }
 
 public class AmongUs : ICasilla
 {
-    /*
-        Superalo, no te bannas, la ducha te perseguira hasta la casilla de la que vienes
-    */
     public Casilla Tipo => Casilla.AmongUs;
     public List<Ficha> FichasEnCasilla { get; set; }
-    public string Mensaje => mensaje;
+    public string Mensaje { get; set; }
     public int Fila { get; set; }
     public int Col { get; set; }
-    private string mensaje;
+    public bool Visitada{ get; set; }
 
     public AmongUs(){
+        Visitada = false;
         FichasEnCasilla = new List<Ficha>();
     }    
     public void Accion(GameController controller)
     {
+        Visitada = true;
         if(FichasEnCasilla.Count != 0){
             if(FichasEnCasilla.Last().tipo == TipoFicha.ELChoco){
-                mensaje = "El Choco es un preso, sin miedo";
+                Mensaje = "El Choco es un preso, sin miedo";
                 return;
             }
-
+            
         }
-        mensaje = "Vira que esto es tremenda candela";
+        Mensaje = "Vira que esto es tremenda candela";
     }
 }
 
 
 public class Morfeo : ICasilla
 {
-    /*
-        Esta vez morfeo hara la desicion por ti y eligira entre
-        aumentar tu velocidad o disminuirla
-    */
     public Casilla Tipo => Casilla.Morfeo;
 
     public List<Ficha> FichasEnCasilla { get; set; }
-    public string Mensaje => $"Esta vez morfeo hara la desicion por ti. {mensaje}";
+    public string Mensaje { get; set; }
     public int Fila { get; set; }
     public int Col { get; set; }
-    private string mensaje = "";
+    public bool Visitada{ get; set; }
 
     public Morfeo(){
+        Visitada = false;
         FichasEnCasilla = new List<Ficha>();
     }
     public void Accion(GameController controller)
     {
+        Visitada = true;
         if(FichasEnCasilla.Last().tipo == TipoFicha.ELChoco){
-            mensaje = "Pero no le puede hacer nada al Choco";
+            Mensaje = "El Choco no cree en pastillita ni na de eso";
             return;
         }
         System.Random random = new System.Random();
         int rnd = random.Next(1,3);
         if(rnd == 1) {
             FichasEnCasilla.Last().velocidad++;
-            mensaje = "Velocidad aumentada";
+            Mensaje = "Morfeo ha aumentado tu velocidad";
         }
         else{
             FichasEnCasilla.Last().EnfActual += 3;
-            mensaje = "Enfriamiento aumentado";
+            Mensaje = "Morfeo ha aumentado el timpo de enfriamiento de tu habilidad";
         }
     }
 }
 
 public class Honguito : ICasilla
 {
-    /*
-        Come este graciosillo hongo y recupera la habilidad de la ficha(nintendo me va a demandar)
-    */
     public Casilla Tipo => Casilla.Honguito;
     public List<Ficha> FichasEnCasilla { get; set; }
-    public string Mensaje => "Come este graciosillo hongo y recupera la habilidad de la ficha(nintendo me va a demandar)";
+    public string Mensaje { get => "Come este graciosillo hongo y recupera la habilidad de la ficha(nintendo me va a demandar)"; set => Mensaje = value; }
     public int Fila { get; set; }
     public int Col { get; set; }
+    public bool Visitada{ get; set; }
 
     public Honguito(){
+        Visitada = false;
         FichasEnCasilla = new List<Ficha>();
     }
     public void Accion(GameController controller)
     {
+        Visitada = true;
         FichasEnCasilla.Last().EnfActual = 0;
     }
 }
 
 public class Ojo : ICasilla
 {
-    /*
-        El zorro te quitara una letra(si tienes) y la tirara en algun lado del laberinto(es abakua)
-    */
     public Casilla Tipo => Casilla.Zorro;
     public List<Ficha> FichasEnCasilla { get; set; }
-    public string Mensaje => "Ojo desbloquea las casillas cercanas a ella";
+    public string Mensaje { get => "Ojo desbloquea las casillas cercanas a ella"; set => Mensaje = value; }
     public int Fila { get; set; }
     public int Col { get; set; }
+    public bool Visitada{ get; set; }
 
     public Ojo(){
+        Visitada = false;
         FichasEnCasilla = new List<Ficha>();
     }
     public void Accion(GameController controller)
     {
-
+        Visitada = true;
         int[] x = {0, 1, 0, -1};
         int[] y = {1, 0, -1, 0};
 

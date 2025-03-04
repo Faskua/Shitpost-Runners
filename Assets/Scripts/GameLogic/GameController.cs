@@ -20,12 +20,11 @@ public class GameController : MonoBehaviour
     
     public bool ControlarJugada(int ficha, int fila, int columna){
         if(Jugadores[Turn].jugador.Jugar(ref ficha, ref fila, ref columna, this)){ //mover la ficha desde la logica
-            //Debug.Log($"ficha: {Jugadores[Turn].jugador.Fichas[ficha].tipo}, fila: {fila}, columna: {columna}");
             visual.MoverFicha(this, ficha, fila, columna); //moverla en el visual
-            if(Jugadores[Turn].jugador is not Jugador)      Invoke("AvanzarTurno", 4);
+            if(Jugadores[Turn].jugador is not Jugador)      Invoke("AvanzarTurno", 3); //avanzando el turno de la IA
             return true;
         }  
-        else if(Jugadores[Turn].jugador is not Jugador)      Invoke("AvanzarTurno", 4);
+        else if(Jugadores[Turn].jugador is not Jugador)      Invoke("AvanzarTurno", 3); //avanzando el turno de la IA
         return false;
     }
 
@@ -144,7 +143,7 @@ public class GameController : MonoBehaviour
         if(started){
             if(Jugadores[Turn].jugador is not Jugador && !IA){
                 IA = true;
-                Invoke("InvokeJugada", 2);
+                Invoke("InvokeJugada", 1);
             }
         }
     }

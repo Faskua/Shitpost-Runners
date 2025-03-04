@@ -52,10 +52,13 @@ public class SelectPlayers : MonoBehaviour
         {
             case 1:
                 objetivo.GetComponent<JugadorUN>().jugador = new Principiante(Name.text, tipo);
-                break;
+            break;
+            case 2:
+                objetivo.GetComponent<JugadorUN>().jugador = new Intermedio(Name.text, tipo);
+            break;
             default:
                 objetivo.GetComponent<JugadorUN>().jugador = new Jugador(Name.text, tipo);
-                break;
+            break;
         }
         
         objetivo.transform.SetParent(Players.transform, false);
